@@ -955,6 +955,39 @@ let lastTime = 0;
 let aiTarget = null;
 
 
+/*
+ * Verrou : empêche de marquer
+ * plusieurs points sur une seule
+ * sortie de balle.
+ */
+
+let pointPending = false;
+
+
+/* =========================================================
+   GÉOMÉTRIE DU TERRAIN
+========================================================= */
+
+/*
+ * Position des raquettes, en fraction
+ * de la hauteur du terrain.
+ * Plus les deux valeurs sont proches
+ * de 0.5, plus le jeu est nerveux.
+ */
+
+const AI_LINE = 0.28;
+
+const PLAYER_LINE = 0.72;
+
+
+/*
+ * Distance derrière une raquette
+ * avant que le point soit accordé.
+ */
+
+const GOAL_MARGIN = 70;
+
+
 /* =========================================================
    BALLE
 ========================================================= */
@@ -1318,7 +1351,8 @@ function setupGameDimensions() {
    * IA en haut.
    */
 
-  aiPaddle.y = 90;
+  aiPaddle.y =
+    height * AI_LINE;
 
 
   /*
@@ -1326,7 +1360,7 @@ function setupGameDimensions() {
    */
 
   playerPaddle.y =
-    height - 105;
+    height * PLAYER_LINE;
 
 
   /*
@@ -1380,6 +1414,9 @@ function setupGame() {
 ========================================================= */
 
 function resetBall(direction) {
+
+  pointPending = false;
+
 
   const width =
     canvas.clientWidth;
@@ -1583,7 +1620,9 @@ function update(dt) {
    */
 
   if (
-    ball.y > height + 20
+    ball.y >
+    playerPaddle.y +
+    GOAL_MARGIN
   ) {
 
     scorePoint("ai");
@@ -1597,7 +1636,9 @@ function update(dt) {
    */
 
   if (
-    ball.y < -20
+    ball.y <
+    aiPaddle.y -
+    GOAL_MARGIN
   ) {
 
     scorePoint("player");
@@ -1824,6 +1865,31 @@ function scorePoint(who) {
   if (!gameRunning) {
     return;
   }
+
+
+  /*
+   * Le point a déjà été compté :
+   * on ignore les appels suivants
+   * tant que la balle n'est pas
+   * remise en jeu.
+   */
+
+  if (pointPending) {
+    return;
+  }
+
+
+  pointPending = true;
+
+
+  /*
+   * La balle est neutralisée
+   * pendant la pause.
+   */
+
+  ball.vx = 0;
+
+  ball.vy = 0;
 
 
   if (who === "player") {
