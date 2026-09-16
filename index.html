@@ -299,6 +299,14 @@
     margin-top: 4px;
   }
 
+  /* Les noms sont dessinés sur le canvas,
+     sous les raquettes. */
+
+  .top-info .player-name,
+  .bottom-info .player-name {
+    display: none;
+  }
+
   /* Messages */
 
   .message {
@@ -964,6 +972,13 @@ let aiTarget = null;
 let pointPending = false;
 
 
+/*
+ * Minuteur de remise en jeu.
+ */
+
+let resetTimeout = null;
+
+
 /* =========================================================
    GÉOMÉTRIE DU TERRAIN
 ========================================================= */
@@ -1214,6 +1229,17 @@ function chooseRandomOpponent() {
 ========================================================= */
 
 function startGame() {
+
+  /*
+   * Arrête toute partie encore
+   * en cours : boucle d'animation
+   * et minuteurs en attente.
+   * Sans cela, deux parties peuvent
+   * tourner en parallèle.
+   */
+
+  stopGame();
+
 
   playerName =
     playerSelect.value;
@@ -1949,7 +1975,11 @@ function scorePoint(who) {
    * Sinon, la partie continue.
    */
 
-  setTimeout(() => {
+  resetTimeout =
+    setTimeout(() => {
+
+    resetTimeout = null;
+
 
     if (!gameRunning) {
       return;
@@ -2214,6 +2244,30 @@ function draw() {
 
 
   /*
+   * Noms accrochés aux raquettes.
+   */
+
+  drawPaddleName(
+    opponentName,
+    aiPaddle,
+    aiPaddle.y -
+      aiPaddle.height / 2 -
+      11,
+    width
+  );
+
+
+  drawPaddleName(
+    playerName,
+    playerPaddle,
+    playerPaddle.y +
+      playerPaddle.height / 2 +
+      22,
+    width
+  );
+
+
+  /*
    * Balle.
    */
 
@@ -2234,6 +2288,68 @@ function draw() {
 
 
   ctx.fill();
+
+}
+
+
+/* =========================================================
+   NOM D'UNE RAQUETTE
+========================================================= */
+
+function drawPaddleName(
+  name,
+  paddle,
+  y,
+  width
+) {
+
+  if (!name) {
+    return;
+  }
+
+
+  ctx.font =
+    "800 13px Arial, Helvetica, sans-serif";
+
+
+  ctx.textAlign =
+    "center";
+
+
+  ctx.textBaseline =
+    "alphabetic";
+
+
+  /*
+   * Le nom suit le centre
+   * de la raquette, sans sortir
+   * du terrain.
+   */
+
+  const half =
+    ctx.measureText(name).width / 2;
+
+
+  const x =
+    Math.max(
+      half + 10,
+      Math.min(
+        width - half - 10,
+        paddle.x +
+        paddle.width / 2
+      )
+    );
+
+
+  ctx.fillStyle =
+    "#111";
+
+
+  ctx.fillText(
+    name,
+    x,
+    y
+  );
 
 }
 
@@ -2527,6 +2643,17 @@ function endGame() {
   gameRunning = false;
 
 
+  if (resetTimeout) {
+
+    clearTimeout(
+      resetTimeout
+    );
+
+    resetTimeout = null;
+
+  }
+
+
   if (animationId) {
 
     cancelAnimationFrame(
@@ -2652,6 +2779,25 @@ function stopGame() {
     messageTimeout
   );
 
+
+  /*
+   * Annule une remise en jeu
+   * encore en attente.
+   */
+
+  if (resetTimeout) {
+
+    clearTimeout(
+      resetTimeout
+    );
+
+    resetTimeout = null;
+
+  }
+
+
+  pointPending = false;
+
 }
 
 
@@ -2733,10 +2879,25 @@ function getStats() {
 
 function saveStats(stats) {
 
-  localStorage.setItem(
-    "debatStats",
-    JSON.stringify(stats)
-  );
+  /*
+   * localStorage peut être bloqué
+   * (fichier ouvert en local, navigation
+   * privée). On ne fait pas planter
+   * la fin de partie pour autant.
+   */
+
+  try {
+
+    localStorage.setItem(
+      "debatStats",
+      JSON.stringify(stats)
+    );
+
+  } catch (error) {
+
+    /* statistiques non enregistrées */
+
+  }
 
 }
 
