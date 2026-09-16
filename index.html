@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <title>DÉBAT</title>
 
 <style>
@@ -12,7 +13,8 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  html, body {
+  html,
+  body {
     margin: 0;
     width: 100%;
     min-height: 100%;
@@ -27,7 +29,8 @@
     overflow-x: hidden;
   }
 
-  button {
+  button,
+  select {
     font: inherit;
   }
 
@@ -48,9 +51,10 @@
     display: none !important;
   }
 
-  /* =========================
-     HOME
-  ========================= */
+
+  /* =====================================================
+     ACCUEIL
+  ===================================================== */
 
   .home {
     display: flex;
@@ -107,7 +111,7 @@
   .stat-value {
     font-weight: 700;
     text-align: right;
-    max-width: 55%;
+    max-width: 60%;
   }
 
   .main-button {
@@ -121,7 +125,9 @@
     font-weight: 700;
     cursor: pointer;
     margin-top: 24px;
-    transition: opacity .15s, transform .1s;
+    transition:
+      opacity .15s,
+      transform .1s;
   }
 
   .main-button:hover {
@@ -132,9 +138,10 @@
     transform: scale(.98);
   }
 
-  /* =========================
-     SELECTION
-  ========================= */
+
+  /* =====================================================
+     SÉLECTION
+  ===================================================== */
 
   .screen-title {
     font-size: 30px;
@@ -219,9 +226,10 @@
     cursor: pointer;
   }
 
-  /* =========================
-     GAME
-  ========================= */
+
+  /* =====================================================
+     JEU
+  ===================================================== */
 
   #gameScreen {
     padding: 0;
@@ -251,14 +259,27 @@
 
   .game-ui {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
+    inset: 0;
     pointer-events: none;
   }
 
+  /* Nom + score IA */
+
   .top-info {
-    padding: 20px 22px 0;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+
+  /* Nom + score joueur */
+
+  .bottom-info {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
     text-align: center;
   }
 
@@ -274,13 +295,11 @@
     font-weight: 600;
   }
 
-  .bottom-info {
-    position: absolute;
-    top: calc(100vh - 110px);
-    left: 0;
-    right: 0;
-    text-align: center;
+  .bottom-info .player-name {
+    margin-top: 4px;
   }
+
+  /* Messages */
 
   .message {
     position: absolute;
@@ -305,6 +324,8 @@
     opacity: 1;
   }
 
+  /* Score central */
+
   .game-score {
     position: absolute;
     top: 50%;
@@ -313,8 +334,9 @@
     font-size: 11px;
     color: #bbb;
     letter-spacing: 1px;
-    pointer-events: none;
   }
+
+  /* Quitter */
 
   .quit {
     position: absolute;
@@ -326,11 +348,13 @@
     color: #aaa;
     cursor: pointer;
     z-index: 10;
+    pointer-events: auto;
   }
 
-  /* =========================
-     RESULT
-  ========================= */
+
+  /* =====================================================
+     RÉSULTAT
+  ===================================================== */
 
   .result {
     min-height: 100vh;
@@ -400,113 +424,191 @@
     background: #f5f5f5;
   }
 
+
+  /* =====================================================
+     DESKTOP
+  ===================================================== */
+
   @media (min-width: 600px) {
+
     .game-wrapper {
       height: min(820px, 100vh);
     }
+
   }
+
 </style>
 </head>
+
 
 <body>
 
 <div class="app">
 
-  <!-- =========================
-       HOME
-  ========================= -->
+
+  <!-- ===================================================
+       ACCUEIL
+  =================================================== -->
 
   <section id="homeScreen" class="screen home">
 
     <div>
-      <div class="logo">DÉBAT</div>
-      <div class="subtitle">Le duel présidentiel</div>
+
+      <div class="logo">
+        DÉBAT
+      </div>
+
+      <div class="subtitle">
+        Le duel présidentiel
+      </div>
+
     </div>
+
 
     <div class="home-spacer"></div>
 
+
     <div>
-      <div class="stats-title">Vos statistiques</div>
+
+      <div class="stats-title">
+        Vos statistiques
+      </div>
+
 
       <div class="stats">
 
         <div class="stat">
-          <span class="stat-label">Parties</span>
-          <span class="stat-value" id="statGames">0</span>
+          <span class="stat-label">
+            Parties
+          </span>
+
+          <span
+            class="stat-value"
+            id="statGames">
+            0
+          </span>
         </div>
 
-        <div class="stat">
-          <span class="stat-label">Victoires</span>
-          <span class="stat-value" id="statWins">0</span>
-        </div>
 
         <div class="stat">
-          <span class="stat-label">Défaites</span>
-          <span class="stat-value" id="statLosses">0</span>
+          <span class="stat-label">
+            Victoires
+          </span>
+
+          <span
+            class="stat-value"
+            id="statWins">
+            0
+          </span>
         </div>
 
-        <div class="stat">
-          <span class="stat-label">Taux de victoire</span>
-          <span class="stat-value" id="statWinRate">—</span>
-        </div>
 
         <div class="stat">
-          <span class="stat-label">Personnage préféré</span>
-          <span class="stat-value" id="statFavorite">—</span>
+          <span class="stat-label">
+            Défaites
+          </span>
+
+          <span
+            class="stat-value"
+            id="statLosses">
+            0
+          </span>
         </div>
 
+
         <div class="stat">
-          <span class="stat-label">Plus affronté</span>
-          <span class="stat-value" id="statOpponent">—</span>
+          <span class="stat-label">
+            Taux de victoire
+          </span>
+
+          <span
+            class="stat-value"
+            id="statWinRate">
+            —
+          </span>
+        </div>
+
+
+        <div class="stat">
+          <span class="stat-label">
+            Personnage préféré
+          </span>
+
+          <span
+            class="stat-value"
+            id="statFavorite">
+            —
+          </span>
+        </div>
+
+
+        <div class="stat">
+          <span class="stat-label">
+            Plus affronté
+          </span>
+
+          <span
+            class="stat-value"
+            id="statOpponent">
+            —
+          </span>
         </div>
 
       </div>
 
-      <button class="main-button" onclick="showSelection()">
+
+      <button
+        class="main-button"
+        onclick="showSelection()">
+
         JOUER
+
       </button>
+
     </div>
 
   </section>
 
 
-  <!-- =========================
-       SELECTION
-  ========================= -->
 
-  <section id="selectionScreen" class="screen hidden">
+  <!-- ===================================================
+       SÉLECTION
+  =================================================== -->
+
+  <section
+    id="selectionScreen"
+    class="screen hidden">
 
     <div class="screen-title">
       CHOISIS TON DÉBAT
     </div>
 
+
     <div class="selection-label">
       Votre candidat
     </div>
 
+
     <div class="select-box">
-      <select id="playerSelect">
-      </select>
-      <div class="select-arrow">⌄</div>
+
+      <select id="playerSelect"></select>
+
+      <div class="select-arrow">
+        ⌄
+      </div>
+
     </div>
+
 
     <div class="versus">
       VS
     </div>
 
-    <div class="selection-label">
-      Votre adversaire
-    </div>
-
-    <div class="select-box">
-      <select id="opponentSelect">
-      </select>
-      <div class="select-arrow">⌄</div>
-    </div>
 
     <div class="selection-label">
       Difficulté
     </div>
+
 
     <div class="difficulty">
 
@@ -514,71 +616,153 @@
         id="easyButton"
         class="active"
         onclick="setDifficulty('easy')">
+
         FACILE
+
       </button>
+
 
       <button
         id="normalButton"
         onclick="setDifficulty('normal')">
+
         NORMAL
+
       </button>
+
 
       <button
         id="hardButton"
         onclick="setDifficulty('hard')">
+
         DIFFICILE
+
       </button>
 
     </div>
 
-    <button class="main-button" onclick="startGame()">
+
+    <button
+      class="main-button"
+      onclick="startGame()">
+
       JOUER
+
     </button>
 
-    <button class="back-button" onclick="showHome()">
+
+    <button
+      class="back-button"
+      onclick="showHome()">
+
       ← Retour
+
     </button>
 
   </section>
 
 
-  <!-- =========================
-       GAME
-  ========================= -->
 
-  <section id="gameScreen" class="hidden">
+  <!-- ===================================================
+       JEU
+  =================================================== -->
+
+  <section
+    id="gameScreen"
+    class="hidden">
 
     <div class="game-wrapper">
 
+
       <canvas id="gameCanvas"></canvas>
 
-      <button class="quit" onclick="quitGame()">×</button>
+
+      <button
+        class="quit"
+        onclick="quitGame()">
+
+        ×
+
+      </button>
+
 
       <div class="game-ui">
 
+
+        <!-- IA -->
+
         <div class="top-info">
-          <div class="player-name" id="opponentName">
+
+          <div
+            class="player-name"
+            id="opponentName">
+
             Adversaire
+
           </div>
 
-          <div class="percentage" id="opponentPercentage">
+
+          <div
+            class="percentage"
+            id="opponentPercentage">
+
             —
+
           </div>
+
         </div>
+
+
+        <!-- Message IA -->
 
         <div
           id="topMessage"
           class="message top">
         </div>
 
+
+        <!-- Message joueur -->
+
         <div
           id="bottomMessage"
           class="message bottom">
         </div>
 
-        <div class="game-score" id="gameScore">
+
+        <!-- Score central -->
+
+        <div
+          class="game-score"
+          id="gameScore">
+
           0 — 0
+
         </div>
+
+
+        <!-- JOUEUR -->
+
+        <div class="bottom-info">
+
+          <div
+            class="percentage"
+            id="playerPercentage">
+
+            —
+
+          </div>
+
+
+          <div
+            class="player-name"
+            id="playerName">
+
+            Joueur
+
+          </div>
+
+        </div>
+
 
       </div>
 
@@ -587,57 +771,98 @@
   </section>
 
 
-  <!-- =========================
-       RESULT
-  ========================= -->
 
-  <section id="resultScreen" class="screen result hidden">
+  <!-- ===================================================
+       RÉSULTAT
+  =================================================== -->
+
+  <section
+    id="resultScreen"
+    class="screen result hidden">
+
 
     <div class="result-title">
       Élection terminée
     </div>
 
-    <div class="winner" id="winnerName">
+
+    <div
+      class="winner"
+      id="winnerName">
+
       —
+
     </div>
 
-    <div class="result-score" id="finalScore">
+
+    <div
+      class="result-score"
+      id="finalScore">
+
       —
+
     </div>
+
 
     <div class="result-percentages">
 
-      <div class="result-row">
-        <span id="resultPlayerName">—</span>
-        <strong id="resultPlayerPercent">—</strong>
-      </div>
 
       <div class="result-row">
-        <span id="resultOpponentName">—</span>
-        <strong id="resultOpponentPercent">—</strong>
+
+        <span id="resultPlayerName">
+          —
+        </span>
+
+        <strong id="resultPlayerPercent">
+          —
+        </strong>
+
       </div>
+
+
+      <div class="result-row">
+
+        <span id="resultOpponentName">
+          —
+        </span>
+
+        <strong id="resultOpponentPercent">
+          —
+        </strong>
+
+      </div>
+
 
     </div>
 
+
     <div class="result-buttons">
+
 
       <button
         class="main-button"
         onclick="showSelection()">
+
         REJOUER UNE PARTIE
+
       </button>
+
 
       <button
         class="secondary-button"
         onclick="showHome()">
+
         ÉCRAN PRINCIPAL
+
       </button>
+
 
     </div>
 
   </section>
 
 </div>
+
 
 
 <script>
@@ -647,6 +872,7 @@
 ========================================================= */
 
 const characters = [
+
   "Jean-Luc Mélenchon",
   "Marine Le Pen",
   "Jordan Bardella",
@@ -656,14 +882,16 @@ const characters = [
   "Bruno Retailleau",
   "François Ruffin",
   "François Hollande"
+
 ];
 
 
 /* =========================================================
-   PHRASES APRÈS UN POINT
+   MESSAGES
 ========================================================= */
 
 const messages = [
+
   "Menteur.",
   "C'est pas ce que vous disiez.",
   "Vous êtes sûr ?",
@@ -674,6 +902,7 @@ const messages = [
   "Et un point de plus.",
   "Les Français apprécieront.",
   "Merci pour le point."
+
 ];
 
 
@@ -681,20 +910,30 @@ const messages = [
    DOM
 ========================================================= */
 
-const homeScreen = document.getElementById("homeScreen");
-const selectionScreen = document.getElementById("selectionScreen");
-const gameScreen = document.getElementById("gameScreen");
-const resultScreen = document.getElementById("resultScreen");
+const homeScreen =
+  document.getElementById("homeScreen");
 
-const playerSelect = document.getElementById("playerSelect");
-const opponentSelect = document.getElementById("opponentSelect");
+const selectionScreen =
+  document.getElementById("selectionScreen");
 
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+const gameScreen =
+  document.getElementById("gameScreen");
+
+const resultScreen =
+  document.getElementById("resultScreen");
+
+const playerSelect =
+  document.getElementById("playerSelect");
+
+const canvas =
+  document.getElementById("gameCanvas");
+
+const ctx =
+  canvas.getContext("2d");
 
 
 /* =========================================================
-   GAME STATE
+   VARIABLES DU JEU
 ========================================================= */
 
 let playerName = "";
@@ -706,58 +945,86 @@ let opponentScore = 0;
 let difficulty = "easy";
 
 let animationId = null;
+
 let gameRunning = false;
 
 let messageTimeout = null;
 
 let lastTime = 0;
 
+let aiTarget = null;
+
+
+/* =========================================================
+   BALLE
+========================================================= */
+
 const ball = {
+
   x: 0,
   y: 0,
+
   vx: 0,
   vy: 0,
+
   radius: 5,
+
   speed: 340
-};
 
-const playerPaddle = {
-  x: 0,
-  y: 0,
-  width: 105,
-  height: 12
-};
-
-const aiPaddle = {
-  x: 0,
-  y: 0,
-  width: 105,
-  height: 12
 };
 
 
 /* =========================================================
-   DIFFICULTIES
+   RAQUETTES
+========================================================= */
+
+const playerPaddle = {
+
+  x: 0,
+  y: 0,
+
+  width: 105,
+  height: 12
+
+};
+
+
+const aiPaddle = {
+
+  x: 0,
+  y: 0,
+
+  width: 105,
+  height: 12
+
+};
+
+
+/* =========================================================
+   DIFFICULTÉS
 ========================================================= */
 
 const difficultySettings = {
 
   easy: {
+
     speed: 3.0,
-    reaction: 0.72,
-    error: 55
+    reaction: 0.72
+
   },
 
   normal: {
+
     speed: 4.2,
-    reaction: 0.88,
-    error: 25
+    reaction: 0.88
+
   },
 
   hard: {
+
     speed: 5.6,
-    reaction: 0.98,
-    error: 8
+    reaction: 0.98
+
   }
 
 };
@@ -768,10 +1035,15 @@ const difficultySettings = {
 ========================================================= */
 
 function hideAllScreens() {
+
   homeScreen.classList.add("hidden");
+
   selectionScreen.classList.add("hidden");
+
   gameScreen.classList.add("hidden");
+
   resultScreen.classList.add("hidden");
+
 }
 
 
@@ -780,9 +1052,11 @@ function showHome() {
   stopGame();
 
   hideAllScreens();
+
   homeScreen.classList.remove("hidden");
 
   updateStatsUI();
+
 }
 
 
@@ -791,18 +1065,22 @@ function showSelection() {
   stopGame();
 
   hideAllScreens();
+
   selectionScreen.classList.remove("hidden");
 
   populateCharacters();
+
 }
 
 
 function showGame() {
 
   hideAllScreens();
+
   gameScreen.classList.remove("hidden");
 
   resizeCanvas();
+
 }
 
 
@@ -811,87 +1089,48 @@ function showResult() {
   stopGame();
 
   hideAllScreens();
+
   resultScreen.classList.remove("hidden");
+
 }
 
 
 /* =========================================================
-   CHARACTER SELECT
+   PERSONNAGE JOUEUR
 ========================================================= */
 
 function populateCharacters() {
 
-  const previousPlayer = playerSelect.value;
-  const previousOpponent = opponentSelect.value;
+  const previous =
+    playerSelect.value;
 
   playerSelect.innerHTML = "";
-  opponentSelect.innerHTML = "";
 
-  characters.forEach((character, index) => {
+  characters.forEach(character => {
 
-    const option1 = document.createElement("option");
-    option1.value = character;
-    option1.textContent = character;
+    const option =
+      document.createElement("option");
 
-    const option2 = document.createElement("option");
-    option2.value = character;
-    option2.textContent = character;
+    option.value = character;
 
-    playerSelect.appendChild(option1);
-    opponentSelect.appendChild(option2);
+    option.textContent = character;
+
+    playerSelect.appendChild(option);
 
   });
 
-  if (characters.includes(previousPlayer)) {
-    playerSelect.value = previousPlayer;
+  if (characters.includes(previous)) {
+
+    playerSelect.value =
+      previous;
+
   }
 
-  if (characters.includes(previousOpponent) &&
-      previousOpponent !== playerSelect.value) {
-    opponentSelect.value = previousOpponent;
-  }
-
-  if (playerSelect.value === opponentSelect.value) {
-
-    const alternative = characters.find(
-      c => c !== playerSelect.value
-    );
-
-    opponentSelect.value = alternative;
-  }
 }
 
 
-playerSelect.addEventListener("change", () => {
-
-  if (playerSelect.value === opponentSelect.value) {
-
-    const alternative = characters.find(
-      c => c !== playerSelect.value
-    );
-
-    opponentSelect.value = alternative;
-  }
-
-});
-
-
-opponentSelect.addEventListener("change", () => {
-
-  if (opponentSelect.value === playerSelect.value) {
-
-    const alternative = characters.find(
-      c => c !== opponentSelect.value
-    );
-
-    playerSelect.value = alternative;
-  }
-
-});
-
-
 /* =========================================================
-   DIFFICULTY
+   DIFFICULTÉ
 ========================================================= */
 
 function setDifficulty(level) {
@@ -900,47 +1139,122 @@ function setDifficulty(level) {
 
   document
     .querySelectorAll(".difficulty button")
-    .forEach(button => button.classList.remove("active"));
+    .forEach(button => {
+
+      button.classList.remove("active");
+
+    });
+
 
   document
     .getElementById(level + "Button")
     .classList.add("active");
+
 }
 
 
 /* =========================================================
-   START GAME
+   CHOIX ALÉATOIRE DE L'IA
+========================================================= */
+
+function chooseRandomOpponent() {
+
+  const possibleOpponents =
+    characters.filter(
+      character =>
+        character !== playerName
+    );
+
+
+  return possibleOpponents[
+    Math.floor(
+      Math.random() *
+      possibleOpponents.length
+    )
+  ];
+
+}
+
+
+/* =========================================================
+   DÉMARRER UNE PARTIE
 ========================================================= */
 
 function startGame() {
 
-  playerName = playerSelect.value;
-  opponentName = opponentSelect.value;
+  playerName =
+    playerSelect.value;
 
-  if (playerName === opponentName) {
-    return;
-  }
+
+  /*
+   * L'adversaire est choisi
+   * automatiquement et aléatoirement.
+   */
+
+  opponentName =
+    chooseRandomOpponent();
+
+
+  /*
+   * Nouveau jeu :
+   * les scores repartent à zéro.
+   */
 
   playerScore = 0;
+
   opponentScore = 0;
+
 
   showGame();
 
-  document.getElementById("opponentName").textContent =
-    opponentName;
 
-  document.getElementById("gameScore").textContent =
-    "0 — 0";
+  /*
+   * Affichage des noms.
+   */
+
+  document
+    .getElementById("opponentName")
+    .textContent =
+      opponentName;
+
+
+  document
+    .getElementById("playerName")
+    .textContent =
+      playerName;
+
+
+  /*
+   * Score initial.
+   */
+
+  document
+    .getElementById("gameScore")
+    .textContent =
+      "0 — 0";
+
 
   updatePercentages();
 
+
+  /*
+   * Préparation du terrain.
+   */
+
   setupGame();
+
 
   gameRunning = true;
 
-  lastTime = performance.now();
+  lastTime =
+    performance.now();
 
-  animationId = requestAnimationFrame(gameLoop);
+
+  animationId =
+    requestAnimationFrame(
+      gameLoop
+    );
+
 }
 
 
@@ -950,12 +1264,23 @@ function startGame() {
 
 function resizeCanvas() {
 
-  const rect = canvas.getBoundingClientRect();
+  const rect =
+    canvas.getBoundingClientRect();
 
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-  canvas.width = rect.width * dpr;
-  canvas.height = rect.height * dpr;
+  const dpr =
+    Math.min(
+      window.devicePixelRatio || 1,
+      2
+    );
+
+
+  canvas.width =
+    rect.width * dpr;
+
+  canvas.height =
+    rect.height * dpr;
+
 
   ctx.setTransform(
     dpr,
@@ -966,68 +1291,132 @@ function resizeCanvas() {
     0
   );
 
+
   if (gameRunning) {
+
     setupGameDimensions();
+
   }
+
 }
 
+
+/* =========================================================
+   DIMENSIONS
+========================================================= */
 
 function setupGameDimensions() {
 
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
+  const width =
+    canvas.clientWidth;
 
-  playerPaddle.y = height - 105;
+  const height =
+    canvas.clientHeight;
+
+
+  /*
+   * IA en haut.
+   */
+
   aiPaddle.y = 90;
 
+
+  /*
+   * Joueur en bas.
+   */
+
+  playerPaddle.y =
+    height - 105;
+
+
+  /*
+   * Centrage horizontal.
+   */
+
   playerPaddle.x =
-    (width - playerPaddle.width) / 2;
+    (width -
+      playerPaddle.width) / 2;
+
 
   aiPaddle.x =
-    (width - aiPaddle.width) / 2;
+    (width -
+      aiPaddle.width) / 2;
 
-  ball.x = width / 2;
-  ball.y = height / 2;
+
+  /*
+   * Balle au centre.
+   */
+
+  ball.x =
+    width / 2;
+
+  ball.y =
+    height / 2;
+
 }
 
+
+/* =========================================================
+   INITIALISATION
+========================================================= */
 
 function setupGame() {
 
   setupGameDimensions();
 
+  aiTarget = null;
+
   resetBall(
-    Math.random() > 0.5 ? 1 : -1
+    Math.random() > 0.5
+      ? 1
+      : -1
   );
+
 }
 
 
 /* =========================================================
-   BALL
+   RESET BALLE
 ========================================================= */
 
 function resetBall(direction) {
 
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
+  const width =
+    canvas.clientWidth;
 
-  ball.x = width / 2;
-  ball.y = height / 2;
+  const height =
+    canvas.clientHeight;
+
+
+  ball.x =
+    width / 2;
+
+  ball.y =
+    height / 2;
+
 
   ball.speed = 340;
 
+
   const angle =
-    (Math.random() * 0.8 - 0.4);
+    Math.random() * 0.8 - 0.4;
+
 
   ball.vx =
-    Math.sin(angle) * ball.speed;
+    Math.sin(angle) *
+    ball.speed;
+
 
   ball.vy =
-    Math.cos(angle) * ball.speed * direction;
+    Math.cos(angle) *
+    ball.speed *
+    direction;
+
 }
 
 
 /* =========================================================
-   GAME LOOP
+   BOUCLE PRINCIPALE
 ========================================================= */
 
 function gameLoop(timestamp) {
@@ -1036,18 +1425,38 @@ function gameLoop(timestamp) {
     return;
   }
 
+
   let dt =
-    (timestamp - lastTime) / 1000;
+    (timestamp - lastTime) /
+    1000;
 
-  lastTime = timestamp;
 
-  dt = Math.min(dt, 0.025);
+  lastTime =
+    timestamp;
+
+
+  /*
+   * Évite les énormes sauts
+   * en cas de ralentissement.
+   */
+
+  dt =
+    Math.min(
+      dt,
+      0.025
+    );
+
 
   update(dt);
+
   draw();
 
+
   animationId =
-    requestAnimationFrame(gameLoop);
+    requestAnimationFrame(
+      gameLoop
+    );
+
 }
 
 
@@ -1057,26 +1466,47 @@ function gameLoop(timestamp) {
 
 function update(dt) {
 
-  updatePlayer();
-
   updateAI(dt);
 
-  ball.x += ball.vx * dt;
-  ball.y += ball.vy * dt;
 
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
+  /*
+   * Déplacement de la balle.
+   */
 
-  /* Murs */
+  ball.x +=
+    ball.vx * dt;
+
+  ball.y +=
+    ball.vy * dt;
+
+
+  const width =
+    canvas.clientWidth;
+
+  const height =
+    canvas.clientHeight;
+
+
+  /*
+   * Mur gauche.
+   */
 
   if (
     ball.x - ball.radius <= 0 &&
     ball.vx < 0
   ) {
 
-    ball.x = ball.radius;
+    ball.x =
+      ball.radius;
+
     ball.vx *= -1;
+
   }
+
+
+  /*
+   * Mur droit.
+   */
 
   if (
     ball.x + ball.radius >= width &&
@@ -1087,99 +1517,140 @@ function update(dt) {
       width - ball.radius;
 
     ball.vx *= -1;
+
   }
 
 
-  /* Raquette IA */
+  /*
+   * Collision avec la raquette IA.
+   */
 
   if (
     ball.vy < 0 &&
     ball.y - ball.radius <=
-      aiPaddle.y + aiPaddle.height / 2
+      aiPaddle.y +
+      aiPaddle.height / 2
   ) {
 
     if (
       ball.x >= aiPaddle.x &&
       ball.x <=
-        aiPaddle.x + aiPaddle.width
+        aiPaddle.x +
+        aiPaddle.width
     ) {
 
-      hitPaddle(aiPaddle, false);
+      hitPaddle(
+        aiPaddle,
+        false
+      );
+
     }
+
   }
 
 
-  /* Raquette joueur */
+  /*
+   * Collision avec la raquette joueur.
+   */
 
   if (
     ball.vy > 0 &&
     ball.y + ball.radius >=
-      playerPaddle.y - playerPaddle.height / 2
+      playerPaddle.y -
+      playerPaddle.height / 2
   ) {
 
     if (
       ball.x >= playerPaddle.x &&
       ball.x <=
-        playerPaddle.x + playerPaddle.width
+        playerPaddle.x +
+        playerPaddle.width
     ) {
 
-      hitPaddle(playerPaddle, true);
+      hitPaddle(
+        playerPaddle,
+        true
+      );
+
     }
+
   }
 
 
-  /* Point IA */
+  /*
+   * La balle dépasse le bas :
+   * l'IA marque.
+   */
 
-  if (ball.y > height + 20) {
+  if (
+    ball.y > height + 20
+  ) {
 
     scorePoint("ai");
+
   }
 
 
-  /* Point joueur */
+  /*
+   * La balle dépasse le haut :
+   * le joueur marque.
+   */
 
-  if (ball.y < -20) {
+  if (
+    ball.y < -20
+  ) {
 
     scorePoint("player");
+
   }
+
 }
 
 
 /* =========================================================
-   PLAYER CONTROL
+   IA
 ========================================================= */
-
-function updatePlayer() {
-  /* Le joueur est directement déplacé par pointermove. */
-}
-
-
-/* =========================================================
-   AI
-========================================================= */
-
-let aiTarget = null;
 
 function updateAI(dt) {
 
   const settings =
-    difficultySettings[difficulty];
+    difficultySettings[
+      difficulty
+    ];
 
-  const center =
-    aiPaddle.x +
-    aiPaddle.width / 2;
 
   let target;
 
+
+  /*
+   * L'IA suit la balle lorsqu'elle
+   * se dirige vers elle.
+   */
+
   if (ball.vy < 0) {
-    target = ball.x;
+
+    target =
+      ball.x;
+
   } else {
-    target = canvas.clientWidth / 2;
+
+    target =
+      canvas.clientWidth / 2;
+
   }
 
+
   if (aiTarget === null) {
-    aiTarget = target;
+
+    aiTarget =
+      target;
+
   }
+
+
+  /*
+   * Réaction progressive.
+   */
 
   aiTarget +=
     (target - aiTarget) *
@@ -1187,25 +1658,41 @@ function updateAI(dt) {
     dt *
     5;
 
+
   const desired =
     aiTarget -
     aiPaddle.width / 2;
 
+
   let difference =
-    desired - aiPaddle.x;
+    desired -
+    aiPaddle.x;
+
 
   const maxMove =
     settings.speed *
     100 *
     dt;
 
+
   difference =
     Math.max(
       -maxMove,
-      Math.min(maxMove, difference)
+      Math.min(
+        maxMove,
+        difference
+      )
     );
 
-  aiPaddle.x += difference;
+
+  aiPaddle.x +=
+    difference;
+
+
+  /*
+   * Empêche la raquette de sortir
+   * de l'écran.
+   */
 
   aiPaddle.x =
     Math.max(
@@ -1216,14 +1703,23 @@ function updateAI(dt) {
         aiPaddle.x
       )
     );
+
 }
 
 
 /* =========================================================
-   PADDLE HIT
+   COLLISION RAQUETTE
 ========================================================= */
 
-function hitPaddle(paddle, isPlayer) {
+function hitPaddle(
+  paddle,
+  isPlayer
+) {
+
+  /*
+   * Replace la balle juste
+   * de l'autre côté de la raquette.
+   */
 
   if (isPlayer) {
 
@@ -1232,8 +1728,11 @@ function hitPaddle(paddle, isPlayer) {
       paddle.height / 2 -
       ball.radius;
 
+
     ball.vy =
-      -Math.abs(ball.vy);
+      -Math.abs(
+        ball.vy
+      );
 
   } else {
 
@@ -1242,27 +1741,51 @@ function hitPaddle(paddle, isPlayer) {
       paddle.height / 2 +
       ball.radius;
 
+
     ball.vy =
-      Math.abs(ball.vy);
+      Math.abs(
+        ball.vy
+      );
+
   }
+
+
+  /*
+   * Angle de renvoi selon
+   * l'endroit où la balle frappe
+   * la raquette.
+   */
 
   const paddleCenter =
     paddle.x +
     paddle.width / 2;
 
+
   const impact =
     (ball.x - paddleCenter) /
     (paddle.width / 2);
 
+
   const maxHorizontal =
     300;
 
+
   ball.vx =
-    impact * maxHorizontal;
+    impact *
+    maxHorizontal;
 
-  ball.speed *= 1.035;
 
-  const maxSpeed = 700;
+  /*
+   * Accélération progressive.
+   */
+
+  ball.speed *=
+    1.035;
+
+
+  const maxSpeed =
+    700;
+
 
   const currentSpeed =
     Math.sqrt(
@@ -1270,19 +1793,30 @@ function hitPaddle(paddle, isPlayer) {
       ball.vy * ball.vy
     );
 
-  if (currentSpeed > maxSpeed) {
+
+  if (
+    currentSpeed >
+    maxSpeed
+  ) {
 
     const factor =
-      maxSpeed / currentSpeed;
+      maxSpeed /
+      currentSpeed;
 
-    ball.vx *= factor;
-    ball.vy *= factor;
+
+    ball.vx *=
+      factor;
+
+    ball.vy *=
+      factor;
+
   }
+
 }
 
 
 /* =========================================================
-   SCORE
+   MARQUER UN POINT
 ========================================================= */
 
 function scorePoint(who) {
@@ -1291,29 +1825,47 @@ function scorePoint(who) {
     return;
   }
 
+
   if (who === "player") {
 
     playerScore++;
+
 
     showMessage(
       "player",
       randomMessage()
     );
 
+
   } else {
 
     opponentScore++;
+
 
     showMessage(
       "ai",
       randomMessage()
     );
+
   }
+
+
+  /*
+   * Mise à jour du score.
+   */
 
   updatePercentages();
 
-  document.getElementById("gameScore").textContent =
-    `${playerScore} — ${opponentScore}`;
+
+  document
+    .getElementById("gameScore")
+    .textContent =
+      `${playerScore} — ${opponentScore}`;
+
+
+  /*
+   * PREMIER À 7 = VICTOIRE.
+   */
 
   if (
     playerScore >= 7 ||
@@ -1321,8 +1873,15 @@ function scorePoint(who) {
   ) {
 
     endGame();
+
     return;
+
   }
+
+
+  /*
+   * Sinon, la partie continue.
+   */
 
   setTimeout(() => {
 
@@ -1330,51 +1889,101 @@ function scorePoint(who) {
       return;
     }
 
+
+    /*
+     * Le joueur qui vient de marquer
+     * renvoie la balle vers l'adversaire.
+     */
+
     resetBall(
-      who === "player" ? -1 : 1
+      who === "player"
+        ? -1
+        : 1
     );
 
   }, 350);
+
 }
 
 
 /* =========================================================
-   PERCENTAGES
+   POURCENTAGES
 ========================================================= */
 
 function updatePercentages() {
 
   const total =
-    playerScore + opponentScore;
+    playerScore +
+    opponentScore;
+
+
+  const playerElement =
+    document.getElementById(
+      "playerPercentage"
+    );
+
+
+  const opponentElement =
+    document.getElementById(
+      "opponentPercentage"
+    );
+
+
+  /*
+   * Au début du jeu :
+   * pas de pourcentage.
+   */
 
   if (total === 0) {
 
-    document.getElementById(
-      "opponentPercentage"
-    ).textContent = "—";
+    playerElement.textContent =
+      "—";
+
+    opponentElement.textContent =
+      "—";
 
     return;
+
   }
 
+
   const playerPercentage =
-    playerScore / total * 100;
+    playerScore /
+    total *
+    100;
+
 
   const opponentPercentage =
-    opponentScore / total * 100;
+    opponentScore /
+    total *
+    100;
 
-  document.getElementById(
-    "opponentPercentage"
-  ).textContent =
-    `${formatPercentage(opponentPercentage)}`;
+
+  playerElement.textContent =
+    formatPercentage(
+      playerPercentage
+    );
+
+
+  opponentElement.textContent =
+    formatPercentage(
+      opponentPercentage
+    );
 
 }
 
+
+/* =========================================================
+   FORMAT POURCENTAGE
+========================================================= */
 
 function formatPercentage(value) {
 
   return value
     .toFixed(1)
-    .replace(".", ",") + " %";
+    .replace(".", ",") +
+    " %";
+
 }
 
 
@@ -1386,52 +1995,92 @@ function randomMessage() {
 
   return messages[
     Math.floor(
-      Math.random() * messages.length
+      Math.random() *
+      messages.length
     )
   ];
+
 }
 
 
-function showMessage(side, text) {
+function showMessage(
+  side,
+  text
+) {
+
+  const topMessage =
+    document.getElementById(
+      "topMessage"
+    );
+
+
+  const bottomMessage =
+    document.getElementById(
+      "bottomMessage"
+    );
+
+
+  topMessage.classList.remove(
+    "show"
+  );
+
+
+  bottomMessage.classList.remove(
+    "show"
+  );
+
 
   const element =
     side === "player"
-      ? document.getElementById("bottomMessage")
-      : document.getElementById("topMessage");
+      ? bottomMessage
+      : topMessage;
 
-  document
-    .getElementById("topMessage")
-    .classList.remove("show");
 
-  document
-    .getElementById("bottomMessage")
-    .classList.remove("show");
+  element.textContent =
+    text;
 
-  element.textContent = text;
 
   void element.offsetWidth;
 
-  element.classList.add("show");
 
-  clearTimeout(messageTimeout);
+  element.classList.add(
+    "show"
+  );
+
+
+  clearTimeout(
+    messageTimeout
+  );
+
 
   messageTimeout =
     setTimeout(() => {
 
-      element.classList.remove("show");
+      element.classList.remove(
+        "show"
+      );
 
     }, 1100);
+
 }
 
 
 /* =========================================================
-   DRAW
+   DESSIN
 ========================================================= */
 
 function draw() {
 
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
+  const width =
+    canvas.clientWidth;
+
+  const height =
+    canvas.clientHeight;
+
+
+  /*
+   * Fond.
+   */
 
   ctx.clearRect(
     0,
@@ -1440,43 +2089,70 @@ function draw() {
     height
   );
 
-  /* Ligne centrale */
+
+  /*
+   * Ligne centrale.
+   */
 
   ctx.beginPath();
 
-  ctx.setLineDash([4, 7]);
+
+  ctx.setLineDash([
+    4,
+    7
+  ]);
+
 
   ctx.moveTo(
     22,
     height / 2
   );
 
+
   ctx.lineTo(
     width - 22,
     height / 2
   );
 
-  ctx.strokeStyle = "#e5e5e5";
-  ctx.lineWidth = 1;
+
+  ctx.strokeStyle =
+    "#e5e5e5";
+
+
+  ctx.lineWidth =
+    1;
+
 
   ctx.stroke();
+
 
   ctx.setLineDash([]);
 
 
-  /* Raquette IA */
+  /*
+   * Raquette IA.
+   */
 
-  drawPaddle(aiPaddle);
+  drawPaddle(
+    aiPaddle
+  );
 
 
-  /* Raquette joueur */
+  /*
+   * Raquette joueur.
+   */
 
-  drawPaddle(playerPaddle);
+  drawPaddle(
+    playerPaddle
+  );
 
 
-  /* Ball */
+  /*
+   * Balle.
+   */
 
   ctx.beginPath();
+
 
   ctx.arc(
     ball.x,
@@ -1486,17 +2162,29 @@ function draw() {
     Math.PI * 2
   );
 
-  ctx.fillStyle = "#111";
+
+  ctx.fillStyle =
+    "#111";
+
 
   ctx.fill();
+
 }
 
 
-function drawPaddle(paddle) {
+/* =========================================================
+   DESSIN RAQUETTE
+========================================================= */
+
+function drawPaddle(
+  paddle
+) {
 
   ctx.beginPath();
 
+
   const radius = 5;
+
 
   roundedRect(
     ctx,
@@ -1508,15 +2196,38 @@ function drawPaddle(paddle) {
     radius
   );
 
-  ctx.fillStyle = "#fff";
+
+  /*
+   * Raquette blanche.
+   */
+
+  ctx.fillStyle =
+    "#fff";
+
+
   ctx.fill();
 
-  ctx.strokeStyle = "#111";
-  ctx.lineWidth = 1.5;
+
+  /*
+   * Contour noir.
+   */
+
+  ctx.strokeStyle =
+    "#111";
+
+
+  ctx.lineWidth =
+    1.5;
+
 
   ctx.stroke();
+
 }
 
+
+/* =========================================================
+   RECTANGLE ARRONDI
+========================================================= */
 
 function roundedRect(
   context,
@@ -1532,6 +2243,7 @@ function roundedRect(
     y
   );
 
+
   context.arcTo(
     x + width,
     y,
@@ -1539,6 +2251,7 @@ function roundedRect(
     y + height,
     radius
   );
+
 
   context.arcTo(
     x + width,
@@ -1548,6 +2261,7 @@ function roundedRect(
     radius
   );
 
+
   context.arcTo(
     x,
     y + height,
@@ -1556,6 +2270,7 @@ function roundedRect(
     radius
   );
 
+
   context.arcTo(
     x,
     y,
@@ -1563,45 +2278,44 @@ function roundedRect(
     y,
     radius
   );
+
 
   context.closePath();
+
 }
 
 
 /* =========================================================
-   TOUCH / MOUSE
+   CONTRÔLE SOURIS / DOIGT
 ========================================================= */
 
-function movePlayerFromPointer(event) {
+function movePlayerFromPointer(
+  event
+) {
 
   if (!gameRunning) {
     return;
   }
 
+
   const rect =
     canvas.getBoundingClientRect();
 
-  let clientX;
-
-  if (
-    event.touches &&
-    event.touches.length
-  ) {
-
-    clientX =
-      event.touches[0].clientX;
-
-  } else {
-
-    clientX =
-      event.clientX;
-  }
 
   const x =
-    clientX - rect.left;
+    event.clientX -
+    rect.left;
+
 
   playerPaddle.x =
-    x - playerPaddle.width / 2;
+    x -
+    playerPaddle.width / 2;
+
+
+  /*
+   * Empêche la raquette
+   * de sortir de l'écran.
+   */
 
   playerPaddle.x =
     Math.max(
@@ -1612,13 +2326,20 @@ function movePlayerFromPointer(event) {
         playerPaddle.x
       )
     );
+
 }
 
+
+/*
+ * Pointer Events fonctionnent
+ * pour souris et écran tactile.
+ */
 
 canvas.addEventListener(
   "pointermove",
   movePlayerFromPointer
 );
+
 
 canvas.addEventListener(
   "pointerdown",
@@ -1633,21 +2354,30 @@ canvas.addEventListener(
 let leftPressed = false;
 let rightPressed = false;
 
+
 document.addEventListener(
   "keydown",
   event => {
 
-    if (event.key === "ArrowLeft" ||
-        event.key.toLowerCase() === "a") {
+    if (
+      event.key === "ArrowLeft" ||
+      event.key.toLowerCase() === "a"
+    ) {
 
       leftPressed = true;
+
     }
 
-    if (event.key === "ArrowRight" ||
-        event.key.toLowerCase() === "d") {
+
+    if (
+      event.key === "ArrowRight" ||
+      event.key.toLowerCase() === "d"
+    ) {
 
       rightPressed = true;
+
     }
+
   }
 );
 
@@ -1656,20 +2386,32 @@ document.addEventListener(
   "keyup",
   event => {
 
-    if (event.key === "ArrowLeft" ||
-        event.key.toLowerCase() === "a") {
+    if (
+      event.key === "ArrowLeft" ||
+      event.key.toLowerCase() === "a"
+    ) {
 
       leftPressed = false;
+
     }
 
-    if (event.key === "ArrowRight" ||
-        event.key.toLowerCase() === "d") {
+
+    if (
+      event.key === "ArrowRight" ||
+      event.key.toLowerCase() === "d"
+    ) {
 
       rightPressed = false;
+
     }
+
   }
 );
 
+
+/*
+ * Déplacement clavier.
+ */
 
 setInterval(() => {
 
@@ -1677,15 +2419,25 @@ setInterval(() => {
     return;
   }
 
+
   const speed = 15;
 
+
   if (leftPressed) {
-    playerPaddle.x -= speed;
+
+    playerPaddle.x -=
+      speed;
+
   }
 
+
   if (rightPressed) {
-    playerPaddle.x += speed;
+
+    playerPaddle.x +=
+      speed;
+
   }
+
 
   playerPaddle.x =
     Math.max(
@@ -1701,95 +2453,171 @@ setInterval(() => {
 
 
 /* =========================================================
-   END GAME
+   FIN DE PARTIE
 ========================================================= */
 
 function endGame() {
 
   gameRunning = false;
 
+
   if (animationId) {
-    cancelAnimationFrame(animationId);
+
+    cancelAnimationFrame(
+      animationId
+    );
+
+    animationId = null;
+
   }
 
-  const playerWon =
-    playerScore > opponentScore;
 
-  saveGameStats(playerWon);
+  const playerWon =
+    playerScore >
+    opponentScore;
+
+
+  /*
+   * Enregistrement des statistiques.
+   */
+
+  saveGameStats(
+    playerWon
+  );
+
 
   const total =
-    playerScore + opponentScore;
+    playerScore +
+    opponentScore;
+
 
   const playerPercentage =
-    playerScore / total * 100;
+    playerScore /
+    total *
+    100;
+
 
   const opponentPercentage =
-    opponentScore / total * 100;
+    opponentScore /
+    total *
+    100;
 
-  document.getElementById("winnerName").textContent =
-    playerWon ? playerName : opponentName;
 
-  document.getElementById("finalScore").textContent =
-    `${playerScore} — ${opponentScore}`;
+  /*
+   * Résultat.
+   */
 
-  document.getElementById("resultPlayerName").textContent =
-    playerName;
+  document
+    .getElementById("winnerName")
+    .textContent =
+      playerWon
+        ? playerName
+        : opponentName;
 
-  document.getElementById("resultOpponentName").textContent =
-    opponentName;
 
-  document.getElementById("resultPlayerPercent").textContent =
-    formatPercentage(playerPercentage);
+  document
+    .getElementById("finalScore")
+    .textContent =
+      `${playerScore} — ${opponentScore}`;
 
-  document.getElementById("resultOpponentPercent").textContent =
-    formatPercentage(opponentPercentage);
+
+  document
+    .getElementById("resultPlayerName")
+    .textContent =
+      playerName;
+
+
+  document
+    .getElementById("resultOpponentName")
+    .textContent =
+      opponentName;
+
+
+  document
+    .getElementById("resultPlayerPercent")
+    .textContent =
+      formatPercentage(
+        playerPercentage
+      );
+
+
+  document
+    .getElementById("resultOpponentPercent")
+    .textContent =
+      formatPercentage(
+        opponentPercentage
+      );
+
+
+  /*
+   * Petit délai avant l'écran final.
+   */
 
   setTimeout(() => {
+
     showResult();
+
   }, 500);
+
 }
 
 
 /* =========================================================
-   STOP GAME
+   ARRÊTER LA PARTIE
 ========================================================= */
 
 function stopGame() {
 
   gameRunning = false;
 
+
   if (animationId) {
 
-    cancelAnimationFrame(animationId);
+    cancelAnimationFrame(
+      animationId
+    );
 
     animationId = null;
+
   }
 
-  clearTimeout(messageTimeout);
+
+  clearTimeout(
+    messageTimeout
+  );
+
 }
 
 
 /* =========================================================
-   QUIT
+   QUITTER
 ========================================================= */
 
 function quitGame() {
 
   stopGame();
+
   showHome();
+
 }
 
 
 /* =========================================================
-   LOCAL STORAGE
+   STATISTIQUES
 ========================================================= */
 
 const defaultStats = {
+
   games: 0,
+
   wins: 0,
+
   losses: 0,
+
   playerCharacters: {},
+
   opponents: {}
+
 };
 
 
@@ -1798,21 +2626,42 @@ function getStats() {
   try {
 
     const saved =
-      localStorage.getItem("debatStats");
+      localStorage.getItem(
+        "debatStats"
+      );
+
 
     if (!saved) {
-      return structuredClone(defaultStats);
+
+      return {
+        games: 0,
+        wins: 0,
+        losses: 0,
+        playerCharacters: {},
+        opponents: {}
+      };
+
     }
 
+
     return {
-      ...structuredClone(defaultStats),
+      ...defaultStats,
       ...JSON.parse(saved)
     };
 
+
   } catch (error) {
 
-    return structuredClone(defaultStats);
+    return {
+      games: 0,
+      wins: 0,
+      losses: 0,
+      playerCharacters: {},
+      opponents: {}
+    };
+
   }
+
 }
 
 
@@ -1822,89 +2671,179 @@ function saveStats(stats) {
     "debatStats",
     JSON.stringify(stats)
   );
-}
 
-
-function saveGameStats(playerWon) {
-
-  const stats = getStats();
-
-  stats.games++;
-
-  if (playerWon) {
-    stats.wins++;
-  } else {
-    stats.losses++;
-  }
-
-  if (!stats.playerCharacters[playerName]) {
-    stats.playerCharacters[playerName] = 0;
-  }
-
-  if (!stats.opponents[opponentName]) {
-    stats.opponents[opponentName] = 0;
-  }
-
-  stats.playerCharacters[playerName]++;
-  stats.opponents[opponentName]++;
-
-  saveStats(stats);
 }
 
 
 /* =========================================================
-   STATS UI
+   ENREGISTRER UNE PARTIE
+========================================================= */
+
+function saveGameStats(
+  playerWon
+) {
+
+  const stats =
+    getStats();
+
+
+  stats.games++;
+
+
+  if (playerWon) {
+
+    stats.wins++;
+
+  } else {
+
+    stats.losses++;
+
+  }
+
+
+  /*
+   * Personnage joué.
+   */
+
+  if (
+    !stats.playerCharacters[
+      playerName
+    ]
+  ) {
+
+    stats.playerCharacters[
+      playerName
+    ] = 0;
+
+  }
+
+
+  /*
+   * Adversaire affronté.
+   */
+
+  if (
+    !stats.opponents[
+      opponentName
+    ]
+  ) {
+
+    stats.opponents[
+      opponentName
+    ] = 0;
+
+  }
+
+
+  stats.playerCharacters[
+    playerName
+  ]++;
+
+
+  stats.opponents[
+    opponentName
+  ]++;
+
+
+  saveStats(
+    stats
+  );
+
+}
+
+
+/* =========================================================
+   MISE À JOUR DES STATISTIQUES
 ========================================================= */
 
 function updateStatsUI() {
 
-  const stats = getStats();
-
-  document.getElementById("statGames").textContent =
-    stats.games;
-
-  document.getElementById("statWins").textContent =
-    stats.wins;
-
-  document.getElementById("statLosses").textContent =
-    stats.losses;
-
-  document.getElementById("statWinRate").textContent =
-    stats.games
-      ? Math.round(
-          stats.wins /
-          stats.games *
-          100
-        ) + " %"
-      : "—";
-
-  document.getElementById("statFavorite").textContent =
-    getMostPlayed(stats.playerCharacters);
-
-  document.getElementById("statOpponent").textContent =
-    getMostPlayed(stats.opponents);
-}
+  const stats =
+    getStats();
 
 
-function getMostPlayed(object) {
+  document
+    .getElementById("statGames")
+    .textContent =
+      stats.games;
 
-  const entries =
-    Object.entries(object);
 
-  if (!entries.length) {
-    return "—";
-  }
+  document
+    .getElementById("statWins")
+    .textContent =
+      stats.wins;
 
-  entries.sort(
-    (a, b) => b[1] - a[1]
-  );
 
-  return entries[0][0];
+  document
+    .getElementById("statLosses")
+    .textContent =
+      stats.losses;
+
+
+  document
+    .getElementById("statWinRate")
+    .textContent =
+      stats.games
+        ? Math.round(
+            stats.wins /
+            stats.games *
+            100
+          ) + " %"
+        : "—";
+
+
+  document
+    .getElementById("statFavorite")
+    .textContent =
+      getMostPlayed(
+        stats.playerCharacters
+      );
+
+
+  document
+    .getElementById("statOpponent")
+    .textContent =
+      getMostPlayed(
+        stats.opponents
+      );
+
 }
 
 
 /* =========================================================
-   RESIZE
+   PERSONNAGE LE PLUS JOUÉ
+========================================================= */
+
+function getMostPlayed(
+  object
+) {
+
+  const entries =
+    Object.entries(
+      object
+    );
+
+
+  if (!entries.length) {
+
+    return "—";
+
+  }
+
+
+  entries.sort(
+    (a, b) =>
+      b[1] - a[1]
+  );
+
+
+  return entries[0][0];
+
+}
+
+
+/* =========================================================
+   REDIMENSIONNEMENT
 ========================================================= */
 
 window.addEventListener(
@@ -1912,7 +2851,9 @@ window.addEventListener(
   () => {
 
     if (gameRunning) {
+
       resizeCanvas();
+
     }
 
   }
@@ -1920,10 +2861,11 @@ window.addEventListener(
 
 
 /* =========================================================
-   INIT
+   INITIALISATION
 ========================================================= */
 
 populateCharacters();
+
 updateStatsUI();
 
 </script>
