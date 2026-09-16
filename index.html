@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DÉBAT</title>
+
+<style>
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    background: #fff;
+    color: #111;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+
+  button {
+    font: inherit;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 460px;
+    min-height: 100vh;
+    position: relative;
+    background: #fff;
+  }
+
+  .screen {
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  /* =========================
+     HOME
+  ========================= */
+
+  .home {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .logo {
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -4px;
+    line-height: 1;
+    margin-top: 12px;
+  }
+
+  .subtitle {
+    margin-top: 8px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #777;
+  }
+
+  .home-spacer {
+    flex: 1;
+    min-height: 80px;
+  }
+
+  .stats-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .stats {
+    border-top: 1px solid #111;
+  }
+
+  .stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 54px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+  }
+
+  .stat-label {
+    color: #666;
+  }
+
+  .stat-value {
+    font-weight: 700;
+    text-align: right;
+    max-width: 55%;
+  }
+
+  .main-button {
+    width: 100%;
+    border: 0;
+    background: #111;
+    color: #fff;
+    border-radius: 8px;
+    padding: 17px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: opacity .15s, transform .1s;
+  }
+
+  .main-button:hover {
+    opacity: .82;
+  }
+
+  .main-button:active {
+    transform: scale(.98);
+  }
+
+  /* =========================
+     SELECTION
+  ========================= */
+
+  .screen-title {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    margin: 18px 0 32px;
+  }
+
+  .selection-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: #777;
+    margin-bottom: 9px;
+  }
+
+  .select-box {
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  select {
+    appearance: none;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #111;
+    border-radius: 8px;
+    padding: 16px 42px 16px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .select-arrow {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 16px;
+  }
+
+  .versus {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin: -13px 0 28px;
+  }
+
+  .difficulty {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+
+  .difficulty button {
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 7px;
+    padding: 12px 5px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .difficulty button.active {
+    background: #111;
+    border-color: #111;
+    color: #fff;
+  }
+
+  .back-button {
+    margin-top: 12px;
+    width: 100%;
+    border: 0;
+    background: transparent;
+    padding: 12px;
+    font-size: 13px;
+    color: #666;
+    cursor: pointer;
+  }
+
+  /* =========================
+     GAME
+  ========================= */
+
+  #gameScreen {
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+  }
+
+  .game-wrapper {
+    width: min(100vw, 460px);
+    height: min(177.78vw, 820px);
+    max-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    touch-action: none;
+  }
+
+  canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+  }
+
+  .game-ui {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    pointer-events: none;
+  }
+
+  .top-info {
+    padding: 20px 22px 0;
+    text-align: center;
+  }
+
+  .player-name {
+    font-size: 15px;
+    font-weight: 800;
+  }
+
+  .percentage {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #777;
+    font-weight: 600;
+  }
+
+  .bottom-info {
+    position: absolute;
+    top: calc(100vh - 110px);
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+
+  .message {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity .15s;
+  }
+
+  .message.top {
+    top: 24%;
+  }
+
+  .message.bottom {
+    bottom: 24%;
+  }
+
+  .message.show {
+    opacity: 1;
+  }
+
+  .game-score {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 11px;
+    color: #bbb;
+    letter-spacing: 1px;
+    pointer-events: none;
+  }
+
+  .quit {
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    border: 0;
+    background: transparent;
+    font-size: 18px;
+    color: #aaa;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  /* =========================
+     RESULT
+  ========================= */
+
+  .result {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .result-title {
+    margin-top: 50px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: #777;
+  }
+
+  .winner {
+    margin-top: 18px;
+    font-size: 38px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+
+  .result-score {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .result-percentages {
+    margin-top: 40px;
+    border-top: 1px solid #111;
+  }
+
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+  }
+
+  .result-row strong {
+    font-size: 16px;
+  }
+
+  .result-buttons {
+    margin-top: auto;
+    padding-bottom: 24px;
+  }
+
+  .secondary-button {
+    width: 100%;
+    border: 1px solid #111;
+    background: #fff;
+    color: #111;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 9px;
+  }
+
+  .secondary-button:hover {
+    background: #f5f5f5;
+  }
+
+  @media (min-width: 600px) {
+    .game-wrapper {
+      height: min(820px, 100vh);
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- =========================
+       HOME
+  ========================= -->
+
+  <section id="homeScreen" class="screen home">
+
+    <div>
+      <div class="logo">DÉBAT</div>
+      <div class="subtitle">Le duel présidentiel</div>
+    </div>
+
+    <div class="home-spacer"></div>
+
+    <div>
+      <div class="stats-title">Vos statistiques</div>
+
+      <div class="stats">
+
+        <div class="stat">
+          <span class="stat-label">Parties</span>
+          <span class="stat-value" id="statGames">0</span>
+        </div>
+
+        <div class="stat">
+          <span class="stat-label">Victoires</span>
+          <span class="stat-value" id="statWins">0</span>
+        </div>
+
+        <div class="stat">
+          <span class="stat-label">Défaites</span>
+          <span class="stat-value" id="statLosses">0</span>
+        </div>
+
+        <div class="stat">
+          <span class="stat-label">Taux de victoire</span>
+          <span class="stat-value" id="statWinRate">—</span>
+        </div>
+
+        <div class="stat">
+          <span class="stat-label">Personnage préféré</span>
+          <span class="stat-value" id="statFavorite">—</span>
+        </div>
+
+        <div class="stat">
+          <span class="stat-label">Plus affronté</span>
+          <span class="stat-value" id="statOpponent">—</span>
+        </div>
+
+      </div>
+
+      <button class="main-button" onclick="showSelection()">
+        JOUER
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       SELECTION
+  ========================= -->
+
+  <section id="selectionScreen" class="screen hidden">
+
+    <div class="screen-title">
+      CHOISIS TON DÉBAT
+    </div>
+
+    <div class="selection-label">
+      Votre candidat
+    </div>
+
+    <div class="select-box">
+      <select id="playerSelect">
+      </select>
+      <div class="select-arrow">⌄</div>
+    </div>
+
+    <div class="versus">
+      VS
+    </div>
+
+    <div class="selection-label">
+      Votre adversaire
+    </div>
+
+    <div class="select-box">
+      <select id="opponentSelect">
+      </select>
+      <div class="select-arrow">⌄</div>
+    </div>
+
+    <div class="selection-label">
+      Difficulté
+    </div>
+
+    <div class="difficulty">
+
+      <button
+        id="easyButton"
+        class="active"
+        onclick="setDifficulty('easy')">
+        FACILE
+      </button>
+
+      <button
+        id="normalButton"
+        onclick="setDifficulty('normal')">
+        NORMAL
+      </button>
+
+      <button
+        id="hardButton"
+        onclick="setDifficulty('hard')">
+        DIFFICILE
+      </button>
+
+    </div>
+
+    <button class="main-button" onclick="startGame()">
+      JOUER
+    </button>
+
+    <button class="back-button" onclick="showHome()">
+      ← Retour
+    </button>
+
+  </section>
+
+
+  <!-- =========================
+       GAME
+  ========================= -->
+
+  <section id="gameScreen" class="hidden">
+
+    <div class="game-wrapper">
+
+      <canvas id="gameCanvas"></canvas>
+
+      <button class="quit" onclick="quitGame()">×</button>
+
+      <div class="game-ui">
+
+        <div class="top-info">
+          <div class="player-name" id="opponentName">
+            Adversaire
+          </div>
+
+          <div class="percentage" id="opponentPercentage">
+            —
+          </div>
+        </div>
+
+        <div
+          id="topMessage"
+          class="message top">
+        </div>
+
+        <div
+          id="bottomMessage"
+          class="message bottom">
+        </div>
+
+        <div class="game-score" id="gameScore">
+          0 — 0
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       RESULT
+  ========================= -->
+
+  <section id="resultScreen" class="screen result hidden">
+
+    <div class="result-title">
+      Élection terminée
+    </div>
+
+    <div class="winner" id="winnerName">
+      —
+    </div>
+
+    <div class="result-score" id="finalScore">
+      —
+    </div>
+
+    <div class="result-percentages">
+
+      <div class="result-row">
+        <span id="resultPlayerName">—</span>
+        <strong id="resultPlayerPercent">—</strong>
+      </div>
+
+      <div class="result-row">
+        <span id="resultOpponentName">—</span>
+        <strong id="resultOpponentPercent">—</strong>
+      </div>
+
+    </div>
+
+    <div class="result-buttons">
+
+      <button
+        class="main-button"
+        onclick="showSelection()">
+        REJOUER UNE PARTIE
+      </button>
+
+      <button
+        class="secondary-button"
+        onclick="showHome()">
+        ÉCRAN PRINCIPAL
+      </button>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   PERSONNAGES
+========================================================= */
+
+const characters = [
+  "Jean-Luc Mélenchon",
+  "Marine Le Pen",
+  "Jordan Bardella",
+  "Raphaël Glucksmann",
+  "Gabriel Attal",
+  "Édouard Philippe",
+  "Bruno Retailleau",
+  "François Ruffin",
+  "François Hollande"
+];
+
+
+/* =========================================================
+   PHRASES APRÈS UN POINT
+========================================================= */
+
+const messages = [
+  "Menteur.",
+  "C'est pas ce que vous disiez.",
+  "Vous êtes sûr ?",
+  "Belle pirouette.",
+  "On en reparle en 2027.",
+  "C'était dans votre programme ?",
+  "Ça commence mal.",
+  "Et un point de plus.",
+  "Les Français apprécieront.",
+  "Merci pour le point."
+];
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const homeScreen = document.getElementById("homeScreen");
+const selectionScreen = document.getElementById("selectionScreen");
+const gameScreen = document.getElementById("gameScreen");
+const resultScreen = document.getElementById("resultScreen");
+
+const playerSelect = document.getElementById("playerSelect");
+const opponentSelect = document.getElementById("opponentSelect");
+
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+
+/* =========================================================
+   GAME STATE
+========================================================= */
+
+let playerName = "";
+let opponentName = "";
+
+let playerScore = 0;
+let opponentScore = 0;
+
+let difficulty = "easy";
+
+let animationId = null;
+let gameRunning = false;
+
+let messageTimeout = null;
+
+let lastTime = 0;
+
+const ball = {
+  x: 0,
+  y: 0,
+  vx: 0,
+  vy: 0,
+  radius: 5,
+  speed: 340
+};
+
+const playerPaddle = {
+  x: 0,
+  y: 0,
+  width: 105,
+  height: 12
+};
+
+const aiPaddle = {
+  x: 0,
+  y: 0,
+  width: 105,
+  height: 12
+};
+
+
+/* =========================================================
+   DIFFICULTIES
+========================================================= */
+
+const difficultySettings = {
+
+  easy: {
+    speed: 3.0,
+    reaction: 0.72,
+    error: 55
+  },
+
+  normal: {
+    speed: 4.2,
+    reaction: 0.88,
+    error: 25
+  },
+
+  hard: {
+    speed: 5.6,
+    reaction: 0.98,
+    error: 8
+  }
+
+};
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function hideAllScreens() {
+  homeScreen.classList.add("hidden");
+  selectionScreen.classList.add("hidden");
+  gameScreen.classList.add("hidden");
+  resultScreen.classList.add("hidden");
+}
+
+
+function showHome() {
+
+  stopGame();
+
+  hideAllScreens();
+  homeScreen.classList.remove("hidden");
+
+  updateStatsUI();
+}
+
+
+function showSelection() {
+
+  stopGame();
+
+  hideAllScreens();
+  selectionScreen.classList.remove("hidden");
+
+  populateCharacters();
+}
+
+
+function showGame() {
+
+  hideAllScreens();
+  gameScreen.classList.remove("hidden");
+
+  resizeCanvas();
+}
+
+
+function showResult() {
+
+  stopGame();
+
+  hideAllScreens();
+  resultScreen.classList.remove("hidden");
+}
+
+
+/* =========================================================
+   CHARACTER SELECT
+========================================================= */
+
+function populateCharacters() {
+
+  const previousPlayer = playerSelect.value;
+  const previousOpponent = opponentSelect.value;
+
+  playerSelect.innerHTML = "";
+  opponentSelect.innerHTML = "";
+
+  characters.forEach((character, index) => {
+
+    const option1 = document.createElement("option");
+    option1.value = character;
+    option1.textContent = character;
+
+    const option2 = document.createElement("option");
+    option2.value = character;
+    option2.textContent = character;
+
+    playerSelect.appendChild(option1);
+    opponentSelect.appendChild(option2);
+
+  });
+
+  if (characters.includes(previousPlayer)) {
+    playerSelect.value = previousPlayer;
+  }
+
+  if (characters.includes(previousOpponent) &&
+      previousOpponent !== playerSelect.value) {
+    opponentSelect.value = previousOpponent;
+  }
+
+  if (playerSelect.value === opponentSelect.value) {
+
+    const alternative = characters.find(
+      c => c !== playerSelect.value
+    );
+
+    opponentSelect.value = alternative;
+  }
+}
+
+
+playerSelect.addEventListener("change", () => {
+
+  if (playerSelect.value === opponentSelect.value) {
+
+    const alternative = characters.find(
+      c => c !== playerSelect.value
+    );
+
+    opponentSelect.value = alternative;
+  }
+
+});
+
+
+opponentSelect.addEventListener("change", () => {
+
+  if (opponentSelect.value === playerSelect.value) {
+
+    const alternative = characters.find(
+      c => c !== opponentSelect.value
+    );
+
+    playerSelect.value = alternative;
+  }
+
+});
+
+
+/* =========================================================
+   DIFFICULTY
+========================================================= */
+
+function setDifficulty(level) {
+
+  difficulty = level;
+
+  document
+    .querySelectorAll(".difficulty button")
+    .forEach(button => button.classList.remove("active"));
+
+  document
+    .getElementById(level + "Button")
+    .classList.add("active");
+}
+
+
+/* =========================================================
+   START GAME
+========================================================= */
+
+function startGame() {
+
+  playerName = playerSelect.value;
+  opponentName = opponentSelect.value;
+
+  if (playerName === opponentName) {
+    return;
+  }
+
+  playerScore = 0;
+  opponentScore = 0;
+
+  showGame();
+
+  document.getElementById("opponentName").textContent =
+    opponentName;
+
+  document.getElementById("gameScore").textContent =
+    "0 — 0";
+
+  updatePercentages();
+
+  setupGame();
+
+  gameRunning = true;
+
+  lastTime = performance.now();
+
+  animationId = requestAnimationFrame(gameLoop);
+}
+
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+function resizeCanvas() {
+
+  const rect = canvas.getBoundingClientRect();
+
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+
+  ctx.setTransform(
+    dpr,
+    0,
+    0,
+    dpr,
+    0,
+    0
+  );
+
+  if (gameRunning) {
+    setupGameDimensions();
+  }
+}
+
+
+function setupGameDimensions() {
+
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+
+  playerPaddle.y = height - 105;
+  aiPaddle.y = 90;
+
+  playerPaddle.x =
+    (width - playerPaddle.width) / 2;
+
+  aiPaddle.x =
+    (width - aiPaddle.width) / 2;
+
+  ball.x = width / 2;
+  ball.y = height / 2;
+}
+
+
+function setupGame() {
+
+  setupGameDimensions();
+
+  resetBall(
+    Math.random() > 0.5 ? 1 : -1
+  );
+}
+
+
+/* =========================================================
+   BALL
+========================================================= */
+
+function resetBall(direction) {
+
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+
+  ball.x = width / 2;
+  ball.y = height / 2;
+
+  ball.speed = 340;
+
+  const angle =
+    (Math.random() * 0.8 - 0.4);
+
+  ball.vx =
+    Math.sin(angle) * ball.speed;
+
+  ball.vy =
+    Math.cos(angle) * ball.speed * direction;
+}
+
+
+/* =========================================================
+   GAME LOOP
+========================================================= */
+
+function gameLoop(timestamp) {
+
+  if (!gameRunning) {
+    return;
+  }
+
+  let dt =
+    (timestamp - lastTime) / 1000;
+
+  lastTime = timestamp;
+
+  dt = Math.min(dt, 0.025);
+
+  update(dt);
+  draw();
+
+  animationId =
+    requestAnimationFrame(gameLoop);
+}
+
+
+/* =========================================================
+   UPDATE
+========================================================= */
+
+function update(dt) {
+
+  updatePlayer();
+
+  updateAI(dt);
+
+  ball.x += ball.vx * dt;
+  ball.y += ball.vy * dt;
+
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+
+  /* Murs */
+
+  if (
+    ball.x - ball.radius <= 0 &&
+    ball.vx < 0
+  ) {
+
+    ball.x = ball.radius;
+    ball.vx *= -1;
+  }
+
+  if (
+    ball.x + ball.radius >= width &&
+    ball.vx > 0
+  ) {
+
+    ball.x =
+      width - ball.radius;
+
+    ball.vx *= -1;
+  }
+
+
+  /* Raquette IA */
+
+  if (
+    ball.vy < 0 &&
+    ball.y - ball.radius <=
+      aiPaddle.y + aiPaddle.height / 2
+  ) {
+
+    if (
+      ball.x >= aiPaddle.x &&
+      ball.x <=
+        aiPaddle.x + aiPaddle.width
+    ) {
+
+      hitPaddle(aiPaddle, false);
+    }
+  }
+
+
+  /* Raquette joueur */
+
+  if (
+    ball.vy > 0 &&
+    ball.y + ball.radius >=
+      playerPaddle.y - playerPaddle.height / 2
+  ) {
+
+    if (
+      ball.x >= playerPaddle.x &&
+      ball.x <=
+        playerPaddle.x + playerPaddle.width
+    ) {
+
+      hitPaddle(playerPaddle, true);
+    }
+  }
+
+
+  /* Point IA */
+
+  if (ball.y > height + 20) {
+
+    scorePoint("ai");
+  }
+
+
+  /* Point joueur */
+
+  if (ball.y < -20) {
+
+    scorePoint("player");
+  }
+}
+
+
+/* =========================================================
+   PLAYER CONTROL
+========================================================= */
+
+function updatePlayer() {
+  /* Le joueur est directement déplacé par pointermove. */
+}
+
+
+/* =========================================================
+   AI
+========================================================= */
+
+let aiTarget = null;
+
+function updateAI(dt) {
+
+  const settings =
+    difficultySettings[difficulty];
+
+  const center =
+    aiPaddle.x +
+    aiPaddle.width / 2;
+
+  let target;
+
+  if (ball.vy < 0) {
+    target = ball.x;
+  } else {
+    target = canvas.clientWidth / 2;
+  }
+
+  if (aiTarget === null) {
+    aiTarget = target;
+  }
+
+  aiTarget +=
+    (target - aiTarget) *
+    settings.reaction *
+    dt *
+    5;
+
+  const desired =
+    aiTarget -
+    aiPaddle.width / 2;
+
+  let difference =
+    desired - aiPaddle.x;
+
+  const maxMove =
+    settings.speed *
+    100 *
+    dt;
+
+  difference =
+    Math.max(
+      -maxMove,
+      Math.min(maxMove, difference)
+    );
+
+  aiPaddle.x += difference;
+
+  aiPaddle.x =
+    Math.max(
+      0,
+      Math.min(
+        canvas.clientWidth -
+        aiPaddle.width,
+        aiPaddle.x
+      )
+    );
+}
+
+
+/* =========================================================
+   PADDLE HIT
+========================================================= */
+
+function hitPaddle(paddle, isPlayer) {
+
+  if (isPlayer) {
+
+    ball.y =
+      paddle.y -
+      paddle.height / 2 -
+      ball.radius;
+
+    ball.vy =
+      -Math.abs(ball.vy);
+
+  } else {
+
+    ball.y =
+      paddle.y +
+      paddle.height / 2 +
+      ball.radius;
+
+    ball.vy =
+      Math.abs(ball.vy);
+  }
+
+  const paddleCenter =
+    paddle.x +
+    paddle.width / 2;
+
+  const impact =
+    (ball.x - paddleCenter) /
+    (paddle.width / 2);
+
+  const maxHorizontal =
+    300;
+
+  ball.vx =
+    impact * maxHorizontal;
+
+  ball.speed *= 1.035;
+
+  const maxSpeed = 700;
+
+  const currentSpeed =
+    Math.sqrt(
+      ball.vx * ball.vx +
+      ball.vy * ball.vy
+    );
+
+  if (currentSpeed > maxSpeed) {
+
+    const factor =
+      maxSpeed / currentSpeed;
+
+    ball.vx *= factor;
+    ball.vy *= factor;
+  }
+}
+
+
+/* =========================================================
+   SCORE
+========================================================= */
+
+function scorePoint(who) {
+
+  if (!gameRunning) {
+    return;
+  }
+
+  if (who === "player") {
+
+    playerScore++;
+
+    showMessage(
+      "player",
+      randomMessage()
+    );
+
+  } else {
+
+    opponentScore++;
+
+    showMessage(
+      "ai",
+      randomMessage()
+    );
+  }
+
+  updatePercentages();
+
+  document.getElementById("gameScore").textContent =
+    `${playerScore} — ${opponentScore}`;
+
+  if (
+    playerScore >= 7 ||
+    opponentScore >= 7
+  ) {
+
+    endGame();
+    return;
+  }
+
+  setTimeout(() => {
+
+    if (!gameRunning) {
+      return;
+    }
+
+    resetBall(
+      who === "player" ? -1 : 1
+    );
+
+  }, 350);
+}
+
+
+/* =========================================================
+   PERCENTAGES
+========================================================= */
+
+function updatePercentages() {
+
+  const total =
+    playerScore + opponentScore;
+
+  if (total === 0) {
+
+    document.getElementById(
+      "opponentPercentage"
+    ).textContent = "—";
+
+    return;
+  }
+
+  const playerPercentage =
+    playerScore / total * 100;
+
+  const opponentPercentage =
+    opponentScore / total * 100;
+
+  document.getElementById(
+    "opponentPercentage"
+  ).textContent =
+    `${formatPercentage(opponentPercentage)}`;
+
+}
+
+
+function formatPercentage(value) {
+
+  return value
+    .toFixed(1)
+    .replace(".", ",") + " %";
+}
+
+
+/* =========================================================
+   MESSAGES
+========================================================= */
+
+function randomMessage() {
+
+  return messages[
+    Math.floor(
+      Math.random() * messages.length
+    )
+  ];
+}
+
+
+function showMessage(side, text) {
+
+  const element =
+    side === "player"
+      ? document.getElementById("bottomMessage")
+      : document.getElementById("topMessage");
+
+  document
+    .getElementById("topMessage")
+    .classList.remove("show");
+
+  document
+    .getElementById("bottomMessage")
+    .classList.remove("show");
+
+  element.textContent = text;
+
+  void element.offsetWidth;
+
+  element.classList.add("show");
+
+  clearTimeout(messageTimeout);
+
+  messageTimeout =
+    setTimeout(() => {
+
+      element.classList.remove("show");
+
+    }, 1100);
+}
+
+
+/* =========================================================
+   DRAW
+========================================================= */
+
+function draw() {
+
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+
+  ctx.clearRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+  /* Ligne centrale */
+
+  ctx.beginPath();
+
+  ctx.setLineDash([4, 7]);
+
+  ctx.moveTo(
+    22,
+    height / 2
+  );
+
+  ctx.lineTo(
+    width - 22,
+    height / 2
+  );
+
+  ctx.strokeStyle = "#e5e5e5";
+  ctx.lineWidth = 1;
+
+  ctx.stroke();
+
+  ctx.setLineDash([]);
+
+
+  /* Raquette IA */
+
+  drawPaddle(aiPaddle);
+
+
+  /* Raquette joueur */
+
+  drawPaddle(playerPaddle);
+
+
+  /* Ball */
+
+  ctx.beginPath();
+
+  ctx.arc(
+    ball.x,
+    ball.y,
+    ball.radius,
+    0,
+    Math.PI * 2
+  );
+
+  ctx.fillStyle = "#111";
+
+  ctx.fill();
+}
+
+
+function drawPaddle(paddle) {
+
+  ctx.beginPath();
+
+  const radius = 5;
+
+  roundedRect(
+    ctx,
+    paddle.x,
+    paddle.y -
+      paddle.height / 2,
+    paddle.width,
+    paddle.height,
+    radius
+  );
+
+  ctx.fillStyle = "#fff";
+  ctx.fill();
+
+  ctx.strokeStyle = "#111";
+  ctx.lineWidth = 1.5;
+
+  ctx.stroke();
+}
+
+
+function roundedRect(
+  context,
+  x,
+  y,
+  width,
+  height,
+  radius
+) {
+
+  context.moveTo(
+    x + radius,
+    y
+  );
+
+  context.arcTo(
+    x + width,
+    y,
+    x + width,
+    y + height,
+    radius
+  );
+
+  context.arcTo(
+    x + width,
+    y + height,
+    x,
+    y + height,
+    radius
+  );
+
+  context.arcTo(
+    x,
+    y + height,
+    x,
+    y,
+    radius
+  );
+
+  context.arcTo(
+    x,
+    y,
+    x + width,
+    y,
+    radius
+  );
+
+  context.closePath();
+}
+
+
+/* =========================================================
+   TOUCH / MOUSE
+========================================================= */
+
+function movePlayerFromPointer(event) {
+
+  if (!gameRunning) {
+    return;
+  }
+
+  const rect =
+    canvas.getBoundingClientRect();
+
+  let clientX;
+
+  if (
+    event.touches &&
+    event.touches.length
+  ) {
+
+    clientX =
+      event.touches[0].clientX;
+
+  } else {
+
+    clientX =
+      event.clientX;
+  }
+
+  const x =
+    clientX - rect.left;
+
+  playerPaddle.x =
+    x - playerPaddle.width / 2;
+
+  playerPaddle.x =
+    Math.max(
+      0,
+      Math.min(
+        canvas.clientWidth -
+        playerPaddle.width,
+        playerPaddle.x
+      )
+    );
+}
+
+
+canvas.addEventListener(
+  "pointermove",
+  movePlayerFromPointer
+);
+
+canvas.addEventListener(
+  "pointerdown",
+  movePlayerFromPointer
+);
+
+
+/* =========================================================
+   CLAVIER
+========================================================= */
+
+let leftPressed = false;
+let rightPressed = false;
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (event.key === "ArrowLeft" ||
+        event.key.toLowerCase() === "a") {
+
+      leftPressed = true;
+    }
+
+    if (event.key === "ArrowRight" ||
+        event.key.toLowerCase() === "d") {
+
+      rightPressed = true;
+    }
+  }
+);
+
+
+document.addEventListener(
+  "keyup",
+  event => {
+
+    if (event.key === "ArrowLeft" ||
+        event.key.toLowerCase() === "a") {
+
+      leftPressed = false;
+    }
+
+    if (event.key === "ArrowRight" ||
+        event.key.toLowerCase() === "d") {
+
+      rightPressed = false;
+    }
+  }
+);
+
+
+setInterval(() => {
+
+  if (!gameRunning) {
+    return;
+  }
+
+  const speed = 15;
+
+  if (leftPressed) {
+    playerPaddle.x -= speed;
+  }
+
+  if (rightPressed) {
+    playerPaddle.x += speed;
+  }
+
+  playerPaddle.x =
+    Math.max(
+      0,
+      Math.min(
+        canvas.clientWidth -
+        playerPaddle.width,
+        playerPaddle.x
+      )
+    );
+
+}, 16);
+
+
+/* =========================================================
+   END GAME
+========================================================= */
+
+function endGame() {
+
+  gameRunning = false;
+
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+  }
+
+  const playerWon =
+    playerScore > opponentScore;
+
+  saveGameStats(playerWon);
+
+  const total =
+    playerScore + opponentScore;
+
+  const playerPercentage =
+    playerScore / total * 100;
+
+  const opponentPercentage =
+    opponentScore / total * 100;
+
+  document.getElementById("winnerName").textContent =
+    playerWon ? playerName : opponentName;
+
+  document.getElementById("finalScore").textContent =
+    `${playerScore} — ${opponentScore}`;
+
+  document.getElementById("resultPlayerName").textContent =
+    playerName;
+
+  document.getElementById("resultOpponentName").textContent =
+    opponentName;
+
+  document.getElementById("resultPlayerPercent").textContent =
+    formatPercentage(playerPercentage);
+
+  document.getElementById("resultOpponentPercent").textContent =
+    formatPercentage(opponentPercentage);
+
+  setTimeout(() => {
+    showResult();
+  }, 500);
+}
+
+
+/* =========================================================
+   STOP GAME
+========================================================= */
+
+function stopGame() {
+
+  gameRunning = false;
+
+  if (animationId) {
+
+    cancelAnimationFrame(animationId);
+
+    animationId = null;
+  }
+
+  clearTimeout(messageTimeout);
+}
+
+
+/* =========================================================
+   QUIT
+========================================================= */
+
+function quitGame() {
+
+  stopGame();
+  showHome();
+}
+
+
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
+
+const defaultStats = {
+  games: 0,
+  wins: 0,
+  losses: 0,
+  playerCharacters: {},
+  opponents: {}
+};
+
+
+function getStats() {
+
+  try {
+
+    const saved =
+      localStorage.getItem("debatStats");
+
+    if (!saved) {
+      return structuredClone(defaultStats);
+    }
+
+    return {
+      ...structuredClone(defaultStats),
+      ...JSON.parse(saved)
+    };
+
+  } catch (error) {
+
+    return structuredClone(defaultStats);
+  }
+}
+
+
+function saveStats(stats) {
+
+  localStorage.setItem(
+    "debatStats",
+    JSON.stringify(stats)
+  );
+}
+
+
+function saveGameStats(playerWon) {
+
+  const stats = getStats();
+
+  stats.games++;
+
+  if (playerWon) {
+    stats.wins++;
+  } else {
+    stats.losses++;
+  }
+
+  if (!stats.playerCharacters[playerName]) {
+    stats.playerCharacters[playerName] = 0;
+  }
+
+  if (!stats.opponents[opponentName]) {
+    stats.opponents[opponentName] = 0;
+  }
+
+  stats.playerCharacters[playerName]++;
+  stats.opponents[opponentName]++;
+
+  saveStats(stats);
+}
+
+
+/* =========================================================
+   STATS UI
+========================================================= */
+
+function updateStatsUI() {
+
+  const stats = getStats();
+
+  document.getElementById("statGames").textContent =
+    stats.games;
+
+  document.getElementById("statWins").textContent =
+    stats.wins;
+
+  document.getElementById("statLosses").textContent =
+    stats.losses;
+
+  document.getElementById("statWinRate").textContent =
+    stats.games
+      ? Math.round(
+          stats.wins /
+          stats.games *
+          100
+        ) + " %"
+      : "—";
+
+  document.getElementById("statFavorite").textContent =
+    getMostPlayed(stats.playerCharacters);
+
+  document.getElementById("statOpponent").textContent =
+    getMostPlayed(stats.opponents);
+}
+
+
+function getMostPlayed(object) {
+
+  const entries =
+    Object.entries(object);
+
+  if (!entries.length) {
+    return "—";
+  }
+
+  entries.sort(
+    (a, b) => b[1] - a[1]
+  );
+
+  return entries[0][0];
+}
+
+
+/* =========================================================
+   RESIZE
+========================================================= */
+
+window.addEventListener(
+  "resize",
+  () => {
+
+    if (gameRunning) {
+      resizeCanvas();
+    }
+
+  }
+);
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+populateCharacters();
+updateStatsUI();
+
+</script>
+
+</body>
+</html>
