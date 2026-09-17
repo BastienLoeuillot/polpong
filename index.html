@@ -7,15 +7,16 @@
 
 <title>POL-PONG</title>
 
-<!-- Import Google Fonts: Syne (Titres/Noms) & Outfit (Texte courant) -->
+<!-- Import Google Fonts: Syne (Logo) & Sora (Titres/Noms) & Outfit (Texte courant) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Sora:wght@700;800;900&family=Syne:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
   :root {
     --font-text: 'Outfit', sans-serif;
-    --font-display: 'Syne', sans-serif;
+    --font-display: 'Sora', sans-serif;
+    --font-title: 'Syne', sans-serif;
 
     --color-bg: #fff;
     --color-ink: #111;
@@ -117,10 +118,10 @@
   ===================================================== */
 
   .screen-title {
-    font-family: var(--font-display);
+    font-family: var(--font-title);
     font-size: 30px;
     font-weight: 900;
-    letter-spacing: -1.5px;
+    letter-spacing: 0px;
     margin: 18px 0 28px;
     text-align: center;
 
@@ -128,9 +129,9 @@
 
   .screen-subtitle {
     font-family: var(--font-display);
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 600;
-    letter-spacing: -1.5px;
+    letter-spacing: 0px;
     margin: 18px 0 28px;
     text-align: center;
 
@@ -372,15 +373,23 @@
   .top-info .player-name,
   .bottom-info .player-name { display: none; }
 
-  .message {
+ .message {
     position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    font-size: 13px;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
     font-weight: 800;
+    font-family: var(--font-display);
     white-space: nowrap;
     opacity: 0;
     transition: opacity .15s;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .message.show {
+    opacity: 1;
   }
 
   .message.top { top: 24%; }
@@ -389,12 +398,28 @@
 
   .game-score {
     position: absolute;
+    right: 14px;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 11px;
-    color: var(--color-neutral-border);
-    letter-spacing: 1px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: var(--color-ink);
+    z-index: 4;
+  }
+
+  .game-score span {
+    display: block;
+    line-height: 1;
+  }
+
+  .score-separator {
+    font-size: 10px;
+    color: var(--color-placeholder);
   }
 
   .quit {
@@ -584,9 +609,12 @@
           <div class="player-name" id="opponentName">Adversaire</div>
           <div class="percentage" id="opponentPercentage">—</div>
         </div>
-        <div id="topMessage" class="message top"></div>
-        <div id="bottomMessage" class="message bottom"></div>
-        <div class="game-score" id="gameScore">0 — 0</div>
+        <div id="gameMessage" class="message"></div>
+        <div class="game-score">
+    <span id="scoreOpponent">0</span>
+    <span class="score-separator">—</span>
+    <span id="scorePlayer">0</span>
+        </div>
         <div class="bottom-info">
           <div class="percentage" id="playerPercentage">—</div>
           <div class="player-name" id="playerName">Joueur</div>
@@ -669,8 +697,8 @@ const DEFAULT_CAMP_COLORS = {
 };
 
 const DEFAULT_PADDLE_CONFIG = {
-  width: 105,
-  height: 12,
+  width: 70,
+  height: 14,
   border: 1.5
 };
 
@@ -762,7 +790,7 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
 const FONT_TEXT = "'Outfit', sans-serif";
-const FONT_DISPLAY = "'Syne', sans-serif";
+const FONT_DISPLAY = "'Sora', sans-serif";
 
 let mode = "quick";
 let selectedCamp = CAMPS[0].id;
@@ -789,7 +817,7 @@ let pendingCampaignContinue = null;
 const AI_LINE = 0.28;
 const PLAYER_LINE = 0.72;
 const GOAL_MARGIN = 70;
-const AVATAR_RADIUS = 15;
+const AVATAR_RADIUS = 25;
 
 const ball = { x: 0, y: 0, vx: 0, vy: 0, radius: 5, speed: 340 };
 const playerPaddle = { x: 0, y: 0, width: paddleConfig.width, height: paddleConfig.height, color: "#fff" };
@@ -956,7 +984,8 @@ function beginMatch(playerCandidate, opponentCandidate, matchMode) {
 
   document.getElementById("opponentName").textContent = opponentName;
   document.getElementById("playerName").textContent = playerName;
-  document.getElementById("gameScore").textContent = "0 — 0";
+  document.getElementById("scoreOpponent").textContent = "0";
+  document.getElementById("scorePlayer").textContent = "0";
 
   updatePercentages();
   setupGame();
@@ -1245,14 +1274,17 @@ function scorePoint(who) {
 
   if (who === "player") {
     playerScore++;
-    showMessage("player", randomMessage());
+    const color = currentPlayerCandidate ? (campColors[currentPlayerCandidate.camp] || "#111") : "#111";
+    showMessage(randomMessage(), color);
   } else {
     opponentScore++;
-    showMessage("ai", randomMessage());
+    const color = currentOpponentCandidate ? (campColors[currentOpponentCandidate.camp] || "#111") : "#111";
+    showMessage(randomMessage(), color);
   }
 
   updatePercentages();
-  document.getElementById("gameScore").textContent = `${playerScore} — ${opponentScore}`;
+  document.getElementById("scoreOpponent").textContent = opponentScore;
+  document.getElementById("scorePlayer").textContent = playerScore;
 
   if (playerScore >= WINNING_SCORE || opponentScore >= WINNING_SCORE) {
     endGame();
@@ -1283,19 +1315,22 @@ function updatePercentages() {
 function formatPercentage(v) { return v.toFixed(1).replace(".", ",") + " %"; }
 function randomMessage() { return messages[Math.floor(Math.random() * messages.length)]; }
 
-function showMessage(side, text) {
-  const topMessage = document.getElementById("topMessage");
-  const bottomMessage = document.getElementById("bottomMessage");
-  topMessage.classList.remove("show");
-  bottomMessage.classList.remove("show");
+function showMessage(text, color) {
+  const el = document.getElementById("gameMessage");
+  if (!el) return;
 
-  const element = side === "player" ? bottomMessage : topMessage;
-  element.textContent = text;
-  void element.offsetWidth;
-  element.classList.add("show");
+  el.textContent = text;
+  el.style.color = color;
+
+  // Réinitialise la transition
+  el.classList.remove("show");
+  void el.offsetWidth;
+  el.classList.add("show");
 
   clearTimeout(messageTimeout);
-  messageTimeout = setTimeout(() => { element.classList.remove("show"); }, 1100);
+  messageTimeout = setTimeout(() => {
+    el.classList.remove("show");
+  }, 1200);
 }
 
 function draw() {
@@ -1317,23 +1352,43 @@ function draw() {
   ctx.stroke();
   ctx.setLineDash([]);
 
-  drawPaddle(aiPaddle);
+ drawPaddle(aiPaddle);
   drawPaddle(playerPaddle);
 
-  drawPaddleName(opponentName, aiPaddle, aiPaddle.y - aiPaddle.height / 2 - 11, width);
-  drawPaddleName(playerName, playerPaddle, playerPaddle.y + playerPaddle.height / 2 + 22, width);
+  // --- ADVERSAIRE / IA (EN HAUT) ---
+  // Ordre de haut en bas : Nom -> Avatar -> Raquette
+  
+  // 1. Position de l'avatar (au-dessus de la raquette IA)
+  const aiAvatarX = aiPaddle.x + aiPaddle.width / 2;
+  const aiAvatarY = aiPaddle.y - aiPaddle.height / 2 - 12 - AVATAR_RADIUS;
 
   drawCanvasAvatar(
     currentOpponentAvatar, currentOpponentCandidate,
-    width / 2, aiPaddle.y - aiPaddle.height / 2 - 11 - 10 - AVATAR_RADIUS,
+    aiAvatarX, aiAvatarY,
     AVATAR_RADIUS, currentOpponentCandidate ? (campColors[currentOpponentCandidate.camp] || "#111") : "#111"
   );
 
+  // 2. Nom de l'IA placé AU-DESSUS de son avatar (avec 'isTop = true')
+  const aiNameY = aiAvatarY - AVATAR_RADIUS - 12;
+  drawPaddleName(opponentName, aiPaddle, aiNameY, width, true);
+
+
+  // --- JOUEUR (EN BAS) ---
+  // Ordre de haut en bas : Raquette -> Avatar -> Nom
+
+  // 1. Position de l'avatar (en dessous de la raquette joueur)
+  const playerAvatarX = playerPaddle.x + playerPaddle.width / 2;
+  const playerAvatarY = playerPaddle.y + playerPaddle.height / 2 + 12 + AVATAR_RADIUS;
+
   drawCanvasAvatar(
     currentPlayerAvatar, currentPlayerCandidate,
-    width / 2, playerPaddle.y + playerPaddle.height / 2 + 22 + 10 + AVATAR_RADIUS,
+    playerAvatarX, playerAvatarY,
     AVATAR_RADIUS, currentPlayerCandidate ? (campColors[currentPlayerCandidate.camp] || "#111") : "#111"
   );
+
+  // 2. Nom du joueur placé SOUS son avatar (avec 'isTop = false')
+  const playerNameY = playerAvatarY + AVATAR_RADIUS + 12;
+  drawPaddleName(playerName, playerPaddle, playerNameY, width, false);
 
   ctx.beginPath();
   ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
@@ -1341,17 +1396,50 @@ function draw() {
   ctx.fill();
 }
 
-function drawPaddleName(name, paddle, y, width) {
+function drawPaddleName(name, paddle, y, width, isTop) {
   if (!name) return;
-  ctx.font = "800 13px " + FONT_DISPLAY;
+  
+  // Nettoie les espaces multiples et inutiles en début/fin
+  const cleanName = name.trim().replace(/\s+/g, ' ');
+  
+  // Isole le prénom (premier mot) et le nom de famille (le reste)
+  const firstSpaceIndex = cleanName.indexOf(' ');
+  let lines = [];
+  
+  if (firstSpaceIndex !== -1) {
+    lines = [
+      cleanName.substring(0, firstSpaceIndex),
+      cleanName.substring(firstSpaceIndex + 1)
+    ];
+  } else {
+    lines = [cleanName];
+  }
+
+  ctx.font = "800 10px " + FONT_DISPLAY;
   ctx.textAlign = "center";
-  ctx.textBaseline = "alphabetic";
+  const lineHeight = 13;
 
-  const half = ctx.measureText(name).width / 2;
-  const x = Math.max(half + 10, Math.min(width - half - 10, paddle.x + paddle.width / 2));
+  if (isTop) {
+    ctx.textBaseline = "bottom";
+    lines.slice().reverse().forEach((line, index) => {
+      const half = ctx.measureText(line).width / 2;
+      const x = Math.max(half + 10, Math.min(width - half - 10, paddle.x + paddle.width / 2));
+      const lineY = y - index * lineHeight;
 
-  ctx.fillStyle = "#111";
-  ctx.fillText(name, x, y);
+      ctx.fillStyle = "#111";
+      ctx.fillText(line, x, lineY);
+    });
+  } else {
+    ctx.textBaseline = "top";
+    lines.forEach((line, index) => {
+      const half = ctx.measureText(line).width / 2;
+      const x = Math.max(half + 10, Math.min(width - half - 10, paddle.x + paddle.width / 2));
+      const lineY = y + index * lineHeight;
+
+      ctx.fillStyle = "#111";
+      ctx.fillText(line, x, lineY);
+    });
+  }
 }
 
 function drawCanvasAvatar(img, candidate, x, y, radius, ringColor) {
@@ -1362,7 +1450,27 @@ function drawCanvasAvatar(img, candidate, x, y, radius, ringColor) {
 
   if (img && img.complete && img.naturalWidth > 0) {
     ctx.clip();
-    ctx.drawImage(img, x - radius, y - radius, radius * 2, radius * 2);
+
+    // Calcul du ratio pour l'effet "object-fit: cover"
+    const size = radius * 2;
+    const imgRatio = img.naturalWidth / img.naturalHeight;
+    let renderW, renderH, offsetX, offsetY;
+
+    if (imgRatio > 1) {
+      // L'image est plus large que haute
+      renderH = size;
+      renderW = size * imgRatio;
+    } else {
+      // L'image est plus haute que large
+      renderW = size;
+      renderH = size / imgRatio;
+    }
+
+    // Centrage de l'image dans le cercle
+    offsetX = x - renderW / 2;
+    offsetY = y - renderH / 2;
+
+    ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
   } else {
     ctx.fillStyle = ringColor;
     ctx.fill();
@@ -1374,6 +1482,7 @@ function drawCanvasAvatar(img, candidate, x, y, radius, ringColor) {
   }
   ctx.restore();
 
+  // Contour en cercle
   ctx.beginPath();
   ctx.arc(x, y, radius, 0, Math.PI * 2);
   ctx.strokeStyle = ringColor;
@@ -1383,7 +1492,8 @@ function drawCanvasAvatar(img, candidate, x, y, radius, ringColor) {
 
 function drawPaddle(paddle) {
   ctx.beginPath();
-  roundedRect(ctx, paddle.x, paddle.y - paddle.height / 2, paddle.width, paddle.height, 5);
+  // Le dernier paramètre (ici 5) est le rayon des coins arrondis (border-radius)
+  roundedRect(ctx, paddle.x, paddle.y - paddle.height / 2, paddle.width, paddle.height, 7);
   ctx.fillStyle = paddle.color || "#fff";
   ctx.fill();
 
