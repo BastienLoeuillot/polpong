@@ -7,7 +7,36 @@
 
 <title>DÉBAT</title>
 
+<!-- Import Google Fonts: Syne (Titres/Noms) & Outfit (Texte courant) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+
 <style>
+  :root {
+    --font-text: 'Outfit', sans-serif;
+    --font-display: 'Syne', sans-serif;
+
+    --color-bg: #fff;
+    --color-ink: #111;
+    --color-muted: #777;
+    --color-muted-2: #666;
+    --color-placeholder: #888;
+    --color-border-light: #ddd;
+    --color-border-lighter: #eee;
+    --color-neutral-border: #ccc;
+    --color-surface-muted: #f5f5f5;
+  }
+
+  /* Force le préchargement des polices */
+  body::after {
+    content: "Preload Fonts";
+    font-family: var(--font-display);
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+
   * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
@@ -18,9 +47,9 @@
     margin: 0;
     width: 100%;
     min-height: 100%;
-    background: #fff;
-    color: #111;
-    font-family: Arial, Helvetica, sans-serif;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-text);
   }
 
   body {
@@ -30,7 +59,8 @@
   }
 
   button,
-  select {
+  select,
+  input {
     font: inherit;
   }
 
@@ -39,7 +69,7 @@
     max-width: 460px;
     min-height: 100vh;
     position: relative;
-    background: #fff;
+    background: var(--color-bg);
   }
 
   .screen {
@@ -51,103 +81,59 @@
     display: none !important;
   }
 
-
   /* =====================================================
-     ACCUEIL
+     AVATARS EN CERCLE
   ===================================================== */
 
-  .home {
+  .avatar-circle {
+    border-radius: 50%;
+    border: 2px solid var(--color-ink);
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  .logo {
-    font-size: 48px;
-    font-weight: 900;
-    letter-spacing: -4px;
-    line-height: 1;
-    margin-top: 12px;
-  }
-
-  .subtitle {
-    margin-top: 8px;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: #777;
-  }
-
-  .home-spacer {
-    flex: 1;
-    min-height: 80px;
-  }
-
-  .stats-title {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 700;
-    margin-bottom: 12px;
-  }
-
-  .stats {
-    border-top: 1px solid #111;
-  }
-
-  .stat {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    min-height: 54px;
-    border-bottom: 1px solid #ddd;
-    font-size: 14px;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
   }
 
-  .stat-label {
-    color: #666;
-  }
-
-  .stat-value {
-    font-weight: 700;
-    text-align: right;
-    max-width: 60%;
-  }
-
-  .main-button {
+  .avatar-circle img {
     width: 100%;
-    border: 0;
-    background: #111;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .avatar-initials {
+    font-family: var(--font-display);
     color: #fff;
-    border-radius: 8px;
-    padding: 17px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 24px;
-    transition:
-      opacity .15s,
-      transform .1s;
+    font-weight: 800;
+    text-align: center;
+    line-height: 1;
+    user-select: none;
   }
-
-  .main-button:hover {
-    opacity: .82;
-  }
-
-  .main-button:active {
-    transform: scale(.98);
-  }
-
 
   /* =====================================================
-     SÉLECTION
+     ACCUEIL / SÉLECTION
   ===================================================== */
 
   .screen-title {
+    font-family: var(--font-display);
     font-size: 30px;
     font-weight: 900;
     letter-spacing: -1.5px;
-    margin: 18px 0 32px;
+    margin: 18px 0 28px;
+    text-align: center;
+
+ }
+
+  .screen-subtitle {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -1.5px;
+    margin: 18px 0 28px;
+    text-align: center;
+
   }
 
   .selection-label {
@@ -155,25 +141,31 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.4px;
-    color: #777;
+    color: var(--color-muted);
     margin-bottom: 9px;
   }
 
   .select-box {
     position: relative;
-    margin-bottom: 28px;
+    margin-bottom: 22px;
+    width: 100%;
   }
 
   select {
     appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     width: 100%;
-    background: #fff;
-    border: 1px solid #111;
+    background: var(--color-bg);
+    border: 1px solid var(--color-ink);
     border-radius: 8px;
     padding: 16px 42px 16px 15px;
     font-size: 16px;
     font-weight: 600;
+    color: var(--color-ink);
     cursor: pointer;
+    position: relative;
+    z-index: 2;
   }
 
   .select-arrow {
@@ -182,26 +174,21 @@
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
-    font-size: 16px;
-  }
-
-  .versus {
-    text-align: center;
-    font-size: 12px;
-    font-weight: 900;
-    letter-spacing: 2px;
-    margin: -13px 0 28px;
+    font-size: 14px;
+    z-index: 1;
+    color: var(--color-ink);
   }
 
   .difficulty {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 7px;
+    margin-bottom: 8px;
   }
 
   .difficulty button {
-    border: 1px solid #ccc;
-    background: #fff;
+    border: 1px solid var(--color-neutral-border);
+    background: var(--color-bg);
     border-radius: 7px;
     padding: 12px 5px;
     cursor: pointer;
@@ -210,22 +197,118 @@
   }
 
   .difficulty button.active {
-    background: #111;
-    border-color: #111;
-    color: #fff;
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-bg);
   }
 
-  .back-button {
-    margin-top: 12px;
+  .mode-toggle {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 7px;
+    margin-bottom: 22px;
+  }
+
+  .mode-toggle button {
+    border: 1px solid var(--color-neutral-border);
+    background: var(--color-bg);
+    border-radius: 7px;
+    padding: 14px 6px;
+    cursor: pointer;
+    font-size: 11.5px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .mode-toggle button.active {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-bg);
+  }
+
+  .info-box {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-muted-2);
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 14px;
+    margin: -6px 0 24px;
+  }
+
+  .candidate-preview-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: -8px 0 22px;
+  }
+
+  .candidate-preview-name {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 800;
+  }
+
+  .candidate-preview-camp {
+    font-size: 12px;
+    color: var(--color-placeholder);
+    margin-top: 2px;
+  }
+
+  .main-button {
     width: 100%;
     border: 0;
-    background: transparent;
-    padding: 12px;
-    font-size: 13px;
-    color: #666;
+    background: var(--color-ink);
+    color: var(--color-bg);
+    border-radius: 8px;
+    padding: 17px;
+    font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
+    margin-top: 24px;
+    transition: opacity .15s, transform .1s;
   }
 
+  .main-button:hover { opacity: .82; }
+  .main-button:active { transform: scale(.98); }
+
+  .secondary-button {
+    width: 100%;
+    border: 1px solid var(--color-ink);
+    background: var(--color-bg);
+    color: var(--color-ink);
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 9px;
+  }
+
+  .secondary-button:hover { background: var(--color-surface-muted); }
+
+  .stats-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    margin-top: 24px;
+    margin-bottom: 12px;
+  }
+
+  .stats { border-top: 1px solid var(--color-ink); }
+
+  .stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 54px;
+    border-bottom: 1px solid var(--color-border-light);
+    font-size: 14px;
+  }
+
+  .stat-label { color: var(--color-muted-2); }
+  .stat-value { font-weight: 700; text-align: right; max-width: 60%; }
 
   /* =====================================================
      JEU
@@ -237,7 +320,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fff;
+    background: var(--color-bg);
   }
 
   .game-wrapper {
@@ -246,7 +329,7 @@
     max-height: 100vh;
     position: relative;
     overflow: hidden;
-    background: #fff;
+    background: var(--color-bg);
     touch-action: none;
   }
 
@@ -263,8 +346,6 @@
     pointer-events: none;
   }
 
-  /* Nom + score IA */
-
   .top-info {
     position: absolute;
     top: 20px;
@@ -272,8 +353,6 @@
     right: 0;
     text-align: center;
   }
-
-  /* Nom + score joueur */
 
   .bottom-info {
     position: absolute;
@@ -283,31 +362,15 @@
     text-align: center;
   }
 
-  .player-name {
-    font-size: 15px;
-    font-weight: 800;
-  }
-
   .percentage {
     margin-top: 4px;
     font-size: 12px;
-    color: #777;
+    color: var(--color-muted);
     font-weight: 600;
   }
 
-  .bottom-info .player-name {
-    margin-top: 4px;
-  }
-
-  /* Les noms sont dessinés sur le canvas,
-     sous les raquettes. */
-
   .top-info .player-name,
-  .bottom-info .player-name {
-    display: none;
-  }
-
-  /* Messages */
+  .bottom-info .player-name { display: none; }
 
   .message {
     position: absolute;
@@ -320,19 +383,9 @@
     transition: opacity .15s;
   }
 
-  .message.top {
-    top: 24%;
-  }
-
-  .message.bottom {
-    bottom: 24%;
-  }
-
-  .message.show {
-    opacity: 1;
-  }
-
-  /* Score central */
+  .message.top { top: 24%; }
+  .message.bottom { bottom: 24%; }
+  .message.show { opacity: 1; }
 
   .game-score {
     position: absolute;
@@ -340,11 +393,9 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 11px;
-    color: #bbb;
+    color: var(--color-neutral-border);
     letter-spacing: 1px;
   }
-
-  /* Quitter */
 
   .quit {
     position: absolute;
@@ -353,12 +404,28 @@
     border: 0;
     background: transparent;
     font-size: 18px;
-    color: #aaa;
+    color: var(--color-placeholder);
     cursor: pointer;
     z-index: 10;
     pointer-events: auto;
   }
 
+  /* =====================================================
+     TRANSITION CAMPAGNE
+  ===================================================== */
+
+  .campaign-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 8px;
+    border-bottom: 1px solid var(--color-border-lighter);
+    border-radius: 8px;
+  }
+
+  .campaign-row.highlight { background: var(--color-surface-muted); }
+  .campaign-row-name { font-family: var(--font-display); font-size: 14px; font-weight: 800; }
+  .campaign-row-label { font-size: 11px; color: var(--color-placeholder); margin-top: 2px; }
 
   /* =====================================================
      RÉSULTAT
@@ -376,15 +443,16 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 700;
-    color: #777;
+    color: var(--color-muted);
   }
 
   .winner {
+    font-family: var(--font-display);
     margin-top: 18px;
-    font-size: 38px;
+    font-size: 34px;
     font-weight: 900;
-    line-height: 1;
-    letter-spacing: -2px;
+    line-height: 1.15;
+    letter-spacing: -1.5px;
   }
 
   .result-score {
@@ -395,511 +463,220 @@
 
   .result-percentages {
     margin-top: 40px;
-    border-top: 1px solid #111;
+    border-top: 1px solid var(--color-ink);
   }
 
   .result-row {
     display: flex;
     justify-content: space-between;
     padding: 18px 0;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--color-border-light);
     font-size: 14px;
   }
 
-  .result-row strong {
-    font-size: 16px;
-  }
-
-  .result-buttons {
-    margin-top: auto;
-    padding-bottom: 24px;
-  }
-
-  .secondary-button {
-    width: 100%;
-    border: 1px solid #111;
-    background: #fff;
-    color: #111;
-    border-radius: 8px;
-    padding: 16px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 9px;
-  }
-
-  .secondary-button:hover {
-    background: #f5f5f5;
-  }
-
+  .result-row strong { font-size: 16px; }
+  .result-buttons { margin-top: auto; padding-bottom: 24px; }
 
   /* =====================================================
-     DESKTOP
+     TOAST
   ===================================================== */
 
-  @media (min-width: 600px) {
-
-    .game-wrapper {
-      height: min(820px, 100vh);
-    }
-
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    transform: translate(-50%, 12px);
+    background: var(--color-ink);
+    color: var(--color-bg);
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s, transform .2s;
+    z-index: 50;
+    max-width: 90vw;
+    text-align: center;
   }
 
+  .toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 </style>
 </head>
-
 
 <body>
 
 <div class="app">
 
-
-  <!-- ===================================================
-       ACCUEIL
-  =================================================== -->
-
-  <section id="homeScreen" class="screen home">
-
-    <div>
-
-      <div class="logo">
-        DÉBAT
-      </div>
-
-      <div class="subtitle">
-        Le duel présidentiel
-      </div>
-
-    </div>
-
-
-    <div class="home-spacer"></div>
-
-
-    <div>
-
-      <div class="stats-title">
-        Vos statistiques
-      </div>
-
-
-      <div class="stats">
-
-        <div class="stat">
-          <span class="stat-label">
-            Parties
-          </span>
-
-          <span
-            class="stat-value"
-            id="statGames">
-            0
-          </span>
-        </div>
-
-
-        <div class="stat">
-          <span class="stat-label">
-            Victoires
-          </span>
-
-          <span
-            class="stat-value"
-            id="statWins">
-            0
-          </span>
-        </div>
-
-
-        <div class="stat">
-          <span class="stat-label">
-            Défaites
-          </span>
-
-          <span
-            class="stat-value"
-            id="statLosses">
-            0
-          </span>
-        </div>
-
-
-        <div class="stat">
-          <span class="stat-label">
-            Taux de victoire
-          </span>
-
-          <span
-            class="stat-value"
-            id="statWinRate">
-            —
-          </span>
-        </div>
-
-
-        <div class="stat">
-          <span class="stat-label">
-            Personnage préféré
-          </span>
-
-          <span
-            class="stat-value"
-            id="statFavorite">
-            —
-          </span>
-        </div>
-
-
-        <div class="stat">
-          <span class="stat-label">
-            Plus affronté
-          </span>
-
-          <span
-            class="stat-value"
-            id="statOpponent">
-            —
-          </span>
-        </div>
-
-      </div>
-
-
-      <button
-        class="main-button"
-        onclick="showSelection()">
-
-        JOUER
-
-      </button>
-
-    </div>
-
-  </section>
-
-
-
   <!-- ===================================================
        SÉLECTION
   =================================================== -->
+  <section id="selectionScreen" class="screen">
 
-  <section
-    id="selectionScreen"
-    class="screen hidden">
+    <div class="screen-title">POL-PONG</div>
+    <div class="screen-subtitle">La campagne présidentielle vous ennuie ? <br> Jouez-la au pong</div>
 
-    <div class="screen-title">
-      CHOISIS TON DÉBAT
+    <div class="selection-label">Mode de jeu</div>
+    <div class="mode-toggle">
+      <button id="quickModeButton" class="active" onclick="setMode('quick')">PARTIE RAPIDE</button>
+      <button id="campaignModeButton" onclick="setMode('campaign')">CAMPAGNE PRÉSIDENTIELLE</button>
     </div>
 
-
-    <div class="selection-label">
-      Votre candidat
+    <div id="campaignInfo" class="info-box hidden">
+      Vous vous présentez à la présidentielle. Choisissez votre camp et amenez votre candidat jusqu'à la victoire finale !
     </div>
 
-
+    <div class="selection-label">Votre camp</div>
     <div class="select-box">
+      <select id="campSelect" onchange="setCamp(this.value)"></select>
+      <div class="select-arrow">▼</div>
+    </div>
 
-      <select id="playerSelect"></select>
+    <div class="selection-label">Votre candidat</div>
+    <div class="select-box">
+      <select id="playerSelect" onchange="updateCandidatePreview()"></select>
+      <div class="select-arrow">▼</div>
+    </div>
 
-      <div class="select-arrow">
-        ⌄
+    <div class="candidate-preview-row" id="candidatePreviewRow"></div>
+
+    <div id="difficultyBlock">
+      <div class="selection-label">Difficulté</div>
+      <div class="difficulty">
+        <button id="easyButton" class="active" onclick="setDifficulty('easy')">FACILE</button>
+        <button id="normalButton" onclick="setDifficulty('normal')">NORMAL</button>
+        <button id="hardButton" onclick="setDifficulty('hard')">DIFFICILE</button>
       </div>
-
     </div>
 
+    <button class="main-button" id="startButton" onclick="startGame()">JOUER</button>
 
-    <div class="versus">
-      VS
+    <div class="stats-title">Vos statistiques</div>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-label">Parties</span>
+        <span class="stat-value" id="statGames">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Taux de victoire</span>
+        <span class="stat-value" id="statWinRate">—</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Candidat préféré</span>
+        <span class="stat-value" id="statFavorite">—</span>
+      </div>
     </div>
-
-
-    <div class="selection-label">
-      Difficulté
-    </div>
-
-
-    <div class="difficulty">
-
-      <button
-        id="easyButton"
-        class="active"
-        onclick="setDifficulty('easy')">
-
-        FACILE
-
-      </button>
-
-
-      <button
-        id="normalButton"
-        onclick="setDifficulty('normal')">
-
-        NORMAL
-
-      </button>
-
-
-      <button
-        id="hardButton"
-        onclick="setDifficulty('hard')">
-
-        DIFFICILE
-
-      </button>
-
-    </div>
-
-
-    <button
-      class="main-button"
-      onclick="startGame()">
-
-      JOUER
-
-    </button>
-
-
-    <button
-      class="back-button"
-      onclick="showHome()">
-
-      ← Retour
-
-    </button>
 
   </section>
-
-
 
   <!-- ===================================================
        JEU
   =================================================== -->
-
-  <section
-    id="gameScreen"
-    class="hidden">
-
+  <section id="gameScreen" class="hidden">
     <div class="game-wrapper">
-
-
       <canvas id="gameCanvas"></canvas>
-
-
-      <button
-        class="quit"
-        onclick="quitGame()">
-
-        ×
-
-      </button>
-
-
+      <button class="quit" onclick="quitGame()">×</button>
       <div class="game-ui">
-
-
-        <!-- IA -->
-
         <div class="top-info">
-
-          <div
-            class="player-name"
-            id="opponentName">
-
-            Adversaire
-
-          </div>
-
-
-          <div
-            class="percentage"
-            id="opponentPercentage">
-
-            —
-
-          </div>
-
+          <div class="player-name" id="opponentName">Adversaire</div>
+          <div class="percentage" id="opponentPercentage">—</div>
         </div>
-
-
-        <!-- Message IA -->
-
-        <div
-          id="topMessage"
-          class="message top">
-        </div>
-
-
-        <!-- Message joueur -->
-
-        <div
-          id="bottomMessage"
-          class="message bottom">
-        </div>
-
-
-        <!-- Score central -->
-
-        <div
-          class="game-score"
-          id="gameScore">
-
-          0 — 0
-
-        </div>
-
-
-        <!-- JOUEUR -->
-
+        <div id="topMessage" class="message top"></div>
+        <div id="bottomMessage" class="message bottom"></div>
+        <div class="game-score" id="gameScore">0 — 0</div>
         <div class="bottom-info">
-
-          <div
-            class="percentage"
-            id="playerPercentage">
-
-            —
-
-          </div>
-
-
-          <div
-            class="player-name"
-            id="playerName">
-
-            Joueur
-
-          </div>
-
+          <div class="percentage" id="playerPercentage">—</div>
+          <div class="player-name" id="playerName">Joueur</div>
         </div>
-
-
       </div>
-
     </div>
-
   </section>
 
-
+  <!-- ===================================================
+       TRANSITION CAMPAGNE
+  =================================================== -->
+  <section id="campaignTransitionScreen" class="screen hidden">
+    <div class="result-title" id="campaignTransitionTitle">Résultats</div>
+    <div style="margin-top:14px;font-size:14px;color:#555;line-height:1.5;" id="campaignTransitionIntro"></div>
+    <div style="margin-top:22px;" id="campaignTransitionList"></div>
+    <button class="main-button" id="campaignTransitionButton" onclick="continueCampaignTransition()">CONTINUER</button>
+    <button class="secondary-button" onclick="showSelection()">MENU</button>
+  </section>
 
   <!-- ===================================================
        RÉSULTAT
   =================================================== -->
-
-  <section
-    id="resultScreen"
-    class="screen result hidden">
-
-
-    <div class="result-title">
-      Élection terminée
-    </div>
-
-
-    <div
-      class="winner"
-      id="winnerName">
-
-      —
-
-    </div>
-
-
-    <div
-      class="result-score"
-      id="finalScore">
-
-      —
-
-    </div>
-
-
+  <section id="resultScreen" class="screen result hidden">
+    <div class="result-title" id="resultStageTitle">Partie terminée</div>
+    <div class="winner" id="winnerName">—</div>
+    <div class="result-score" id="finalScore">—</div>
     <div class="result-percentages">
-
-
       <div class="result-row">
-
-        <span id="resultPlayerName">
-          —
-        </span>
-
-        <strong id="resultPlayerPercent">
-          —
-        </strong>
-
+        <span id="resultPlayerName">—</span>
+        <strong id="resultPlayerPercent">—</strong>
       </div>
-
-
       <div class="result-row">
-
-        <span id="resultOpponentName">
-          —
-        </span>
-
-        <strong id="resultOpponentPercent">
-          —
-        </strong>
-
+        <span id="resultOpponentName">—</span>
+        <strong id="resultOpponentPercent">—</strong>
       </div>
-
-
     </div>
-
-
-    <div class="result-buttons">
-
-
-      <button
-        class="main-button"
-        onclick="showSelection()">
-
-        REJOUER UNE PARTIE
-
-      </button>
-
-
-      <button
-        class="secondary-button"
-        onclick="showHome()">
-
-        ÉCRAN PRINCIPAL
-
-      </button>
-
-
-    </div>
-
+    <div class="result-buttons" id="resultButtons"></div>
   </section>
 
 </div>
 
-
-
 <script>
 
-/* =========================================================
-   PERSONNAGES
-========================================================= */
-
-const characters = [
-
-  "Jean-Luc Mélenchon",
-  "Marine Le Pen",
-  "Jordan Bardella",
-  "Raphaël Glucksmann",
-  "Gabriel Attal",
-  "Édouard Philippe",
-  "Bruno Retailleau",
-  "François Ruffin",
-  "François Hollande"
-
+const CAMPS = [
+  { id: "ps", label: "Primaire socialiste" },
+  { id: "gauche", label: "Reste de la gauche" },
+  { id: "macron", label: "Macroniste" },
+  { id: "rn", label: "Extrême-droite" }
 ];
 
+const DEFAULT_CANDIDATES = [
+  { name: "Raphaël Glucksmann", camp: "ps", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfF-qAE917M_HjvNF5MmJ5iJTrYbHmzO2hRmfSKbVJg2ZDTLKCEyukNrk&s=10" },
+  { name: "Olivier Faure", camp: "ps", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO1wGsMu95qbAxu0q-SGB3zcvfOWAzdJuGnaeSrrZ_rmZPAlFkrHV-LaJ9&s=10" },
+  { name: "Ségolène Royal", camp: "ps", image: "https://photos.tf1.fr/1280/720/en-toute-franchise-segolene-royal-096359-0@3x.webp" },
 
-/* =========================================================
-   MESSAGES
-========================================================= */
+  { name: "Jean-Luc Mélenchon", camp: "gauche", image: "https://images.rtl.fr/~c/2000v2000/rtl/www/1836240-jean-luc-melenchon-avant-le-20h-de-tf1-ou-il-a-annonce-sa-candidature-a-l-election-presidentielle-francaise-de-2027-le-3-mai-2026.jpg" },
+  { name: "François Hollande", camp: "gauche", image: "https://s.yimg.com/lo/mysterio/api/887d3a6fca7a54a7c53e340cea065a18b126b7dc7aa0cb95f1f54a2b49baa973/lightyear_networkapi/resizefit_w960%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Ffr%2Fcapital_268%2Fdc5d595bb483a12e9057b90045032874.jpg" },
+  { name: "Marine Tondelier", camp: "gauche", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ25o3Mj4aW9_KYxWjNvgsPiEWFgpJ-P3gJHbE3RZul-0kVQo1MmIL_qUs&s=10" },
+  { name: "Fabien Roussel", camp: "gauche", image: "https://io-fsly-bfmtv.cdn.nextradiotv.com/2eCVfJZTD0gEi7lgEwpFoYAh5wc=/420x0:1500x1080/1920x0/images/Fabien-Roussel-secretaire-national-du-PCF-invite-de-BFMTV-RMC-le-16-septembre-2026-2348831.jpg" },
+
+  { name: "Édouard Philippe", camp: "macron", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ79nAgMWuM7WvULv1LjHvk3zdcRbB5bMP6tM8apLAhmXYeKTpDGYRc-8Q&s=10" },
+  { name: "Gabriel Attal", camp: "macron", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm5LheOs4GmJQQxB9NuF0HbMol4YOjiVIg4yy4g7x21TWVDJIXlSFVfMZe&s=10" },
+  { name: "Bruno Retailleau", camp: "macron", image: "https://images.rtl.fr/~c/770v513/rtl/www/1743632-bruno-retailleau-a-epinal-le-samedi-22-mars-2025.jpg" },
+
+  { name: "Marine Le Pen", camp: "rn", image: "https://lcp.fr/sites/lcp.fr/files/styles/entete_contenu_1030x570/public/2025-03/Le%20Pen%20TF1.webp?h=33f7e92d&itok=-RfDvkch%201x" },
+  { name: "Jordan Bardella", camp: "rn", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlfPuD9_jg89LNzwMKC-DyAkdS_7Rxigoy0CaB1rD0-ZRsdkYnZR-J1bq_&s=10" },
+  { name: "Éric Zemmour", camp: "rn", image: "https://media1.ledevoir.com/images_galerie/originale_1056087_860745/image.jpg?crop=3%3A2%2Csmart&width=1440" }
+].map((c, i) => ({
+  id: "default-" + i,
+  name: c.name,
+  camp: c.camp,
+  image: c.image
+}));
+
+const DEFAULT_CAMP_COLORS = {
+  ps: "#E4356B",
+  gauche: "#D8232A",
+  macron: "#F2C230",
+  rn: "#1B3A6B"
+};
+
+const DEFAULT_PADDLE_CONFIG = {
+  width: 105,
+  height: 12,
+  border: 1.5
+};
+
+const WINNING_SCORE = 5;
 
 const messages = [
-
   "Menteur.",
   "C'est pas ce que vous disiez.",
   "Vous êtes sûr ?",
@@ -910,2192 +687,876 @@ const messages = [
   "Et un point de plus.",
   "Les Français apprécieront.",
   "Merci pour le point."
-
 ];
 
+let candidates = DEFAULT_CANDIDATES.map(c => Object.assign({}, c));
+let campColors = Object.assign({}, DEFAULT_CAMP_COLORS);
+let paddleConfig = Object.assign({}, DEFAULT_PADDLE_CONFIG);
 
-/* =========================================================
-   DOM
-========================================================= */
+function getCandidatesByCamp(campId) {
+  return candidates.filter(c => c.camp === campId);
+}
 
-const homeScreen =
-  document.getElementById("homeScreen");
+function getCandidateById(id) {
+  return candidates.find(c => c.id === id) || null;
+}
 
-const selectionScreen =
-  document.getElementById("selectionScreen");
+function campLabel(campId) {
+  const camp = CAMPS.find(c => c.id === campId);
+  return camp ? camp.label : campId;
+}
 
-const gameScreen =
-  document.getElementById("gameScreen");
+function initials(name) {
+  if (!name) return "?";
+  return name.split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join("").toUpperCase();
+}
 
-const resultScreen =
-  document.getElementById("resultScreen");
+function buildAvatarElement(candidate, size) {
+  const wrap = document.createElement("div");
+  wrap.className = "avatar-circle";
+  wrap.style.width = size + "px";
+  wrap.style.height = size + "px";
 
-const playerSelect =
-  document.getElementById("playerSelect");
+  const color = candidate ? (campColors[candidate.camp] || "#111") : "#ccc";
+  wrap.style.borderColor = color;
 
-const canvas =
-  document.getElementById("gameCanvas");
+  if (candidate && candidate.image) {
+    const img = document.createElement("img");
+    img.src = candidate.image;
+    wrap.appendChild(img);
+  } else {
+    wrap.style.background = color;
+    const label = document.createElement("div");
+    label.className = "avatar-initials";
+    label.style.fontSize = Math.round(size * 0.25) + "px";
+    label.textContent = candidate ? initials(candidate.name) : "?";
+    wrap.appendChild(label);
+  }
 
-const ctx =
-  canvas.getContext("2d");
+  return wrap;
+}
 
+let toastTimeout = null;
+function showToast(text) {
+  let el = document.getElementById("toast");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "toast";
+    el.className = "toast";
+    document.body.appendChild(el);
+  }
+  el.textContent = text;
+  el.classList.add("show");
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => { el.classList.remove("show"); }, 2400);
+}
 
-/* =========================================================
-   VARIABLES DU JEU
-========================================================= */
+const selectionScreen = document.getElementById("selectionScreen");
+const gameScreen = document.getElementById("gameScreen");
+const campaignTransitionScreen = document.getElementById("campaignTransitionScreen");
+const resultScreen = document.getElementById("resultScreen");
 
+const campSelectEl = document.getElementById("campSelect");
+const playerSelect = document.getElementById("playerSelect");
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+const FONT_TEXT = "'Outfit', sans-serif";
+const FONT_DISPLAY = "'Syne', sans-serif";
+
+let mode = "quick";
+let selectedCamp = CAMPS[0].id;
+let currentMatchMode = "quick";
+let currentPlayerCandidate = null;
+let currentOpponentCandidate = null;
+let currentPlayerAvatar = null;
+let currentOpponentAvatar = null;
 let playerName = "";
 let opponentName = "";
-
 let playerScore = 0;
 let opponentScore = 0;
-
 let difficulty = "easy";
-
 let animationId = null;
-
 let gameRunning = false;
-
 let messageTimeout = null;
-
 let lastTime = 0;
-
 let aiTarget = null;
-
-
-/*
- * Verrou : empêche de marquer
- * plusieurs points sur une seule
- * sortie de balle.
- */
-
 let pointPending = false;
-
-
-/*
- * Minuteur de remise en jeu.
- */
-
 let resetTimeout = null;
-
-
-/* =========================================================
-   GÉOMÉTRIE DU TERRAIN
-========================================================= */
-
-/*
- * Position des raquettes, en fraction
- * de la hauteur du terrain.
- * Plus les deux valeurs sont proches
- * de 0.5, plus le jeu est nerveux.
- */
+let campaign = null;
+let pendingCampaignContinue = null;
 
 const AI_LINE = 0.28;
-
 const PLAYER_LINE = 0.72;
-
-
-/*
- * Distance derrière une raquette
- * avant que le point soit accordé.
- */
-
 const GOAL_MARGIN = 70;
+const AVATAR_RADIUS = 15;
 
-
-/* =========================================================
-   BALLE
-========================================================= */
-
-const ball = {
-
-  x: 0,
-  y: 0,
-
-  vx: 0,
-  vy: 0,
-
-  radius: 5,
-
-  speed: 340
-
-};
-
-
-/* =========================================================
-   RAQUETTES
-========================================================= */
-
-const playerPaddle = {
-
-  x: 0,
-  y: 0,
-
-  width: 105,
-  height: 12
-
-};
-
-
-const aiPaddle = {
-
-  x: 0,
-  y: 0,
-
-  width: 105,
-  height: 12
-
-};
-
-
-/* =========================================================
-   DIFFICULTÉS
-========================================================= */
+const ball = { x: 0, y: 0, vx: 0, vy: 0, radius: 5, speed: 340 };
+const playerPaddle = { x: 0, y: 0, width: paddleConfig.width, height: paddleConfig.height, color: "#fff" };
+const aiPaddle = { x: 0, y: 0, width: paddleConfig.width, height: paddleConfig.height, color: "#fff" };
 
 const difficultySettings = {
-
-  easy: {
-
-    speed: 3.0,
-    reaction: 0.72
-
-  },
-
-  normal: {
-
-    speed: 4.2,
-    reaction: 0.88
-
-  },
-
-  hard: {
-
-    speed: 5.6,
-    reaction: 0.98
-
-  }
-
+  easy: { speed: 3.0, reaction: 0.72 },
+  normal: { speed: 4.2, reaction: 0.88 },
+  hard: { speed: 5.6, reaction: 0.98 }
 };
 
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
 function hideAllScreens() {
-
-  homeScreen.classList.add("hidden");
-
   selectionScreen.classList.add("hidden");
-
   gameScreen.classList.add("hidden");
-
+  campaignTransitionScreen.classList.add("hidden");
   resultScreen.classList.add("hidden");
-
 }
-
-
-function showHome() {
-
-  stopGame();
-
-  hideAllScreens();
-
-  homeScreen.classList.remove("hidden");
-
-  updateStatsUI();
-
-}
-
 
 function showSelection() {
-
   stopGame();
-
+  campaign = null;
   hideAllScreens();
-
   selectionScreen.classList.remove("hidden");
 
-  populateCharacters();
+  populateCampSelect();
+  if (!CAMPS.some(c => c.id === selectedCamp)) {
+    selectedCamp = CAMPS[0].id;
+  }
+  campSelectEl.value = selectedCamp;
 
+  populateCandidateSelect();
+  setMode(mode);
+  updateStatsUI();
 }
-
 
 function showGame() {
-
   hideAllScreens();
-
   gameScreen.classList.remove("hidden");
-
   resizeCanvas();
-
 }
-
 
 function showResult() {
-
   stopGame();
-
   hideAllScreens();
-
   resultScreen.classList.remove("hidden");
-
 }
 
+function populateCampSelect() {
+  campSelectEl.innerHTML = "";
+  CAMPS.forEach(camp => {
+    const option = document.createElement("option");
+    option.value = camp.id;
+    option.textContent = camp.label;
+    campSelectEl.appendChild(option);
+  });
+}
 
-/* =========================================================
-   PERSONNAGE JOUEUR
-========================================================= */
+function setCamp(campId) {
+  selectedCamp = campId;
+  populateCandidateSelect();
+}
 
-function populateCharacters() {
-
-  const previous =
-    playerSelect.value;
-
+function populateCandidateSelect() {
+  const list = getCandidatesByCamp(selectedCamp);
   playerSelect.innerHTML = "";
 
-  characters.forEach(character => {
-
-    const option =
-      document.createElement("option");
-
-    option.value = character;
-
-    option.textContent = character;
-
+  list.forEach(candidate => {
+    const option = document.createElement("option");
+    option.value = candidate.id;
+    option.textContent = candidate.name;
     playerSelect.appendChild(option);
-
   });
 
-  if (characters.includes(previous)) {
-
-    playerSelect.value =
-      previous;
-
+  if (list.length > 0) {
+    playerSelect.value = list[0].id;
   }
 
+  updateCandidatePreview();
 }
 
+function updateCandidatePreview() {
+  const el = document.getElementById("candidatePreviewRow");
+  el.innerHTML = "";
 
-/* =========================================================
-   DIFFICULTÉ
-========================================================= */
+  const candidate = getCandidateById(playerSelect.value);
+  if (!candidate) return;
+
+  el.appendChild(buildAvatarElement(candidate, 52));
+
+  const info = document.createElement("div");
+  const name = document.createElement("div");
+  name.className = "candidate-preview-name";
+  name.textContent = candidate.name;
+
+  const camp = document.createElement("div");
+  camp.className = "candidate-preview-camp";
+  camp.textContent = campLabel(candidate.camp);
+
+  info.appendChild(name);
+  info.appendChild(camp);
+  el.appendChild(info);
+}
+
+function setMode(newMode) {
+  mode = newMode;
+  document.getElementById("quickModeButton").classList.toggle("active", mode === "quick");
+  document.getElementById("campaignModeButton").classList.toggle("active", mode === "campaign");
+  document.getElementById("difficultyBlock").classList.toggle("hidden", mode === "campaign");
+  document.getElementById("campaignInfo").classList.toggle("hidden", mode !== "campaign");
+  document.getElementById("startButton").textContent = mode === "campaign" ? "LANCER LA CAMPAGNE" : "JOUER";
+}
 
 function setDifficulty(level) {
-
   difficulty = level;
-
-  document
-    .querySelectorAll(".difficulty button")
-    .forEach(button => {
-
-      button.classList.remove("active");
-
-    });
-
-
-  document
-    .getElementById(level + "Button")
-    .classList.add("active");
-
+  document.querySelectorAll(".difficulty button").forEach(b => b.classList.remove("active"));
+  document.getElementById(level + "Button").classList.add("active");
 }
-
-
-/* =========================================================
-   CHOIX ALÉATOIRE DE L'IA
-========================================================= */
-
-function chooseRandomOpponent() {
-
-  const possibleOpponents =
-    characters.filter(
-      character =>
-        character !== playerName
-    );
-
-
-  return possibleOpponents[
-    Math.floor(
-      Math.random() *
-      possibleOpponents.length
-    )
-  ];
-
-}
-
-
-/* =========================================================
-   DÉMARRER UNE PARTIE
-========================================================= */
 
 function startGame() {
-
-  /*
-   * Arrête toute partie encore
-   * en cours : boucle d'animation
-   * et minuteurs en attente.
-   * Sans cela, deux parties peuvent
-   * tourner en parallèle.
-   */
-
   stopGame();
+  const playerCandidate = getCandidateById(playerSelect.value);
 
+  if (!playerCandidate) {
+    showToast("Choisissez d'abord un candidat.");
+    return;
+  }
 
-  playerName =
-    playerSelect.value;
+  if (mode === "campaign") {
+    startCampaign(playerCandidate);
+  } else {
+    const pool = candidates.filter(c => c.camp !== playerCandidate.camp);
+    if (!pool.length) {
+      showToast("Il faut au moins un candidat d'un autre camp pour jouer.");
+      return;
+    }
+    const opponentCandidate = pool[Math.floor(Math.random() * pool.length)];
+    beginMatch(playerCandidate, opponentCandidate, "quick");
+  }
+}
 
+function beginMatch(playerCandidate, opponentCandidate, matchMode) {
+  currentMatchMode = matchMode;
+  currentPlayerCandidate = playerCandidate;
+  currentOpponentCandidate = opponentCandidate;
 
-  /*
-   * L'adversaire est choisi
-   * automatiquement et aléatoirement.
-   */
+  currentPlayerAvatar = makeAvatarImage(playerCandidate);
+  currentOpponentAvatar = makeAvatarImage(opponentCandidate);
 
-  opponentName =
-    chooseRandomOpponent();
+  playerName = playerCandidate.name;
+  opponentName = opponentCandidate.name;
 
+  playerPaddle.width = paddleConfig.width;
+  playerPaddle.height = paddleConfig.height;
+  playerPaddle.color = campColors[playerCandidate.camp] || "#fff";
 
-  /*
-   * Nouveau jeu :
-   * les scores repartent à zéro.
-   */
+  aiPaddle.width = paddleConfig.width;
+  aiPaddle.height = paddleConfig.height;
+  aiPaddle.color = campColors[opponentCandidate.camp] || "#fff";
 
   playerScore = 0;
-
   opponentScore = 0;
-
 
   showGame();
 
-
-  /*
-   * Affichage des noms.
-   */
-
-  document
-    .getElementById("opponentName")
-    .textContent =
-      opponentName;
-
-
-  document
-    .getElementById("playerName")
-    .textContent =
-      playerName;
-
-
-  /*
-   * Score initial.
-   */
-
-  document
-    .getElementById("gameScore")
-    .textContent =
-      "0 — 0";
-
+  document.getElementById("opponentName").textContent = opponentName;
+  document.getElementById("playerName").textContent = playerName;
+  document.getElementById("gameScore").textContent = "0 — 0";
 
   updatePercentages();
-
-
-  /*
-   * Préparation du terrain.
-   */
-
   setupGame();
 
-
   gameRunning = true;
-
-  lastTime =
-    performance.now();
-
-
-  animationId =
-    requestAnimationFrame(
-      gameLoop
-    );
-
+  lastTime = performance.now();
+  animationId = requestAnimationFrame(gameLoop);
 }
 
+function makeAvatarImage(candidate) {
+  if (!candidate || !candidate.image) return null;
+  const img = new Image();
+  img.src = candidate.image;
+  return img;
+}
 
-/* =========================================================
-   CANVAS
-========================================================= */
+function startCampaign(playerCandidate) {
+  const campId = playerCandidate.camp;
+  const campPool = getCandidatesByCamp(campId).filter(c => c.id !== playerCandidate.id);
+
+  if (!campPool.length) {
+    showToast("Il faut au moins deux candidats dans ce camp pour une primaire.");
+    return;
+  }
+
+  campaign = {
+    campId: campId,
+    playerId: playerCandidate.id,
+    stage: "primaire",
+    campWinners: {},
+    opponentCampId: null,
+    remainingCampIds: [],
+    secondTourOpponentId: null
+  };
+
+  const opponent = campPool[Math.floor(Math.random() * campPool.length)];
+  difficulty = "easy";
+  beginMatch(playerCandidate, opponent, "campaign");
+}
+
+function restartCampaign() {
+  if (!campaign) { showSelection(); return; }
+  const player = getCandidateById(campaign.playerId);
+  if (!player) { showSelection(); return; }
+  startCampaign(player);
+}
+
+function afterPrimaireWin() {
+  const others = CAMPS.map(c => c.id).filter(id => id !== campaign.campId);
+  const winners = {};
+  winners[campaign.campId] = campaign.playerId;
+
+  others.forEach(campId => {
+    const pool = getCandidatesByCamp(campId);
+    if (pool.length) {
+      winners[campId] = pool[Math.floor(Math.random() * pool.length)].id;
+    }
+  });
+
+  campaign.campWinners = winners;
+
+  showCampaignTransition({
+    title: "Résultats des primaires",
+    intro: "Voici les candidats qui représenteront chaque camp au premier tour.",
+    entries: CAMPS.filter(c => winners[c.id]).map(c => ({
+      candidate: getCandidateById(winners[c.id]),
+      label: c.label,
+      highlight: c.id === campaign.campId
+    })),
+    buttonLabel: "PASSER AU PREMIER TOUR",
+    onContinue: beginPremierTourMatch
+  });
+}
+
+function beginPremierTourMatch() {
+  const otherCampIds = Object.keys(campaign.campWinners).filter(id => id !== campaign.campId);
+  const opponentCampId = otherCampIds[Math.floor(Math.random() * otherCampIds.length)];
+
+  campaign.opponentCampId = opponentCampId;
+  campaign.remainingCampIds = otherCampIds.filter(id => id !== opponentCampId);
+  campaign.stage = "premier";
+  difficulty = "normal";
+
+  const player = getCandidateById(campaign.playerId);
+  const opponent = getCandidateById(campaign.campWinners[opponentCampId]);
+
+  beginMatch(player, opponent, "campaign");
+}
+
+function afterPremierTourWin() {
+  const remaining = campaign.remainingCampIds;
+  let secondTourWinnerId;
+
+  if (remaining.length === 2) {
+    secondTourWinnerId = Math.random() < 0.5 ? campaign.campWinners[remaining[0]] : campaign.campWinners[remaining[1]];
+  } else if (remaining.length === 1) {
+    secondTourWinnerId = campaign.campWinners[remaining[0]];
+  } else {
+    secondTourWinnerId = campaign.campWinners[campaign.opponentCampId];
+  }
+
+  campaign.secondTourOpponentId = secondTourWinnerId;
+
+  showCampaignTransition({
+    title: "Résultats du premier tour",
+    intro: "Votre adversaire du second tour est désigné.",
+    entries: [
+      { candidate: getCandidateById(campaign.playerId), label: "Vous — qualifié(e)", highlight: true },
+      { candidate: getCandidateById(secondTourWinnerId), label: "Votre adversaire", highlight: false }
+    ],
+    buttonLabel: "PASSER AU SECOND TOUR",
+    onContinue: beginSecondTourMatch
+  });
+}
+
+function beginSecondTourMatch() {
+  campaign.stage = "second";
+  difficulty = "hard";
+  const player = getCandidateById(campaign.playerId);
+  const opponent = getCandidateById(campaign.secondTourOpponentId);
+  beginMatch(player, opponent, "campaign");
+}
+
+function showCampaignTransition(options) {
+  hideAllScreens();
+  document.getElementById("campaignTransitionTitle").textContent = options.title;
+  document.getElementById("campaignTransitionIntro").textContent = options.intro;
+
+  const list = document.getElementById("campaignTransitionList");
+  list.innerHTML = "";
+
+  options.entries.forEach(entry => {
+    const row = document.createElement("div");
+    row.className = "campaign-row" + (entry.highlight ? " highlight" : "");
+    row.appendChild(buildAvatarElement(entry.candidate, 44));
+
+    const info = document.createElement("div");
+    const name = document.createElement("div");
+    name.className = "campaign-row-name";
+    name.textContent = entry.candidate ? entry.candidate.name : "—";
+
+    const label = document.createElement("div");
+    label.className = "campaign-row-label";
+    label.textContent = entry.label;
+
+    info.appendChild(name);
+    info.appendChild(label);
+    row.appendChild(info);
+    list.appendChild(row);
+  });
+
+  document.getElementById("campaignTransitionButton").textContent = options.buttonLabel;
+  pendingCampaignContinue = options.onContinue;
+  campaignTransitionScreen.classList.remove("hidden");
+}
+
+function continueCampaignTransition() {
+  const fn = pendingCampaignContinue;
+  pendingCampaignContinue = null;
+  if (fn) fn();
+}
 
 function resizeCanvas() {
-
-  const rect =
-    canvas.getBoundingClientRect();
-
-
-  const dpr =
-    Math.min(
-      window.devicePixelRatio || 1,
-      2
-    );
-
-
-  canvas.width =
-    rect.width * dpr;
-
-  canvas.height =
-    rect.height * dpr;
-
-
-  ctx.setTransform(
-    dpr,
-    0,
-    0,
-    dpr,
-    0,
-    0
-  );
-
-
-  if (gameRunning) {
-
-    setupGameDimensions();
-
-  }
-
+  const rect = canvas.getBoundingClientRect();
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  if (gameRunning) setupGameDimensions();
 }
-
-
-/* =========================================================
-   DIMENSIONS
-========================================================= */
 
 function setupGameDimensions() {
-
-  const width =
-    canvas.clientWidth;
-
-  const height =
-    canvas.clientHeight;
-
-
-  /*
-   * IA en haut.
-   */
-
-  aiPaddle.y =
-    height * AI_LINE;
-
-
-  /*
-   * Joueur en bas.
-   */
-
-  playerPaddle.y =
-    height * PLAYER_LINE;
-
-
-  /*
-   * Centrage horizontal.
-   */
-
-  playerPaddle.x =
-    (width -
-      playerPaddle.width) / 2;
-
-
-  aiPaddle.x =
-    (width -
-      aiPaddle.width) / 2;
-
-
-  /*
-   * Balle au centre.
-   */
-
-  ball.x =
-    width / 2;
-
-  ball.y =
-    height / 2;
-
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  aiPaddle.y = height * AI_LINE;
+  playerPaddle.y = height * PLAYER_LINE;
+  playerPaddle.x = (width - playerPaddle.width) / 2;
+  aiPaddle.x = (width - aiPaddle.width) / 2;
+  ball.x = width / 2;
+  ball.y = height / 2;
 }
-
-
-/* =========================================================
-   INITIALISATION
-========================================================= */
 
 function setupGame() {
-
   setupGameDimensions();
-
   aiTarget = null;
-
-  resetBall(
-    Math.random() > 0.5
-      ? 1
-      : -1
-  );
-
+  resetBall(Math.random() > 0.5 ? 1 : -1);
 }
-
-
-/* =========================================================
-   RESET BALLE
-========================================================= */
 
 function resetBall(direction) {
-
   pointPending = false;
-
-
-  const width =
-    canvas.clientWidth;
-
-  const height =
-    canvas.clientHeight;
-
-
-  ball.x =
-    width / 2;
-
-  ball.y =
-    height / 2;
-
-
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  ball.x = width / 2;
+  ball.y = height / 2;
   ball.speed = 340;
-
-
-  const angle =
-    Math.random() * 0.8 - 0.4;
-
-
-  ball.vx =
-    Math.sin(angle) *
-    ball.speed;
-
-
-  ball.vy =
-    Math.cos(angle) *
-    ball.speed *
-    direction;
-
+  const angle = Math.random() * 0.8 - 0.4;
+  ball.vx = Math.sin(angle) * ball.speed;
+  ball.vy = Math.cos(angle) * ball.speed * direction;
 }
-
-
-/* =========================================================
-   BOUCLE PRINCIPALE
-========================================================= */
 
 function gameLoop(timestamp) {
-
-  if (!gameRunning) {
-    return;
-  }
-
-
-  let dt =
-    (timestamp - lastTime) /
-    1000;
-
-
-  lastTime =
-    timestamp;
-
-
-  /*
-   * Évite les énormes sauts
-   * en cas de ralentissement.
-   */
-
-  dt =
-    Math.min(
-      dt,
-      0.025
-    );
-
-
+  if (!gameRunning) return;
+  let dt = (timestamp - lastTime) / 1000;
+  lastTime = timestamp;
+  dt = Math.min(dt, 0.025);
   update(dt);
-
   draw();
-
-
-  animationId =
-    requestAnimationFrame(
-      gameLoop
-    );
-
+  animationId = requestAnimationFrame(gameLoop);
 }
-
-
-/* =========================================================
-   UPDATE
-========================================================= */
 
 function update(dt) {
-
   updateAI(dt);
+  ball.x += ball.vx * dt;
+  ball.y += ball.vy * dt;
 
+  const width = canvas.clientWidth;
 
-  /*
-   * Déplacement de la balle.
-   */
-
-  ball.x +=
-    ball.vx * dt;
-
-  ball.y +=
-    ball.vy * dt;
-
-
-  const width =
-    canvas.clientWidth;
-
-  const height =
-    canvas.clientHeight;
-
-
-  /*
-   * Mur gauche.
-   */
-
-  if (
-    ball.x - ball.radius <= 0 &&
-    ball.vx < 0
-  ) {
-
-    ball.x =
-      ball.radius;
-
+  if (ball.x - ball.radius <= 0 && ball.vx < 0) {
+    ball.x = ball.radius;
     ball.vx *= -1;
-
   }
-
-
-  /*
-   * Mur droit.
-   */
-
-  if (
-    ball.x + ball.radius >= width &&
-    ball.vx > 0
-  ) {
-
-    ball.x =
-      width - ball.radius;
-
+  if (ball.x + ball.radius >= width && ball.vx > 0) {
+    ball.x = width - ball.radius;
     ball.vx *= -1;
-
   }
 
-
-  /*
-   * Collision avec la raquette IA.
-   */
-
-  if (
-    ball.vy < 0 &&
-    ball.y - ball.radius <=
-      aiPaddle.y +
-      aiPaddle.height / 2
-  ) {
-
-    if (
-      ball.x >= aiPaddle.x &&
-      ball.x <=
-        aiPaddle.x +
-        aiPaddle.width
-    ) {
-
-      hitPaddle(
-        aiPaddle,
-        false
-      );
-
+  if (ball.vy < 0 && ball.y - ball.radius <= aiPaddle.y + aiPaddle.height / 2) {
+    if (ball.x >= aiPaddle.x && ball.x <= aiPaddle.x + aiPaddle.width) {
+      hitPaddle(aiPaddle, false);
     }
-
   }
 
-
-  /*
-   * Collision avec la raquette joueur.
-   */
-
-  if (
-    ball.vy > 0 &&
-    ball.y + ball.radius >=
-      playerPaddle.y -
-      playerPaddle.height / 2
-  ) {
-
-    if (
-      ball.x >= playerPaddle.x &&
-      ball.x <=
-        playerPaddle.x +
-        playerPaddle.width
-    ) {
-
-      hitPaddle(
-        playerPaddle,
-        true
-      );
-
+  if (ball.vy > 0 && ball.y + ball.radius >= playerPaddle.y - playerPaddle.height / 2) {
+    if (ball.x >= playerPaddle.x && ball.x <= playerPaddle.x + playerPaddle.width) {
+      hitPaddle(playerPaddle, true);
     }
-
   }
 
-
-  /*
-   * La balle dépasse le bas :
-   * l'IA marque.
-   */
-
-  if (
-    ball.y >
-    playerPaddle.y +
-    GOAL_MARGIN
-  ) {
-
-    scorePoint("ai");
-
-  }
-
-
-  /*
-   * La balle dépasse le haut :
-   * le joueur marque.
-   */
-
-  if (
-    ball.y <
-    aiPaddle.y -
-    GOAL_MARGIN
-  ) {
-
-    scorePoint("player");
-
-  }
-
+  if (ball.y > playerPaddle.y + GOAL_MARGIN) scorePoint("ai");
+  if (ball.y < aiPaddle.y - GOAL_MARGIN) scorePoint("player");
 }
-
-
-/* =========================================================
-   IA
-========================================================= */
 
 function updateAI(dt) {
+  const settings = difficultySettings[difficulty];
+  let target = ball.vy < 0 ? ball.x : canvas.clientWidth / 2;
 
-  const settings =
-    difficultySettings[
-      difficulty
-    ];
+  if (aiTarget === null) aiTarget = target;
+  aiTarget += (target - aiTarget) * settings.reaction * dt * 5;
 
+  const desired = aiTarget - aiPaddle.width / 2;
+  let difference = desired - aiPaddle.x;
+  const maxMove = settings.speed * 100 * dt;
+  difference = Math.max(-maxMove, Math.min(maxMove, difference));
 
-  let target;
-
-
-  /*
-   * L'IA suit la balle lorsqu'elle
-   * se dirige vers elle.
-   */
-
-  if (ball.vy < 0) {
-
-    target =
-      ball.x;
-
-  } else {
-
-    target =
-      canvas.clientWidth / 2;
-
-  }
-
-
-  if (aiTarget === null) {
-
-    aiTarget =
-      target;
-
-  }
-
-
-  /*
-   * Réaction progressive.
-   */
-
-  aiTarget +=
-    (target - aiTarget) *
-    settings.reaction *
-    dt *
-    5;
-
-
-  const desired =
-    aiTarget -
-    aiPaddle.width / 2;
-
-
-  let difference =
-    desired -
-    aiPaddle.x;
-
-
-  const maxMove =
-    settings.speed *
-    100 *
-    dt;
-
-
-  difference =
-    Math.max(
-      -maxMove,
-      Math.min(
-        maxMove,
-        difference
-      )
-    );
-
-
-  aiPaddle.x +=
-    difference;
-
-
-  /*
-   * Empêche la raquette de sortir
-   * de l'écran.
-   */
-
-  aiPaddle.x =
-    Math.max(
-      0,
-      Math.min(
-        canvas.clientWidth -
-        aiPaddle.width,
-        aiPaddle.x
-      )
-    );
-
+  aiPaddle.x += difference;
+  aiPaddle.x = Math.max(0, Math.min(canvas.clientWidth - aiPaddle.width, aiPaddle.x));
 }
 
-
-/* =========================================================
-   COLLISION RAQUETTE
-========================================================= */
-
-function hitPaddle(
-  paddle,
-  isPlayer
-) {
-
-  /*
-   * Replace la balle juste
-   * de l'autre côté de la raquette.
-   */
-
+function hitPaddle(paddle, isPlayer) {
   if (isPlayer) {
-
-    ball.y =
-      paddle.y -
-      paddle.height / 2 -
-      ball.radius;
-
-
-    ball.vy =
-      -Math.abs(
-        ball.vy
-      );
-
+    ball.y = paddle.y - paddle.height / 2 - ball.radius;
+    ball.vy = -Math.abs(ball.vy);
   } else {
-
-    ball.y =
-      paddle.y +
-      paddle.height / 2 +
-      ball.radius;
-
-
-    ball.vy =
-      Math.abs(
-        ball.vy
-      );
-
+    ball.y = paddle.y + paddle.height / 2 + ball.radius;
+    ball.vy = Math.abs(ball.vy);
   }
 
+  const paddleCenter = paddle.x + paddle.width / 2;
+  const impact = (ball.x - paddleCenter) / (paddle.width / 2);
+  ball.vx = impact * 300;
+  ball.speed *= 1.035;
 
-  /*
-   * Angle de renvoi selon
-   * l'endroit où la balle frappe
-   * la raquette.
-   */
-
-  const paddleCenter =
-    paddle.x +
-    paddle.width / 2;
-
-
-  const impact =
-    (ball.x - paddleCenter) /
-    (paddle.width / 2);
-
-
-  const maxHorizontal =
-    300;
-
-
-  ball.vx =
-    impact *
-    maxHorizontal;
-
-
-  /*
-   * Accélération progressive.
-   */
-
-  ball.speed *=
-    1.035;
-
-
-  const maxSpeed =
-    700;
-
-
-  const currentSpeed =
-    Math.sqrt(
-      ball.vx * ball.vx +
-      ball.vy * ball.vy
-    );
-
-
-  if (
-    currentSpeed >
-    maxSpeed
-  ) {
-
-    const factor =
-      maxSpeed /
-      currentSpeed;
-
-
-    ball.vx *=
-      factor;
-
-    ball.vy *=
-      factor;
-
+  const currentSpeed = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy);
+  if (currentSpeed > 700) {
+    const factor = 700 / currentSpeed;
+    ball.vx *= factor;
+    ball.vy *= factor;
   }
-
 }
-
-
-/* =========================================================
-   MARQUER UN POINT
-========================================================= */
 
 function scorePoint(who) {
-
-  if (!gameRunning) {
-    return;
-  }
-
-
-  /*
-   * Le point a déjà été compté :
-   * on ignore les appels suivants
-   * tant que la balle n'est pas
-   * remise en jeu.
-   */
-
-  if (pointPending) {
-    return;
-  }
-
-
+  if (!gameRunning || pointPending) return;
   pointPending = true;
-
-
-  /*
-   * La balle est neutralisée
-   * pendant la pause.
-   */
-
   ball.vx = 0;
-
   ball.vy = 0;
 
-
   if (who === "player") {
-
     playerScore++;
-
-
-    showMessage(
-      "player",
-      randomMessage()
-    );
-
-
+    showMessage("player", randomMessage());
   } else {
-
     opponentScore++;
-
-
-    showMessage(
-      "ai",
-      randomMessage()
-    );
-
+    showMessage("ai", randomMessage());
   }
-
-
-  /*
-   * Mise à jour du score.
-   */
 
   updatePercentages();
+  document.getElementById("gameScore").textContent = `${playerScore} — ${opponentScore}`;
 
-
-  document
-    .getElementById("gameScore")
-    .textContent =
-      `${playerScore} — ${opponentScore}`;
-
-
-  /*
-   * PREMIER À 7 = VICTOIRE.
-   */
-
-  if (
-    playerScore >= 7 ||
-    opponentScore >= 7
-  ) {
-
+  if (playerScore >= WINNING_SCORE || opponentScore >= WINNING_SCORE) {
     endGame();
-
     return;
-
   }
 
-
-  /*
-   * Sinon, la partie continue.
-   */
-
-  resetTimeout =
-    setTimeout(() => {
-
+  resetTimeout = setTimeout(() => {
     resetTimeout = null;
-
-
-    if (!gameRunning) {
-      return;
-    }
-
-
-    /*
-     * Le joueur qui vient de marquer
-     * renvoie la balle vers l'adversaire.
-     */
-
-    resetBall(
-      who === "player"
-        ? -1
-        : 1
-    );
-
+    if (gameRunning) resetBall(who === "player" ? -1 : 1);
   }, 350);
-
 }
-
-
-/* =========================================================
-   POURCENTAGES
-========================================================= */
 
 function updatePercentages() {
-
-  const total =
-    playerScore +
-    opponentScore;
-
-
-  const playerElement =
-    document.getElementById(
-      "playerPercentage"
-    );
-
-
-  const opponentElement =
-    document.getElementById(
-      "opponentPercentage"
-    );
-
-
-  /*
-   * Au début du jeu :
-   * pas de pourcentage.
-   */
+  const total = playerScore + opponentScore;
+  const pEl = document.getElementById("playerPercentage");
+  const oEl = document.getElementById("opponentPercentage");
 
   if (total === 0) {
-
-    playerElement.textContent =
-      "—";
-
-    opponentElement.textContent =
-      "—";
-
+    pEl.textContent = "—";
+    oEl.textContent = "—";
     return;
-
   }
 
-
-  const playerPercentage =
-    playerScore /
-    total *
-    100;
-
-
-  const opponentPercentage =
-    opponentScore /
-    total *
-    100;
-
-
-  playerElement.textContent =
-    formatPercentage(
-      playerPercentage
-    );
-
-
-  opponentElement.textContent =
-    formatPercentage(
-      opponentPercentage
-    );
-
+  pEl.textContent = formatPercentage(playerScore / total * 100);
+  oEl.textContent = formatPercentage(opponentScore / total * 100);
 }
 
+function formatPercentage(v) { return v.toFixed(1).replace(".", ",") + " %"; }
+function randomMessage() { return messages[Math.floor(Math.random() * messages.length)]; }
 
-/* =========================================================
-   FORMAT POURCENTAGE
-========================================================= */
+function showMessage(side, text) {
+  const topMessage = document.getElementById("topMessage");
+  const bottomMessage = document.getElementById("bottomMessage");
+  topMessage.classList.remove("show");
+  bottomMessage.classList.remove("show");
 
-function formatPercentage(value) {
-
-  return value
-    .toFixed(1)
-    .replace(".", ",") +
-    " %";
-
-}
-
-
-/* =========================================================
-   MESSAGES
-========================================================= */
-
-function randomMessage() {
-
-  return messages[
-    Math.floor(
-      Math.random() *
-      messages.length
-    )
-  ];
-
-}
-
-
-function showMessage(
-  side,
-  text
-) {
-
-  const topMessage =
-    document.getElementById(
-      "topMessage"
-    );
-
-
-  const bottomMessage =
-    document.getElementById(
-      "bottomMessage"
-    );
-
-
-  topMessage.classList.remove(
-    "show"
-  );
-
-
-  bottomMessage.classList.remove(
-    "show"
-  );
-
-
-  const element =
-    side === "player"
-      ? bottomMessage
-      : topMessage;
-
-
-  element.textContent =
-    text;
-
-
+  const element = side === "player" ? bottomMessage : topMessage;
+  element.textContent = text;
   void element.offsetWidth;
+  element.classList.add("show");
 
-
-  element.classList.add(
-    "show"
-  );
-
-
-  clearTimeout(
-    messageTimeout
-  );
-
-
-  messageTimeout =
-    setTimeout(() => {
-
-      element.classList.remove(
-        "show"
-      );
-
-    }, 1100);
-
+  clearTimeout(messageTimeout);
+  messageTimeout = setTimeout(() => { element.classList.remove("show"); }, 1100);
 }
-
-
-/* =========================================================
-   DESSIN
-========================================================= */
 
 function draw() {
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
 
-  const width =
-    canvas.clientWidth;
+  ctx.clearRect(0, 0, width, height);
 
-  const height =
-    canvas.clientHeight;
-
-
-  /*
-   * Fond.
-   */
-
-  ctx.clearRect(
-    0,
-    0,
-    width,
-    height
-  );
-
-
-  /*
-   * Ligne centrale.
-   */
+  ctx.strokeStyle = "#111";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(1, 1, width - 2, height - 2);
 
   ctx.beginPath();
-
-
-  ctx.setLineDash([
-    4,
-    7
-  ]);
-
-
-  ctx.moveTo(
-    22,
-    height / 2
-  );
-
-
-  ctx.lineTo(
-    width - 22,
-    height / 2
-  );
-
-
-  ctx.strokeStyle =
-    "#e5e5e5";
-
-
-  ctx.lineWidth =
-    1;
-
-
+  ctx.setLineDash([4, 7]);
+  ctx.moveTo(22, height / 2);
+  ctx.lineTo(width - 22, height / 2);
+  ctx.strokeStyle = "#e5e5e5";
+  ctx.lineWidth = 1;
   ctx.stroke();
-
-
   ctx.setLineDash([]);
 
+  drawPaddle(aiPaddle);
+  drawPaddle(playerPaddle);
 
-  /*
-   * Raquette IA.
-   */
+  drawPaddleName(opponentName, aiPaddle, aiPaddle.y - aiPaddle.height / 2 - 11, width);
+  drawPaddleName(playerName, playerPaddle, playerPaddle.y + playerPaddle.height / 2 + 22, width);
 
-  drawPaddle(
-    aiPaddle
+  drawCanvasAvatar(
+    currentOpponentAvatar, currentOpponentCandidate,
+    width / 2, aiPaddle.y - aiPaddle.height / 2 - 11 - 10 - AVATAR_RADIUS,
+    AVATAR_RADIUS, currentOpponentCandidate ? (campColors[currentOpponentCandidate.camp] || "#111") : "#111"
   );
 
-
-  /*
-   * Raquette joueur.
-   */
-
-  drawPaddle(
-    playerPaddle
+  drawCanvasAvatar(
+    currentPlayerAvatar, currentPlayerCandidate,
+    width / 2, playerPaddle.y + playerPaddle.height / 2 + 22 + 10 + AVATAR_RADIUS,
+    AVATAR_RADIUS, currentPlayerCandidate ? (campColors[currentPlayerCandidate.camp] || "#111") : "#111"
   );
-
-
-  /*
-   * Noms accrochés aux raquettes.
-   */
-
-  drawPaddleName(
-    opponentName,
-    aiPaddle,
-    aiPaddle.y -
-      aiPaddle.height / 2 -
-      11,
-    width
-  );
-
-
-  drawPaddleName(
-    playerName,
-    playerPaddle,
-    playerPaddle.y +
-      playerPaddle.height / 2 +
-      22,
-    width
-  );
-
-
-  /*
-   * Balle.
-   */
 
   ctx.beginPath();
-
-
-  ctx.arc(
-    ball.x,
-    ball.y,
-    ball.radius,
-    0,
-    Math.PI * 2
-  );
-
-
-  ctx.fillStyle =
-    "#111";
-
-
+  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+  ctx.fillStyle = "#111";
   ctx.fill();
-
 }
 
+function drawPaddleName(name, paddle, y, width) {
+  if (!name) return;
+  ctx.font = "800 13px " + FONT_DISPLAY;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
 
-/* =========================================================
-   NOM D'UNE RAQUETTE
-========================================================= */
+  const half = ctx.measureText(name).width / 2;
+  const x = Math.max(half + 10, Math.min(width - half - 10, paddle.x + paddle.width / 2));
 
-function drawPaddleName(
-  name,
-  paddle,
-  y,
-  width
-) {
+  ctx.fillStyle = "#111";
+  ctx.fillText(name, x, y);
+}
 
-  if (!name) {
-    return;
+function drawCanvasAvatar(img, candidate, x, y, radius, ringColor) {
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, Math.PI * 2);
+  ctx.closePath();
+
+  if (img && img.complete && img.naturalWidth > 0) {
+    ctx.clip();
+    ctx.drawImage(img, x - radius, y - radius, radius * 2, radius * 2);
+  } else {
+    ctx.fillStyle = ringColor;
+    ctx.fill();
+    ctx.fillStyle = "#fff";
+    ctx.font = "800 " + Math.round(radius * 0.85) + "px " + FONT_DISPLAY;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(candidate ? initials(candidate.name) : "?", x, y + 1);
   }
-
-
-  ctx.font =
-    "800 13px Arial, Helvetica, sans-serif";
-
-
-  ctx.textAlign =
-    "center";
-
-
-  ctx.textBaseline =
-    "alphabetic";
-
-
-  /*
-   * Le nom suit le centre
-   * de la raquette, sans sortir
-   * du terrain.
-   */
-
-  const half =
-    ctx.measureText(name).width / 2;
-
-
-  const x =
-    Math.max(
-      half + 10,
-      Math.min(
-        width - half - 10,
-        paddle.x +
-        paddle.width / 2
-      )
-    );
-
-
-  ctx.fillStyle =
-    "#111";
-
-
-  ctx.fillText(
-    name,
-    x,
-    y
-  );
-
-}
-
-
-/* =========================================================
-   DESSIN RAQUETTE
-========================================================= */
-
-function drawPaddle(
-  paddle
-) {
+  ctx.restore();
 
   ctx.beginPath();
-
-
-  const radius = 5;
-
-
-  roundedRect(
-    ctx,
-    paddle.x,
-    paddle.y -
-      paddle.height / 2,
-    paddle.width,
-    paddle.height,
-    radius
-  );
-
-
-  /*
-   * Raquette blanche.
-   */
-
-  ctx.fillStyle =
-    "#fff";
-
-
-  ctx.fill();
-
-
-  /*
-   * Contour noir.
-   */
-
-  ctx.strokeStyle =
-    "#111";
-
-
-  ctx.lineWidth =
-    1.5;
-
-
+  ctx.arc(x, y, radius, 0, Math.PI * 2);
+  ctx.strokeStyle = ringColor;
+  ctx.lineWidth = 2.5;
   ctx.stroke();
-
 }
 
+function drawPaddle(paddle) {
+  ctx.beginPath();
+  roundedRect(ctx, paddle.x, paddle.y - paddle.height / 2, paddle.width, paddle.height, 5);
+  ctx.fillStyle = paddle.color || "#fff";
+  ctx.fill();
 
-/* =========================================================
-   RECTANGLE ARRONDI
-========================================================= */
+  if (paddleConfig.border > 0) {
+    ctx.strokeStyle = "#111";
+    ctx.lineWidth = paddleConfig.border;
+    ctx.stroke();
+  }
+}
 
-function roundedRect(
-  context,
-  x,
-  y,
-  width,
-  height,
-  radius
-) {
-
-  context.moveTo(
-    x + radius,
-    y
-  );
-
-
-  context.arcTo(
-    x + width,
-    y,
-    x + width,
-    y + height,
-    radius
-  );
-
-
-  context.arcTo(
-    x + width,
-    y + height,
-    x,
-    y + height,
-    radius
-  );
-
-
-  context.arcTo(
-    x,
-    y + height,
-    x,
-    y,
-    radius
-  );
-
-
-  context.arcTo(
-    x,
-    y,
-    x + width,
-    y,
-    radius
-  );
-
-
+function roundedRect(context, x, y, width, height, radius) {
+  context.moveTo(x + radius, y);
+  context.arcTo(x + width, y, x + width, y + height, radius);
+  context.arcTo(x + width, y + height, x, y + height, radius);
+  context.arcTo(x, y + height, x, y, radius);
+  context.arcTo(x, y, x + width, y, radius);
   context.closePath();
-
 }
 
-
-/* =========================================================
-   CONTRÔLE SOURIS / DOIGT
-========================================================= */
-
-function movePlayerFromPointer(
-  event
-) {
-
-  if (!gameRunning) {
-    return;
-  }
-
-
-  const rect =
-    canvas.getBoundingClientRect();
-
-
-  const x =
-    event.clientX -
-    rect.left;
-
-
-  playerPaddle.x =
-    x -
-    playerPaddle.width / 2;
-
-
-  /*
-   * Empêche la raquette
-   * de sortir de l'écran.
-   */
-
-  playerPaddle.x =
-    Math.max(
-      0,
-      Math.min(
-        canvas.clientWidth -
-        playerPaddle.width,
-        playerPaddle.x
-      )
-    );
-
+function movePlayerFromPointer(event) {
+  if (!gameRunning) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  playerPaddle.x = Math.max(0, Math.min(canvas.clientWidth - playerPaddle.width, x - playerPaddle.width / 2));
 }
 
+canvas.addEventListener("pointermove", movePlayerFromPointer);
+canvas.addEventListener("pointerdown", movePlayerFromPointer);
 
-/*
- * Pointer Events fonctionnent
- * pour souris et écran tactile.
- */
-
-canvas.addEventListener(
-  "pointermove",
-  movePlayerFromPointer
-);
-
-
-canvas.addEventListener(
-  "pointerdown",
-  movePlayerFromPointer
-);
-
-
-/* =========================================================
-   CLAVIER
-========================================================= */
-
-let leftPressed = false;
-let rightPressed = false;
-
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    if (
-      event.key === "ArrowLeft" ||
-      event.key.toLowerCase() === "a"
-    ) {
-
-      leftPressed = true;
-
-    }
-
-
-    if (
-      event.key === "ArrowRight" ||
-      event.key.toLowerCase() === "d"
-    ) {
-
-      rightPressed = true;
-
-    }
-
-  }
-);
-
-
-document.addEventListener(
-  "keyup",
-  event => {
-
-    if (
-      event.key === "ArrowLeft" ||
-      event.key.toLowerCase() === "a"
-    ) {
-
-      leftPressed = false;
-
-    }
-
-
-    if (
-      event.key === "ArrowRight" ||
-      event.key.toLowerCase() === "d"
-    ) {
-
-      rightPressed = false;
-
-    }
-
-  }
-);
-
-
-/*
- * Déplacement clavier.
- */
+let leftPressed = false, rightPressed = false;
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") leftPressed = true;
+  if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") rightPressed = true;
+});
+document.addEventListener("keyup", e => {
+  if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") leftPressed = false;
+  if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") rightPressed = false;
+});
 
 setInterval(() => {
+  if (!gameRunning) return;
+  if (leftPressed) playerPaddle.x -= 15;
+  if (rightPressed) playerPaddle.x += 15;
+  playerPaddle.x = Math.max(0, Math.min(canvas.clientWidth - playerPaddle.width, playerPaddle.x));
+}, 16);
 
-  if (!gameRunning) {
+function endGame() {
+  gameRunning = false;
+  if (resetTimeout) clearTimeout(resetTimeout);
+  if (animationId) cancelAnimationFrame(animationId);
+
+  const playerWon = playerScore > opponentScore;
+  saveGameStats(playerWon);
+
+  const total = playerScore + opponentScore;
+  document.getElementById("winnerName").textContent = playerWon ? playerName : opponentName;
+  document.getElementById("finalScore").textContent = `${playerScore} — ${opponentScore}`;
+  document.getElementById("resultPlayerName").textContent = playerName;
+  document.getElementById("resultOpponentName").textContent = opponentName;
+  document.getElementById("resultPlayerPercent").textContent = formatPercentage(playerScore / total * 100);
+  document.getElementById("resultOpponentPercent").textContent = formatPercentage(opponentScore / total * 100);
+
+  setTimeout(() => {
+    showResult();
+    renderResultActions(playerWon);
+  }, 500);
+}
+
+function renderResultActions(playerWon) {
+  const titleEl = document.getElementById("resultStageTitle");
+  const winnerEl = document.getElementById("winnerName");
+  const buttonsEl = document.getElementById("resultButtons");
+  buttonsEl.innerHTML = "";
+
+  function addButton(label, cls, fn) {
+    const b = document.createElement("button");
+    b.className = cls;
+    b.textContent = label;
+    b.onclick = fn;
+    buttonsEl.appendChild(b);
+  }
+
+  if (currentMatchMode !== "campaign" || !campaign) {
+    titleEl.textContent = "Partie terminée";
+    addButton("REJOUER UNE PARTIE", "main-button", showSelection);
+    addButton("MENU", "secondary-button", showSelection);
     return;
   }
 
+  const stage = campaign.stage;
 
-  const speed = 15;
-
-
-  if (leftPressed) {
-
-    playerPaddle.x -=
-      speed;
-
+  if (!playerWon) {
+    titleEl.textContent = stage === "primaire" ? "Primaire perdue" : (stage === "premier" ? "Premier tour perdu" : "Second tour perdu");
+    addButton(stage === "primaire" ? "REJOUER LA PRIMAIRE" : "RECOMMENCER LA CAMPAGNE", "main-button", restartCampaign);
+    addButton("MENU", "secondary-button", showSelection);
+    return;
   }
 
-
-  if (rightPressed) {
-
-    playerPaddle.x +=
-      speed;
-
+  if (stage === "primaire") {
+    titleEl.textContent = "Primaire remportée";
+    addButton("VOIR LES RÉSULTATS", "main-button", afterPrimaireWin);
+  } else if (stage === "premier") {
+    titleEl.textContent = "Premier tour remporté";
+    addButton("VOIR LES RÉSULTATS", "main-button", afterPremierTourWin);
+  } else if (stage === "second") {
+    titleEl.textContent = "Élu(e) Président(e) de la République";
+    winnerEl.textContent = playerName + " 🇫🇷";
+    addButton("NOUVELLE CAMPAGNE", "main-button", () => { campaign = null; showSelection(); });
   }
 
-
-  playerPaddle.x =
-    Math.max(
-      0,
-      Math.min(
-        canvas.clientWidth -
-        playerPaddle.width,
-        playerPaddle.x
-      )
-    );
-
-}, 16);
-
-
-/* =========================================================
-   FIN DE PARTIE
-========================================================= */
-
-function endGame() {
-
-  gameRunning = false;
-
-
-  if (resetTimeout) {
-
-    clearTimeout(
-      resetTimeout
-    );
-
-    resetTimeout = null;
-
-  }
-
-
-  if (animationId) {
-
-    cancelAnimationFrame(
-      animationId
-    );
-
-    animationId = null;
-
-  }
-
-
-  const playerWon =
-    playerScore >
-    opponentScore;
-
-
-  /*
-   * Enregistrement des statistiques.
-   */
-
-  saveGameStats(
-    playerWon
-  );
-
-
-  const total =
-    playerScore +
-    opponentScore;
-
-
-  const playerPercentage =
-    playerScore /
-    total *
-    100;
-
-
-  const opponentPercentage =
-    opponentScore /
-    total *
-    100;
-
-
-  /*
-   * Résultat.
-   */
-
-  document
-    .getElementById("winnerName")
-    .textContent =
-      playerWon
-        ? playerName
-        : opponentName;
-
-
-  document
-    .getElementById("finalScore")
-    .textContent =
-      `${playerScore} — ${opponentScore}`;
-
-
-  document
-    .getElementById("resultPlayerName")
-    .textContent =
-      playerName;
-
-
-  document
-    .getElementById("resultOpponentName")
-    .textContent =
-      opponentName;
-
-
-  document
-    .getElementById("resultPlayerPercent")
-    .textContent =
-      formatPercentage(
-        playerPercentage
-      );
-
-
-  document
-    .getElementById("resultOpponentPercent")
-    .textContent =
-      formatPercentage(
-        opponentPercentage
-      );
-
-
-  /*
-   * Petit délai avant l'écran final.
-   */
-
-  setTimeout(() => {
-
-    showResult();
-
-  }, 500);
-
+  addButton("MENU", "secondary-button", showSelection);
 }
-
-
-/* =========================================================
-   ARRÊTER LA PARTIE
-========================================================= */
 
 function stopGame() {
-
   gameRunning = false;
-
-
-  if (animationId) {
-
-    cancelAnimationFrame(
-      animationId
-    );
-
-    animationId = null;
-
-  }
-
-
-  clearTimeout(
-    messageTimeout
-  );
-
-
-  /*
-   * Annule une remise en jeu
-   * encore en attente.
-   */
-
-  if (resetTimeout) {
-
-    clearTimeout(
-      resetTimeout
-    );
-
-    resetTimeout = null;
-
-  }
-
-
+  if (animationId) cancelAnimationFrame(animationId);
+  clearTimeout(messageTimeout);
+  if (resetTimeout) clearTimeout(resetTimeout);
   pointPending = false;
-
 }
-
-
-/* =========================================================
-   QUITTER
-========================================================= */
 
 function quitGame() {
-
   stopGame();
-
-  showHome();
-
+  showSelection();
 }
-
-
-/* =========================================================
-   STATISTIQUES
-========================================================= */
-
-const defaultStats = {
-
-  games: 0,
-
-  wins: 0,
-
-  losses: 0,
-
-  playerCharacters: {},
-
-  opponents: {}
-
-};
-
 
 function getStats() {
-
   try {
-
-    const saved =
-      localStorage.getItem(
-        "debatStats"
-      );
-
-
-    if (!saved) {
-
-      return {
-        games: 0,
-        wins: 0,
-        losses: 0,
-        playerCharacters: {},
-        opponents: {}
-      };
-
-    }
-
-
-    return {
-      ...defaultStats,
-      ...JSON.parse(saved)
-    };
-
-
-  } catch (error) {
-
-    return {
-      games: 0,
-      wins: 0,
-      losses: 0,
-      playerCharacters: {},
-      opponents: {}
-    };
-
+    const saved = localStorage.getItem("debatStats");
+    return saved ? { ...{ games: 0, wins: 0, losses: 0, playerCharacters: {}, opponents: {} }, ...JSON.parse(saved) } : { games: 0, wins: 0, losses: 0, playerCharacters: {}, opponents: {} };
+  } catch (e) {
+    return { games: 0, wins: 0, losses: 0, playerCharacters: {}, opponents: {} };
   }
-
 }
-
 
 function saveStats(stats) {
-
-  /*
-   * localStorage peut être bloqué
-   * (fichier ouvert en local, navigation
-   * privée). On ne fait pas planter
-   * la fin de partie pour autant.
-   */
-
-  try {
-
-    localStorage.setItem(
-      "debatStats",
-      JSON.stringify(stats)
-    );
-
-  } catch (error) {
-
-    /* statistiques non enregistrées */
-
-  }
-
+  try { localStorage.setItem("debatStats", JSON.stringify(stats)); } catch (e) {}
 }
 
-
-/* =========================================================
-   ENREGISTRER UNE PARTIE
-========================================================= */
-
-function saveGameStats(
-  playerWon
-) {
-
-  const stats =
-    getStats();
-
-
+function saveGameStats(playerWon) {
+  const stats = getStats();
   stats.games++;
+  if (playerWon) stats.wins++; else stats.losses++;
 
-
-  if (playerWon) {
-
-    stats.wins++;
-
-  } else {
-
-    stats.losses++;
-
-  }
-
-
-  /*
-   * Personnage joué.
-   */
-
-  if (
-    !stats.playerCharacters[
-      playerName
-    ]
-  ) {
-
-    stats.playerCharacters[
-      playerName
-    ] = 0;
-
-  }
-
-
-  /*
-   * Adversaire affronté.
-   */
-
-  if (
-    !stats.opponents[
-      opponentName
-    ]
-  ) {
-
-    stats.opponents[
-      opponentName
-    ] = 0;
-
-  }
-
-
-  stats.playerCharacters[
-    playerName
-  ]++;
-
-
-  stats.opponents[
-    opponentName
-  ]++;
-
-
-  saveStats(
-    stats
-  );
-
+  stats.playerCharacters[playerName] = (stats.playerCharacters[playerName] || 0) + 1;
+  stats.opponents[opponentName] = (stats.opponents[opponentName] || 0) + 1;
+  saveStats(stats);
 }
-
-
-/* =========================================================
-   MISE À JOUR DES STATISTIQUES
-========================================================= */
 
 function updateStatsUI() {
+  const stats = getStats();
+  const sg = document.getElementById("statGames");
+  if (sg) sg.textContent = stats.games;
 
-  const stats =
-    getStats();
+  const swr = document.getElementById("statWinRate");
+  if (swr) swr.textContent = stats.games ? Math.round(stats.wins / stats.games * 100) + " %" : "—";
 
-
-  document
-    .getElementById("statGames")
-    .textContent =
-      stats.games;
-
-
-  document
-    .getElementById("statWins")
-    .textContent =
-      stats.wins;
-
-
-  document
-    .getElementById("statLosses")
-    .textContent =
-      stats.losses;
-
-
-  document
-    .getElementById("statWinRate")
-    .textContent =
-      stats.games
-        ? Math.round(
-            stats.wins /
-            stats.games *
-            100
-          ) + " %"
-        : "—";
-
-
-  document
-    .getElementById("statFavorite")
-    .textContent =
-      getMostPlayed(
-        stats.playerCharacters
-      );
-
-
-  document
-    .getElementById("statOpponent")
-    .textContent =
-      getMostPlayed(
-        stats.opponents
-      );
-
+  const sf = document.getElementById("statFavorite");
+  if (sf) sf.textContent = getMostPlayed(stats.playerCharacters);
 }
 
-
-/* =========================================================
-   PERSONNAGE LE PLUS JOUÉ
-========================================================= */
-
-function getMostPlayed(
-  object
-) {
-
-  const entries =
-    Object.entries(
-      object
-    );
-
-
-  if (!entries.length) {
-
-    return "—";
-
-  }
-
-
-  entries.sort(
-    (a, b) =>
-      b[1] - a[1]
-  );
-
-
+function getMostPlayed(obj) {
+  const entries = Object.entries(obj);
+  if (!entries.length) return "—";
+  entries.sort((a, b) => b[1] - a[1]);
   return entries[0][0];
-
 }
 
+window.addEventListener("resize", () => { if (gameRunning) resizeCanvas(); });
 
-/* =========================================================
-   REDIMENSIONNEMENT
-========================================================= */
-
-window.addEventListener(
-  "resize",
-  () => {
-
-    if (gameRunning) {
-
-      resizeCanvas();
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   INITIALISATION
-========================================================= */
-
-populateCharacters();
-
-updateStatsUI();
+/* Initialisation */
+showSelection();
 
 </script>
-
 </body>
 </html>
