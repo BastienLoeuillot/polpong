@@ -2,12 +2,9 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>POL-PONG</title>
 
-<!-- Import Google Fonts: Syne (Logo) & Sora (Titres/Noms) & Outfit (Texte courant) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Sora:wght@700;800;900&family=Syne:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -29,7 +26,6 @@
     --color-surface-muted: #f5f5f5;
   }
 
-  /* Force le préchargement des polices */
   body::after {
     content: "Preload Fonts";
     font-family: var(--font-display);
@@ -43,8 +39,7 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  html,
-  body {
+  html, body {
     margin: 0;
     width: 100%;
     min-height: 100%;
@@ -59,11 +54,7 @@
     overflow-x: hidden;
   }
 
-  button,
-  select,
-  input {
-    font: inherit;
-  }
+  button, select, input { font: inherit; }
 
   .app {
     width: 100%;
@@ -78,14 +69,9 @@
     padding: 24px;
   }
 
-  .hidden {
-    display: none !important;
-  }
+  .hidden { display: none !important; }
 
-  /* =====================================================
-     AVATARS EN CERCLE
-  ===================================================== */
-
+  /* AVATARS */
   .avatar-circle {
     border-radius: 50%;
     border: 2px solid var(--color-ink);
@@ -113,28 +99,21 @@
     user-select: none;
   }
 
-  /* =====================================================
-     ACCUEIL / SÉLECTION
-  ===================================================== */
-
+  /* ACCUEIL */
   .screen-title {
     font-family: var(--font-title);
     font-size: 30px;
     font-weight: 900;
-    letter-spacing: 0px;
     margin: 18px 0 28px;
     text-align: center;
-
- }
+  }
 
   .screen-subtitle {
     font-family: var(--font-display);
     font-size: 15px;
     font-weight: 600;
-    letter-spacing: 0px;
     margin: 18px 0 28px;
     text-align: center;
-
   }
 
   .selection-label {
@@ -155,7 +134,6 @@
   select {
     appearance: none;
     -webkit-appearance: none;
-    -moz-appearance: none;
     width: 100%;
     background: var(--color-bg);
     border: 1px solid var(--color-ink);
@@ -165,8 +143,6 @@
     font-weight: 600;
     color: var(--color-ink);
     cursor: pointer;
-    position: relative;
-    z-index: 2;
   }
 
   .select-arrow {
@@ -176,7 +152,6 @@
     transform: translateY(-50%);
     pointer-events: none;
     font-size: 14px;
-    z-index: 1;
     color: var(--color-ink);
   }
 
@@ -311,10 +286,7 @@
   .stat-label { color: var(--color-muted-2); }
   .stat-value { font-weight: 700; text-align: right; max-width: 60%; }
 
-  /* =====================================================
-     JEU
-  ===================================================== */
-
+  /* JEU */
   #gameScreen {
     padding: 0;
     min-height: 100vh;
@@ -360,41 +332,70 @@
     bottom: 20px;
     left: 0;
     right: 0;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
   }
 
   .percentage {
-    margin-top: 4px;
     font-size: 12px;
     color: var(--color-muted);
     font-weight: 600;
   }
 
-  .top-info .player-name,
-  .bottom-info .player-name { display: none; }
-
- .message {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 14px;
-    font-weight: 800;
-    font-family: var(--font-display);
-    white-space: nowrap;
+  .message {
+    font-size: 11.5px;
+    font-family: var(--font-text);
+    text-align: center;
     opacity: 0;
-    transition: opacity .15s;
+    transition: opacity .2s;
     pointer-events: none;
-    z-index: 5;
+    line-height: 1.35;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--color-border-light);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   }
 
-  .message.show {
-    opacity: 1;
-  }
-
-  .message.top { top: 24%; }
-  .message.bottom { bottom: 24%; }
   .message.show { opacity: 1; }
+
+  .message .msg-category {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .message .msg-phrase {
+    font-style: italic;
+    color: var(--color-ink);
+    margin-bottom: 2px;
+  }
+
+  .message .msg-rule {
+    font-weight: 700;
+    color: var(--color-muted-2);
+  }
+
+  .powerup-gauge-container {
+    width: 80%;
+    height: 4px;
+    background: var(--color-border-lighter);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .powerup-gauge-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--color-ink);
+    transition: width 0.1s linear;
+  }
 
   .game-score {
     position: absolute;
@@ -412,15 +413,8 @@
     z-index: 4;
   }
 
-  .game-score span {
-    display: block;
-    line-height: 1;
-  }
-
-  .score-separator {
-    font-size: 10px;
-    color: var(--color-placeholder);
-  }
+  .game-score span { display: block; line-height: 1; }
+  .score-separator { font-size: 10px; color: var(--color-placeholder); }
 
   .quit {
     position: absolute;
@@ -435,10 +429,7 @@
     pointer-events: auto;
   }
 
-  /* =====================================================
-     TRANSITION CAMPAGNE
-  ===================================================== */
-
+  /* TRANSITION CAMPAGNE */
   .campaign-row {
     display: flex;
     align-items: center;
@@ -452,10 +443,7 @@
   .campaign-row-name { font-family: var(--font-display); font-size: 14px; font-weight: 800; }
   .campaign-row-label { font-size: 11px; color: var(--color-placeholder); margin-top: 2px; }
 
-  /* =====================================================
-     RÉSULTAT
-  ===================================================== */
-
+  /* RÉSULTAT */
   .result {
     min-height: 100vh;
     display: flex;
@@ -480,16 +468,8 @@
     letter-spacing: -1.5px;
   }
 
-  .result-score {
-    margin-top: 10px;
-    font-size: 18px;
-    font-weight: 700;
-  }
-
-  .result-percentages {
-    margin-top: 40px;
-    border-top: 1px solid var(--color-ink);
-  }
+  .result-score { margin-top: 10px; font-size: 18px; font-weight: 700; }
+  .result-percentages { margin-top: 40px; border-top: 1px solid var(--color-ink); }
 
   .result-row {
     display: flex;
@@ -502,10 +482,7 @@
   .result-row strong { font-size: 16px; }
   .result-buttons { margin-top: auto; padding-bottom: 24px; }
 
-  /* =====================================================
-     TOAST
-  ===================================================== */
-
+  /* TOAST */
   .toast {
     position: fixed;
     left: 50%;
@@ -525,29 +502,22 @@
     text-align: center;
   }
 
-  .toast.show {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
 </style>
 </head>
 
 <body>
 
 <div class="app">
-
-  <!-- ===================================================
-       SÉLECTION
-  =================================================== -->
+  <!-- SÉLECTION -->
   <section id="selectionScreen" class="screen">
-
     <div class="screen-title">POL-PONG</div>
     <div class="screen-subtitle">La campagne présidentielle vous ennuie ? <br> Jouez-la au pong</div>
 
     <div class="selection-label">Mode de jeu</div>
     <div class="mode-toggle">
-      <button id="quickModeButton" class="active" onclick="setMode('quick')">PARTIE RAPIDE</button>
-      <button id="campaignModeButton" onclick="setMode('campaign')">CAMPAGNE PRÉSIDENTIELLE</button>
+      <button id="quickModeButton" class="active" onclick="App.setMode('quick')" aria-label="Partie Rapide">PARTIE RAPIDE</button>
+      <button id="campaignModeButton" onclick="App.setMode('campaign')" aria-label="Campagne Présidentielle">CAMPAGNE PRÉSIDENTIELLE</button>
     </div>
 
     <div id="campaignInfo" class="info-box hidden">
@@ -556,14 +526,14 @@
 
     <div class="selection-label">Votre camp</div>
     <div class="select-box">
-      <select id="campSelect" onchange="setCamp(this.value)"></select>
-      <div class="select-arrow">▼</div>
+      <select id="campSelect" onchange="App.setCamp(this.value)" aria-label="Sélectionner un camp"></select>
+      <div class="select-arrow" aria-hidden="true">▼</div>
     </div>
 
     <div class="selection-label">Votre candidat</div>
     <div class="select-box">
-      <select id="playerSelect" onchange="updateCandidatePreview()"></select>
-      <div class="select-arrow">▼</div>
+      <select id="playerSelect" onchange="App.updateCandidatePreview()" aria-label="Sélectionner un candidat"></select>
+      <div class="select-arrow" aria-hidden="true">▼</div>
     </div>
 
     <div class="candidate-preview-row" id="candidatePreviewRow"></div>
@@ -571,13 +541,13 @@
     <div id="difficultyBlock">
       <div class="selection-label">Difficulté</div>
       <div class="difficulty">
-        <button id="easyButton" class="active" onclick="setDifficulty('easy')">FACILE</button>
-        <button id="normalButton" onclick="setDifficulty('normal')">NORMAL</button>
-        <button id="hardButton" onclick="setDifficulty('hard')">DIFFICILE</button>
+        <button id="easyButton" class="active" onclick="App.setDifficulty('easy')" aria-label="Difficulté Facile">FACILE</button>
+        <button id="normalButton" onclick="App.setDifficulty('normal')" aria-label="Difficulté Normal">NORMAL</button>
+        <button id="hardButton" onclick="App.setDifficulty('hard')" aria-label="Difficulté Difficile">DIFFICILE</button>
       </div>
     </div>
 
-    <button class="main-button" id="startButton" onclick="startGame()">JOUER</button>
+    <button class="main-button" id="startButton" onclick="App.startGame()" aria-label="Lancer la partie">JOUER</button>
 
     <div class="stats-title">Vos statistiques</div>
     <div class="stats">
@@ -594,49 +564,43 @@
         <span class="stat-value" id="statFavorite">—</span>
       </div>
     </div>
-
   </section>
 
-  <!-- ===================================================
-       JEU
-  =================================================== -->
+  <!-- JEU -->
   <section id="gameScreen" class="hidden">
     <div class="game-wrapper">
       <canvas id="gameCanvas"></canvas>
-      <button class="quit" onclick="quitGame()">×</button>
+      <button class="quit" onclick="App.quitGame()" aria-label="Quitter la partie">×</button>
       <div class="game-ui">
         <div class="top-info">
-          <div class="player-name" id="opponentName">Adversaire</div>
           <div class="percentage" id="opponentPercentage">—</div>
         </div>
-        <div id="gameMessage" class="message"></div>
         <div class="game-score">
-    <span id="scoreOpponent">0</span>
-    <span class="score-separator">—</span>
-    <span id="scorePlayer">0</span>
+          <span id="scoreOpponent">0</span>
+          <span class="score-separator">—</span>
+          <span id="scorePlayer">0</span>
         </div>
         <div class="bottom-info">
+          <div id="gameMessage" class="message" aria-live="polite"></div>
+          <div class="powerup-gauge-container">
+            <div id="powerupGauge" class="powerup-gauge-fill"></div>
+          </div>
           <div class="percentage" id="playerPercentage">—</div>
-          <div class="player-name" id="playerName">Joueur</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===================================================
-       TRANSITION CAMPAGNE
-  =================================================== -->
+  <!-- TRANSITION CAMPAGNE -->
   <section id="campaignTransitionScreen" class="screen hidden">
     <div class="result-title" id="campaignTransitionTitle">Résultats</div>
     <div style="margin-top:14px;font-size:14px;color:#555;line-height:1.5;" id="campaignTransitionIntro"></div>
     <div style="margin-top:22px;" id="campaignTransitionList"></div>
-    <button class="main-button" id="campaignTransitionButton" onclick="continueCampaignTransition()">CONTINUER</button>
-    <button class="secondary-button" onclick="showSelection()">MENU</button>
+    <button class="main-button" id="campaignTransitionButton" onclick="App.continueCampaignTransition()" aria-label="Continuer la campagne">CONTINUER</button>
+    <button class="secondary-button" onclick="App.showSelection()" aria-label="Retour au menu principal">MENU</button>
   </section>
 
-  <!-- ===================================================
-       RÉSULTAT
-  =================================================== -->
+  <!-- RÉSULTAT -->
   <section id="resultScreen" class="screen result hidden">
     <div class="result-title" id="resultStageTitle">Partie terminée</div>
     <div class="winner" id="winnerName">—</div>
@@ -653,1020 +617,1050 @@
     </div>
     <div class="result-buttons" id="resultButtons"></div>
   </section>
-
 </div>
 
 <script>
-
-const CAMPS = [
-  { id: "ps", label: "Primaire socialiste" },
-  { id: "gauche", label: "Reste de la gauche" },
-  { id: "macron", label: "Macroniste" },
-  { id: "rn", label: "Extrême-droite" }
-];
-
-const DEFAULT_CANDIDATES = [
-  { name: "Raphaël Glucksmann", camp: "ps", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfF-qAE917M_HjvNF5MmJ5iJTrYbHmzO2hRmfSKbVJg2ZDTLKCEyukNrk&s=10" },
-  { name: "Olivier Faure", camp: "ps", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO1wGsMu95qbAxu0q-SGB3zcvfOWAzdJuGnaeSrrZ_rmZPAlFkrHV-LaJ9&s=10" },
-  { name: "Ségolène Royal", camp: "ps", image: "https://photos.tf1.fr/1280/720/en-toute-franchise-segolene-royal-096359-0@3x.webp" },
-
-  { name: "Jean-Luc Mélenchon", camp: "gauche", image: "https://images.rtl.fr/~c/2000v2000/rtl/www/1836240-jean-luc-melenchon-avant-le-20h-de-tf1-ou-il-a-annonce-sa-candidature-a-l-election-presidentielle-francaise-de-2027-le-3-mai-2026.jpg" },
-  { name: "François Hollande", camp: "gauche", image: "https://s.yimg.com/lo/mysterio/api/887d3a6fca7a54a7c53e340cea065a18b126b7dc7aa0cb95f1f54a2b49baa973/lightyear_networkapi/resizefit_w960%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Ffr%2Fcapital_268%2Fdc5d595bb483a12e9057b90045032874.jpg" },
-  { name: "Marine Tondelier", camp: "gauche", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ25o3Mj4aW9_KYxWjNvgsPiEWFgpJ-P3gJHbE3RZul-0kVQo1MmIL_qUs&s=10" },
-  { name: "Fabien Roussel", camp: "gauche", image: "https://io-fsly-bfmtv.cdn.nextradiotv.com/2eCVfJZTD0gEi7lgEwpFoYAh5wc=/420x0:1500x1080/1920x0/images/Fabien-Roussel-secretaire-national-du-PCF-invite-de-BFMTV-RMC-le-16-septembre-2026-2348831.jpg" },
-
-  { name: "Édouard Philippe", camp: "macron", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ79nAgMWuM7WvULv1LjHvk3zdcRbB5bMP6tM8apLAhmXYeKTpDGYRc-8Q&s=10" },
-  { name: "Gabriel Attal", camp: "macron", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm5LheOs4GmJQQxB9NuF0HbMol4YOjiVIg4yy4g7x21TWVDJIXlSFVfMZe&s=10" },
-  { name: "Bruno Retailleau", camp: "macron", image: "https://images.rtl.fr/~c/770v513/rtl/www/1743632-bruno-retailleau-a-epinal-le-samedi-22-mars-2025.jpg" },
-
-  { name: "Marine Le Pen", camp: "rn", image: "https://lcp.fr/sites/lcp.fr/files/styles/entete_contenu_1030x570/public/2025-03/Le%20Pen%20TF1.webp?h=33f7e92d&itok=-RfDvkch%201x" },
-  { name: "Jordan Bardella", camp: "rn", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlfPuD9_jg89LNzwMKC-DyAkdS_7Rxigoy0CaB1rD0-ZRsdkYnZR-J1bq_&s=10" },
-  { name: "Éric Zemmour", camp: "rn", image: "https://media1.ledevoir.com/images_galerie/originale_1056087_860745/image.jpg?crop=3%3A2%2Csmart&width=1440" }
-].map((c, i) => ({
-  id: "default-" + i,
-  name: c.name,
-  camp: c.camp,
-  image: c.image
-}));
-
-const DEFAULT_CAMP_COLORS = {
-  ps: "#E4356B",
-  gauche: "#D8232A",
-  macron: "#F2C230",
-  rn: "#1B3A6B"
-};
-
-const DEFAULT_PADDLE_CONFIG = {
-  width: 70,
-  height: 14,
-  border: 1.5
-};
-
-const WINNING_SCORE = 5;
-
-const messages = [
-  "Menteur.",
-  "C'est pas ce que vous disiez.",
-  "Vous êtes sûr ?",
-  "Belle pirouette.",
-  "On en reparle en 2027.",
-  "C'était dans votre programme ?",
-  "Ça commence mal.",
-  "Et un point de plus.",
-  "Les Français apprécieront.",
-  "Merci pour le point."
-];
-
-let candidates = DEFAULT_CANDIDATES.map(c => Object.assign({}, c));
-let campColors = Object.assign({}, DEFAULT_CAMP_COLORS);
-let paddleConfig = Object.assign({}, DEFAULT_PADDLE_CONFIG);
-
-function getCandidatesByCamp(campId) {
-  return candidates.filter(c => c.camp === campId);
-}
-
-function getCandidateById(id) {
-  return candidates.find(c => c.id === id) || null;
-}
-
-function campLabel(campId) {
-  const camp = CAMPS.find(c => c.id === campId);
-  return camp ? camp.label : campId;
-}
-
-function initials(name) {
-  if (!name) return "?";
-  return name.split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join("").toUpperCase();
-}
-
-function buildAvatarElement(candidate, size) {
-  const wrap = document.createElement("div");
-  wrap.className = "avatar-circle";
-  wrap.style.width = size + "px";
-  wrap.style.height = size + "px";
-
-  const color = candidate ? (campColors[candidate.camp] || "#111") : "#ccc";
-  wrap.style.borderColor = color;
-
-  if (candidate && candidate.image) {
-    const img = document.createElement("img");
-    img.src = candidate.image;
-    wrap.appendChild(img);
-  } else {
-    wrap.style.background = color;
-    const label = document.createElement("div");
-    label.className = "avatar-initials";
-    label.style.fontSize = Math.round(size * 0.25) + "px";
-    label.textContent = candidate ? initials(candidate.name) : "?";
-    wrap.appendChild(label);
-  }
-
-  return wrap;
-}
-
-let toastTimeout = null;
-function showToast(text) {
-  let el = document.getElementById("toast");
-  if (!el) {
-    el = document.createElement("div");
-    el.id = "toast";
-    el.className = "toast";
-    document.body.appendChild(el);
-  }
-  el.textContent = text;
-  el.classList.add("show");
-  clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => { el.classList.remove("show"); }, 2400);
-}
-
-const selectionScreen = document.getElementById("selectionScreen");
-const gameScreen = document.getElementById("gameScreen");
-const campaignTransitionScreen = document.getElementById("campaignTransitionScreen");
-const resultScreen = document.getElementById("resultScreen");
-
-const campSelectEl = document.getElementById("campSelect");
-const playerSelect = document.getElementById("playerSelect");
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
-
-const FONT_TEXT = "'Outfit', sans-serif";
-const FONT_DISPLAY = "'Sora', sans-serif";
-
-let mode = "quick";
-let selectedCamp = CAMPS[0].id;
-let currentMatchMode = "quick";
-let currentPlayerCandidate = null;
-let currentOpponentCandidate = null;
-let currentPlayerAvatar = null;
-let currentOpponentAvatar = null;
-let playerName = "";
-let opponentName = "";
-let playerScore = 0;
-let opponentScore = 0;
-let difficulty = "easy";
-let animationId = null;
-let gameRunning = false;
-let messageTimeout = null;
-let lastTime = 0;
-let aiTarget = null;
-let pointPending = false;
-let resetTimeout = null;
-let campaign = null;
-let pendingCampaignContinue = null;
-
-const AI_LINE = 0.28;
-const PLAYER_LINE = 0.72;
-const GOAL_MARGIN = 70;
-const AVATAR_RADIUS = 25;
-
-const ball = { x: 0, y: 0, vx: 0, vy: 0, radius: 5, speed: 340 };
-const playerPaddle = { x: 0, y: 0, width: paddleConfig.width, height: paddleConfig.height, color: "#fff" };
-const aiPaddle = { x: 0, y: 0, width: paddleConfig.width, height: paddleConfig.height, color: "#fff" };
-
-const difficultySettings = {
-  easy: { speed: 3.0, reaction: 0.72 },
-  normal: { speed: 4.2, reaction: 0.88 },
-  hard: { speed: 5.6, reaction: 0.98 }
-};
-
-function hideAllScreens() {
-  selectionScreen.classList.add("hidden");
-  gameScreen.classList.add("hidden");
-  campaignTransitionScreen.classList.add("hidden");
-  resultScreen.classList.add("hidden");
-}
-
-function showSelection() {
-  stopGame();
-  campaign = null;
-  hideAllScreens();
-  selectionScreen.classList.remove("hidden");
-
-  populateCampSelect();
-  if (!CAMPS.some(c => c.id === selectedCamp)) {
-    selectedCamp = CAMPS[0].id;
-  }
-  campSelectEl.value = selectedCamp;
-
-  populateCandidateSelect();
-  setMode(mode);
-  updateStatsUI();
-}
-
-function showGame() {
-  hideAllScreens();
-  gameScreen.classList.remove("hidden");
-  resizeCanvas();
-}
-
-function showResult() {
-  stopGame();
-  hideAllScreens();
-  resultScreen.classList.remove("hidden");
-}
-
-function populateCampSelect() {
-  campSelectEl.innerHTML = "";
-  CAMPS.forEach(camp => {
-    const option = document.createElement("option");
-    option.value = camp.id;
-    option.textContent = camp.label;
-    campSelectEl.appendChild(option);
-  });
-}
-
-function setCamp(campId) {
-  selectedCamp = campId;
-  populateCandidateSelect();
-}
-
-function populateCandidateSelect() {
-  const list = getCandidatesByCamp(selectedCamp);
-  playerSelect.innerHTML = "";
-
-  list.forEach(candidate => {
-    const option = document.createElement("option");
-    option.value = candidate.id;
-    option.textContent = candidate.name;
-    playerSelect.appendChild(option);
-  });
-
-  if (list.length > 0) {
-    playerSelect.value = list[0].id;
-  }
-
-  updateCandidatePreview();
-}
-
-function updateCandidatePreview() {
-  const el = document.getElementById("candidatePreviewRow");
-  el.innerHTML = "";
-
-  const candidate = getCandidateById(playerSelect.value);
-  if (!candidate) return;
-
-  el.appendChild(buildAvatarElement(candidate, 52));
-
-  const info = document.createElement("div");
-  const name = document.createElement("div");
-  name.className = "candidate-preview-name";
-  name.textContent = candidate.name;
-
-  const camp = document.createElement("div");
-  camp.className = "candidate-preview-camp";
-  camp.textContent = campLabel(candidate.camp);
-
-  info.appendChild(name);
-  info.appendChild(camp);
-  el.appendChild(info);
-}
-
-function setMode(newMode) {
-  mode = newMode;
-  document.getElementById("quickModeButton").classList.toggle("active", mode === "quick");
-  document.getElementById("campaignModeButton").classList.toggle("active", mode === "campaign");
-  document.getElementById("difficultyBlock").classList.toggle("hidden", mode === "campaign");
-  document.getElementById("campaignInfo").classList.toggle("hidden", mode !== "campaign");
-  document.getElementById("startButton").textContent = mode === "campaign" ? "LANCER LA CAMPAGNE" : "JOUER";
-}
-
-function setDifficulty(level) {
-  difficulty = level;
-  document.querySelectorAll(".difficulty button").forEach(b => b.classList.remove("active"));
-  document.getElementById(level + "Button").classList.add("active");
-}
-
-function startGame() {
-  stopGame();
-  const playerCandidate = getCandidateById(playerSelect.value);
-
-  if (!playerCandidate) {
-    showToast("Choisissez d'abord un candidat.");
-    return;
-  }
-
-  if (mode === "campaign") {
-    startCampaign(playerCandidate);
-  } else {
-    const pool = candidates.filter(c => c.camp !== playerCandidate.camp);
-    if (!pool.length) {
-      showToast("Il faut au moins un candidat d'un autre camp pour jouer.");
-      return;
+/**
+ * AUDIO ENGINE (Web Audio API)
+ */
+const SoundEngine = {
+  ctx: null,
+  init() {
+    if (!this.ctx) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) this.ctx = new AudioCtx();
     }
-    const opponentCandidate = pool[Math.floor(Math.random() * pool.length)];
-    beginMatch(playerCandidate, opponentCandidate, "quick");
+    if (this.ctx && this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+  },
+  playHit() {
+    if (!this.ctx) return;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(440, this.ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(110, this.ctx.currentTime + 0.08);
+    gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start();
+    osc.stop(this.ctx.currentTime + 0.08);
+  },
+  playScore() {
+    if (!this.ctx) return;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(220, this.ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(660, this.ctx.currentTime + 0.25);
+    gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.25);
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start();
+    osc.stop(this.ctx.currentTime + 0.25);
+  },
+  playPowerup() {
+    if (!this.ctx) return;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(300, this.ctx.currentTime);
+    osc.frequency.linearRampToValueAtTime(800, this.ctx.currentTime + 0.15);
+    osc.frequency.linearRampToValueAtTime(400, this.ctx.currentTime + 0.3);
+    gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.3);
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start();
+    osc.stop(this.ctx.currentTime + 0.3);
+  }
+};
+
+/**
+ * CACHE DES IMAGES AVATARS
+ */
+const ImageCache = {
+  cache: new Map(),
+  get(src) {
+    if (!src) return null;
+    if (this.cache.has(src)) return this.cache.get(src);
+    const img = new Image();
+    img.src = src;
+    this.cache.set(src, img);
+    return img;
+  }
+};
+
+/**
+ * GESTIONNAIRE DE TIMERS CENTRALISÉ
+ */
+const TimerManager = {
+  timeouts: new Set(),
+  intervals: new Set(),
+  setTimeout(fn, delay) {
+    const id = setTimeout(() => {
+      this.timeouts.delete(id);
+      fn();
+    }, delay);
+    this.timeouts.add(id);
+    return id;
+  },
+  setInterval(fn, delay) {
+    const id = setInterval(fn, delay);
+    this.intervals.add(id);
+    return id;
+  },
+  clearAll() {
+    this.timeouts.forEach(id => clearTimeout(id));
+    this.intervals.forEach(id => clearInterval(id));
+    this.timeouts.clear();
+    this.intervals.clear();
+  }
+};
+
+/**
+ * ÉTAT GLOBAL DU JEU
+ */
+class GameState {
+  constructor() {
+    this.running = false;
+    this.countdownActive = false;
+    this.countdownValue = 0;
+    this.powerupTimeLeft = 20;
+    this.mode = 'quick';
+    this.difficulty = 'easy';
+    this.selectedCamp = 'ps';
+    this.currentMatchMode = 'quick';
+    this.playerScore = 0;
+    this.opponentScore = 0;
+    this.pointPending = false;
+    this.campaign = null;
+
+    this.playerCandidate = null;
+    this.opponentCandidate = null;
+
+    this.activeEffects = {
+      paddleMultiplier: 1,
+      ballSpeedMultiplier: 1,
+      playerShotBoost: 1,
+      opponentShotBoost: 1
+    };
+  }
+
+  resetEffects() {
+    this.activeEffects = {
+      paddleMultiplier: 1,
+      ballSpeedMultiplier: 1,
+      playerShotBoost: 1,
+      opponentShotBoost: 1
+    };
   }
 }
 
-function beginMatch(playerCandidate, opponentCandidate, matchMode) {
-  currentMatchMode = matchMode;
-  currentPlayerCandidate = playerCandidate;
-  currentOpponentCandidate = opponentCandidate;
+/**
+ * APPLICATION PRINCIPALE
+ */
+const App = (function() {
+  const CAMPS = [
+    { id: "ps", label: "Primaire socialiste" },
+    { id: "gauche", label: "Reste de la gauche" },
+    { id: "macron", label: "Macroniste" },
+    { id: "rn", label: "Extrême-droite" }
+  ];
 
-  currentPlayerAvatar = makeAvatarImage(playerCandidate);
-  currentOpponentAvatar = makeAvatarImage(opponentCandidate);
+  const DEFAULT_CANDIDATES = [
+    { name: "Raphaël Glucksmann", camp: "ps", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfF-qAE917M_HjvNF5MmJ5iJTrYbHmzO2hRmfSKbVJg2ZDTLKCEyukNrk&s=10" },
+    { name: "Olivier Faure", camp: "ps", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO1wGsMu95qbAxu0q-SGB3zcvfOWAzdJuGnaeSrrZ_rmZPAlFkrHV-LaJ9&s=10" },
+    { name: "Ségolène Royal", camp: "ps", image: "https://photos.tf1.fr/1280/720/en-toute-franchise-segolene-royal-096359-0@3x.webp" },
+    { name: "Jean-Luc Mélenchon", camp: "gauche", image: "https://images.rtl.fr/~c/2000v2000/rtl/www/1836240-jean-luc-melenchon-avant-le-20h-de-tf1-ou-il-a-annonce-sa-candidature-a-l-election-presidentielle-francaise-de-2027-le-3-mai-2026.jpg" },
+    { name: "François Hollande", camp: "gauche", image: "https://s.yimg.com/lo/mysterio/api/887d3a6fca7a54a7c53e340cea065a18b126b7dc7aa0cb95f1f54a2b49baa973/lightyear_networkapi/resizefit_w960%3Bquality_80%3Bformat_webp/https%3A%2F%2Fmedia.zenfs.com%2Ffr%2Fcapital_268%2Fdc5d595bb483a12e9057b90045032874.jpg" },
+    { name: "Marine Tondelier", camp: "gauche", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ25o3Mj4aW9_KYxWjNvgsPiEWFgpJ-P3gJHbE3RZul-0kVQo1MmIL_qUs&s=10" },
+    { name: "Fabien Roussel", camp: "gauche", image: "https://io-fsly-bfmtv.cdn.nextradiotv.com/2eCVfJZTD0gEi7lgEwpFoYAh5wc=/420x0:1500x1080/1920x0/images/Fabien-Roussel-secretaire-national-du-PCF-invite-de-BFMTV-RMC-le-16-septembre-2026-2348831.jpg" },
+    { name: "Édouard Philippe", camp: "macron", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ79nAgMWuM7WvULv1LjHvk3zdcRbB5bMP6tM8apLAhmXYeKTpDGYRc-8Q&s=10" },
+    { name: "Gabriel Attal", camp: "macron", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm5LheOs4GmJQQxB9NuF0HbMol4YOjiVIg4yy4g7x21TWVDJIXlSFVfMZe&s=10" },
+    { name: "Bruno Retailleau", camp: "macron", image: "https://images.rtl.fr/~c/770v513/rtl/www/1743632-bruno-retailleau-a-epinal-le-samedi-22-mars-2025.jpg" },
+    { name: "Marine Le Pen", camp: "rn", image: "https://lcp.fr/sites/lcp.fr/files/styles/entete_contenu_1030x570/public/2025-03/Le%20Pen%20TF1.webp?h=33f7e92d&itok=-RfDvkch%201x" },
+    { name: "Jordan Bardella", camp: "rn", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlfPuD9_jg89LNzwMKC-DyAkdS_7Rxigoy0CaB1rD0-ZRsdkYnZR-J1bq_&s=10" },
+    { name: "Éric Zemmour", camp: "rn", image: "https://media1.ledevoir.com/images_galerie/originale_1056087_860745/image.jpg?crop=3%3A2%2Csmart&width=1440" }
+  ].map((c, i) => ({ id: "default-" + i, ...c }));
 
-  playerName = playerCandidate.name;
-  opponentName = opponentCandidate.name;
+  const CAMP_COLORS = { ps: "#E4356B", gauche: "#D8232A", macron: "#F2C230", rn: "#1B3A6B" };
+  const PADDLE_CONFIG = { width: 70, height: 14, border: 1.5 };
+  const WINNING_SCORE = 5;
+  const FONT_DISPLAY = "'Sora', sans-serif";
 
-  playerPaddle.width = paddleConfig.width;
-  playerPaddle.height = paddleConfig.height;
-  playerPaddle.color = campColors[playerCandidate.camp] || "#fff";
+  const MESSAGES = [
+    "Menteur.", "C'est pas ce que vous disiez.", "Vous êtes sûr ?",
+    "Belle pirouette.", "On en reparle en 2027.", "C'était dans votre programme ?",
+    "Ça commence mal.", "Et un point de plus.", "Les Français apprécieront.", "Merci pour le point."
+  ];
 
-  aiPaddle.width = paddleConfig.width;
-  aiPaddle.height = paddleConfig.height;
-  aiPaddle.color = campColors[opponentCandidate.camp] || "#fff";
+  const POWER_UPS = [
+    {
+      category: "MEDIA", type: "bonus",
+      phrase: "Quelle interview ! Le charisme et la verve des plus grands",
+      rule: "La raquette s'allonge pendant 5 secondes",
+      apply: (state) => state.activeEffects.paddleMultiplier = 1.5,
+      reset: (state) => state.activeEffects.paddleMultiplier = 1,
+      duration: 5000
+    },
+    {
+      category: "MEDIA", type: "malus",
+      phrase: "Oula c'est un naufrage en direct",
+      rule: "La raquette est raccourcie pendant 5 secondes",
+      apply: (state) => state.activeEffects.paddleMultiplier = 0.6,
+      reset: (state) => state.activeEffects.paddleMultiplier = 1,
+      duration: 5000
+    },
+    {
+      category: "CAMPAGNE", type: "bonus",
+      phrase: "Votre meeting est un carton, vous progressez dans les sondages",
+      rule: "La balle ralentit pendant 5 secondes",
+      apply: (state) => state.activeEffects.ballSpeedMultiplier = 0.6,
+      reset: (state) => state.activeEffects.ballSpeedMultiplier = 1,
+      duration: 5000
+    },
+    {
+      category: "CAMPAGNE", type: "malus",
+      phrase: "Même votre voisin n'a pas entendu parlé de votre meeting...",
+      rule: "La balle accélère pendant 5 secondes",
+      apply: (state) => state.activeEffects.ballSpeedMultiplier = 1.5,
+      reset: (state) => state.activeEffects.ballSpeedMultiplier = 1,
+      duration: 5000
+    },
+    {
+      category: "DÉPLACEMENT", type: "bonus",
+      phrase: "Cette séquence au marché de Châteauroux a fait le tour des réseaux...",
+      rule: "Pendant 10 secondes, vos tirs accélèrent",
+      apply: (state) => state.activeEffects.playerShotBoost = 1.4,
+      reset: (state) => state.activeEffects.playerShotBoost = 1,
+      duration: 10000
+    },
+    {
+      category: "DÉPLACEMENT", type: "malus",
+      phrase: "Personne n'a vu votre déplacement et en plus il pleuvait là-bas",
+      rule: "Pendant 10 secondes, les tirs reçus accélèrent",
+      apply: (state) => state.activeEffects.opponentShotBoost = 1.4,
+      reset: (state) => state.activeEffects.opponentShotBoost = 1,
+      duration: 10000
+    }
+  ];
 
-  playerScore = 0;
-  opponentScore = 0;
-
-  showGame();
-
-  document.getElementById("opponentName").textContent = opponentName;
-  document.getElementById("playerName").textContent = playerName;
-  document.getElementById("scoreOpponent").textContent = "0";
-  document.getElementById("scorePlayer").textContent = "0";
-
-  updatePercentages();
-  setupGame();
-
-  gameRunning = true;
-  lastTime = performance.now();
-  animationId = requestAnimationFrame(gameLoop);
-}
-
-function makeAvatarImage(candidate) {
-  if (!candidate || !candidate.image) return null;
-  const img = new Image();
-  img.src = candidate.image;
-  return img;
-}
-
-function startCampaign(playerCandidate) {
-  const campId = playerCandidate.camp;
-  const campPool = getCandidatesByCamp(campId).filter(c => c.id !== playerCandidate.id);
-
-  if (!campPool.length) {
-    showToast("Il faut au moins deux candidats dans ce camp pour une primaire.");
-    return;
-  }
-
-  campaign = {
-    campId: campId,
-    playerId: playerCandidate.id,
-    stage: "primaire",
-    campWinners: {},
-    opponentCampId: null,
-    remainingCampIds: [],
-    secondTourOpponentId: null
+  const DIFFICULTY_SETTINGS = {
+    easy: { speed: 3.0, reaction: 0.72 },
+    normal: { speed: 4.2, reaction: 0.88 },
+    hard: { speed: 5.6, reaction: 0.98 }
   };
 
-  const opponent = campPool[Math.floor(Math.random() * campPool.length)];
-  difficulty = "easy";
-  beginMatch(playerCandidate, opponent, "campaign");
-}
+  let state = new GameState();
+  let canvas, ctx;
+  let animationId = null;
+  let lastTime = 0;
+  let aiTarget = null;
+  let pendingCampaignContinue = null;
 
-function restartCampaign() {
-  if (!campaign) { showSelection(); return; }
-  const player = getCandidateById(campaign.playerId);
-  if (!player) { showSelection(); return; }
-  startCampaign(player);
-}
+  const AI_LINE = 0.28, PLAYER_LINE = 0.72, GOAL_MARGIN = 70, AVATAR_RADIUS = 25;
+  const ball = { x: 0, y: 0, vx: 0, vy: 0, radius: 5, speed: 340 };
+  const playerPaddle = { x: 0, y: 0, width: PADDLE_CONFIG.width, height: PADDLE_CONFIG.height, color: "#fff" };
+  const aiPaddle = { x: 0, y: 0, width: PADDLE_CONFIG.width, height: PADDLE_CONFIG.height, color: "#fff" };
 
-function afterPrimaireWin() {
-  const others = CAMPS.map(c => c.id).filter(id => id !== campaign.campId);
-  const winners = {};
-  winners[campaign.campId] = campaign.playerId;
+  function init() {
+    canvas = document.getElementById("gameCanvas");
+    ctx = canvas.getContext("2d");
 
-  others.forEach(campId => {
-    const pool = getCandidatesByCamp(campId);
-    if (pool.length) {
-      winners[campId] = pool[Math.floor(Math.random() * pool.length)].id;
-    }
-  });
+    // Préchargement des images d'avatars
+    DEFAULT_CANDIDATES.forEach(c => ImageCache.get(c.image));
 
-  campaign.campWinners = winners;
+    window.addEventListener("resize", () => {
+      if (state.running || state.countdownActive) resizeCanvas();
+    });
 
-  showCampaignTransition({
-    title: "Résultats des primaires",
-    intro: "Voici les candidats qui représenteront chaque camp au premier tour.",
-    entries: CAMPS.filter(c => winners[c.id]).map(c => ({
-      candidate: getCandidateById(winners[c.id]),
-      label: c.label,
-      highlight: c.id === campaign.campId
-    })),
-    buttonLabel: "PASSER AU PREMIER TOUR",
-    onContinue: beginPremierTourMatch
-  });
-}
-
-function beginPremierTourMatch() {
-  const otherCampIds = Object.keys(campaign.campWinners).filter(id => id !== campaign.campId);
-  const opponentCampId = otherCampIds[Math.floor(Math.random() * otherCampIds.length)];
-
-  campaign.opponentCampId = opponentCampId;
-  campaign.remainingCampIds = otherCampIds.filter(id => id !== opponentCampId);
-  campaign.stage = "premier";
-  difficulty = "normal";
-
-  const player = getCandidateById(campaign.playerId);
-  const opponent = getCandidateById(campaign.campWinners[opponentCampId]);
-
-  beginMatch(player, opponent, "campaign");
-}
-
-function afterPremierTourWin() {
-  const remaining = campaign.remainingCampIds;
-  let secondTourWinnerId;
-
-  if (remaining.length === 2) {
-    secondTourWinnerId = Math.random() < 0.5 ? campaign.campWinners[remaining[0]] : campaign.campWinners[remaining[1]];
-  } else if (remaining.length === 1) {
-    secondTourWinnerId = campaign.campWinners[remaining[0]];
-  } else {
-    secondTourWinnerId = campaign.campWinners[campaign.opponentCampId];
+    setupControls();
+    showSelection();
   }
 
-  campaign.secondTourOpponentId = secondTourWinnerId;
+  function setupControls() {
+    let leftPressed = false, rightPressed = false;
 
-  showCampaignTransition({
-    title: "Résultats du premier tour",
-    intro: "Votre adversaire du second tour est désigné.",
-    entries: [
-      { candidate: getCandidateById(campaign.playerId), label: "Vous — qualifié(e)", highlight: true },
-      { candidate: getCandidateById(secondTourWinnerId), label: "Votre adversaire", highlight: false }
-    ],
-    buttonLabel: "PASSER AU SECOND TOUR",
-    onContinue: beginSecondTourMatch
-  });
-}
+    const movePlayerFromPointer = (e) => {
+      if (!state.running || state.countdownActive) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      playerPaddle.x = Math.max(0, Math.min(canvas.clientWidth - playerPaddle.width, x - playerPaddle.width / 2));
+    };
 
-function beginSecondTourMatch() {
-  campaign.stage = "second";
-  difficulty = "hard";
-  const player = getCandidateById(campaign.playerId);
-  const opponent = getCandidateById(campaign.secondTourOpponentId);
-  beginMatch(player, opponent, "campaign");
-}
+    canvas.addEventListener("pointermove", movePlayerFromPointer);
+    canvas.addEventListener("pointerdown", (e) => {
+      SoundEngine.init();
+      movePlayerFromPointer(e);
+    });
 
-function showCampaignTransition(options) {
-  hideAllScreens();
-  document.getElementById("campaignTransitionTitle").textContent = options.title;
-  document.getElementById("campaignTransitionIntro").textContent = options.intro;
+    document.addEventListener("keydown", e => {
+      if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") leftPressed = true;
+      if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") rightPressed = true;
+    });
 
-  const list = document.getElementById("campaignTransitionList");
-  list.innerHTML = "";
+    document.addEventListener("keyup", e => {
+      if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") leftPressed = false;
+      if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") rightPressed = false;
+    });
 
-  options.entries.forEach(entry => {
-    const row = document.createElement("div");
-    row.className = "campaign-row" + (entry.highlight ? " highlight" : "");
-    row.appendChild(buildAvatarElement(entry.candidate, 44));
+    setInterval(() => {
+      if (!state.running || state.countdownActive) return;
+      if (leftPressed) playerPaddle.x -= 15;
+      if (rightPressed) playerPaddle.x += 15;
+      playerPaddle.x = Math.max(0, Math.min(canvas.clientWidth - playerPaddle.width, playerPaddle.x));
+    }, 16);
+  }
+
+  function hideAllScreens() {
+    document.querySelectorAll(".screen").forEach(s => s.classList.add("hidden"));
+  }
+
+  function showSelection() {
+    stopGame();
+    state.campaign = null;
+    hideAllScreens();
+    document.getElementById("selectionScreen").classList.remove("hidden");
+
+    populateCampSelect();
+    const campSelectEl = document.getElementById("campSelect");
+    if (!CAMPS.some(c => c.id === state.selectedCamp)) state.selectedCamp = CAMPS[0].id;
+    campSelectEl.value = state.selectedCamp;
+
+    populateCandidateSelect();
+    setMode(state.mode);
+    updateStatsUI();
+  }
+
+  function populateCampSelect() {
+    const el = document.getElementById("campSelect");
+    el.innerHTML = "";
+    CAMPS.forEach(c => {
+      const opt = document.createElement("option");
+      opt.value = c.id;
+      opt.textContent = c.label;
+      el.appendChild(opt);
+    });
+  }
+
+  function setCamp(campId) {
+    state.selectedCamp = campId;
+    populateCandidateSelect();
+  }
+
+  function populateCandidateSelect() {
+    const list = DEFAULT_CANDIDATES.filter(c => c.camp === state.selectedCamp);
+    const el = document.getElementById("playerSelect");
+    el.innerHTML = "";
+
+    list.forEach(c => {
+      const opt = document.createElement("option");
+      opt.value = c.id;
+      opt.textContent = c.name;
+      el.appendChild(opt);
+    });
+
+    if (list.length > 0) el.value = list[0].id;
+    updateCandidatePreview();
+  }
+
+  function updateCandidatePreview() {
+    const el = document.getElementById("candidatePreviewRow");
+    el.innerHTML = "";
+
+    const candidate = DEFAULT_CANDIDATES.find(c => c.id === document.getElementById("playerSelect").value);
+    if (!candidate) return;
+
+    el.appendChild(buildAvatarElement(candidate, 52));
 
     const info = document.createElement("div");
     const name = document.createElement("div");
-    name.className = "campaign-row-name";
-    name.textContent = entry.candidate ? entry.candidate.name : "—";
+    name.className = "candidate-preview-name";
+    name.textContent = candidate.name;
 
-    const label = document.createElement("div");
-    label.className = "campaign-row-label";
-    label.textContent = entry.label;
+    const camp = document.createElement("div");
+    camp.className = "candidate-preview-camp";
+    camp.textContent = CAMPS.find(c => c.id === candidate.camp)?.label || candidate.camp;
 
     info.appendChild(name);
-    info.appendChild(label);
-    row.appendChild(info);
-    list.appendChild(row);
-  });
-
-  document.getElementById("campaignTransitionButton").textContent = options.buttonLabel;
-  pendingCampaignContinue = options.onContinue;
-  campaignTransitionScreen.classList.remove("hidden");
-}
-
-function continueCampaignTransition() {
-  const fn = pendingCampaignContinue;
-  pendingCampaignContinue = null;
-  if (fn) fn();
-}
-
-function resizeCanvas() {
-  const rect = canvas.getBoundingClientRect();
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  canvas.width = rect.width * dpr;
-  canvas.height = rect.height * dpr;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  if (gameRunning) setupGameDimensions();
-}
-
-function setupGameDimensions() {
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
-  aiPaddle.y = height * AI_LINE;
-  playerPaddle.y = height * PLAYER_LINE;
-  playerPaddle.x = (width - playerPaddle.width) / 2;
-  aiPaddle.x = (width - aiPaddle.width) / 2;
-  ball.x = width / 2;
-  ball.y = height / 2;
-}
-
-function setupGame() {
-  setupGameDimensions();
-  aiTarget = null;
-  resetBall(Math.random() > 0.5 ? 1 : -1);
-}
-
-function resetBall(direction) {
-  pointPending = false;
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
-  ball.x = width / 2;
-  ball.y = height / 2;
-  ball.speed = 340;
-  const angle = Math.random() * 0.8 - 0.4;
-  ball.vx = Math.sin(angle) * ball.speed;
-  ball.vy = Math.cos(angle) * ball.speed * direction;
-}
-
-function gameLoop(timestamp) {
-  if (!gameRunning) return;
-  let dt = (timestamp - lastTime) / 1000;
-  lastTime = timestamp;
-  dt = Math.min(dt, 0.025);
-  update(dt);
-  draw();
-  animationId = requestAnimationFrame(gameLoop);
-}
-
-function update(dt) {
-  updateAI(dt);
-  ball.x += ball.vx * dt;
-  ball.y += ball.vy * dt;
-
-  const width = canvas.clientWidth;
-
-  if (ball.x - ball.radius <= 0 && ball.vx < 0) {
-    ball.x = ball.radius;
-    ball.vx *= -1;
-  }
-  if (ball.x + ball.radius >= width && ball.vx > 0) {
-    ball.x = width - ball.radius;
-    ball.vx *= -1;
+    info.appendChild(camp);
+    el.appendChild(info);
   }
 
-  if (ball.vy < 0 && ball.y - ball.radius <= aiPaddle.y + aiPaddle.height / 2) {
-    if (ball.x >= aiPaddle.x && ball.x <= aiPaddle.x + aiPaddle.width) {
-      hitPaddle(aiPaddle, false);
-    }
-  }
+  function buildAvatarElement(candidate, size) {
+    const wrap = document.createElement("div");
+    wrap.className = "avatar-circle";
+    wrap.style.width = size + "px";
+    wrap.style.height = size + "px";
 
-  if (ball.vy > 0 && ball.y + ball.radius >= playerPaddle.y - playerPaddle.height / 2) {
-    if (ball.x >= playerPaddle.x && ball.x <= playerPaddle.x + playerPaddle.width) {
-      hitPaddle(playerPaddle, true);
-    }
-  }
+    const color = candidate ? (CAMP_COLORS[candidate.camp] || "#111") : "#ccc";
+    wrap.style.borderColor = color;
 
-  if (ball.y > playerPaddle.y + GOAL_MARGIN) scorePoint("ai");
-  if (ball.y < aiPaddle.y - GOAL_MARGIN) scorePoint("player");
-}
-
-function updateAI(dt) {
-  const settings = difficultySettings[difficulty];
-  let target = ball.vy < 0 ? ball.x : canvas.clientWidth / 2;
-
-  if (aiTarget === null) aiTarget = target;
-  aiTarget += (target - aiTarget) * settings.reaction * dt * 5;
-
-  const desired = aiTarget - aiPaddle.width / 2;
-  let difference = desired - aiPaddle.x;
-  const maxMove = settings.speed * 100 * dt;
-  difference = Math.max(-maxMove, Math.min(maxMove, difference));
-
-  aiPaddle.x += difference;
-  aiPaddle.x = Math.max(0, Math.min(canvas.clientWidth - aiPaddle.width, aiPaddle.x));
-}
-
-function hitPaddle(paddle, isPlayer) {
-  if (isPlayer) {
-    ball.y = paddle.y - paddle.height / 2 - ball.radius;
-    ball.vy = -Math.abs(ball.vy);
-  } else {
-    ball.y = paddle.y + paddle.height / 2 + ball.radius;
-    ball.vy = Math.abs(ball.vy);
-  }
-
-  const paddleCenter = paddle.x + paddle.width / 2;
-  const impact = (ball.x - paddleCenter) / (paddle.width / 2);
-  ball.vx = impact * 300;
-  ball.speed *= 1.035;
-
-  const currentSpeed = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy);
-  if (currentSpeed > 700) {
-    const factor = 700 / currentSpeed;
-    ball.vx *= factor;
-    ball.vy *= factor;
-  }
-}
-
-function scorePoint(who) {
-  if (!gameRunning || pointPending) return;
-  pointPending = true;
-  ball.vx = 0;
-  ball.vy = 0;
-
-  if (who === "player") {
-    playerScore++;
-    const color = currentPlayerCandidate ? (campColors[currentPlayerCandidate.camp] || "#111") : "#111";
-    showMessage(randomMessage(), color);
-  } else {
-    opponentScore++;
-    const color = currentOpponentCandidate ? (campColors[currentOpponentCandidate.camp] || "#111") : "#111";
-    showMessage(randomMessage(), color);
-  }
-
-  updatePercentages();
-  document.getElementById("scoreOpponent").textContent = opponentScore;
-  document.getElementById("scorePlayer").textContent = playerScore;
-
-  if (playerScore >= WINNING_SCORE || opponentScore >= WINNING_SCORE) {
-    endGame();
-    return;
-  }
-
-  resetTimeout = setTimeout(() => {
-    resetTimeout = null;
-    if (gameRunning) resetBall(who === "player" ? -1 : 1);
-  }, 350);
-}
-
-function updatePercentages() {
-  const total = playerScore + opponentScore;
-  const pEl = document.getElementById("playerPercentage");
-  const oEl = document.getElementById("opponentPercentage");
-
-  if (total === 0) {
-    pEl.textContent = "—";
-    oEl.textContent = "—";
-    return;
-  }
-
-  pEl.textContent = formatPercentage(playerScore / total * 100);
-  oEl.textContent = formatPercentage(opponentScore / total * 100);
-}
-
-function formatPercentage(v) { return v.toFixed(1).replace(".", ",") + " %"; }
-function randomMessage() { return messages[Math.floor(Math.random() * messages.length)]; }
-
-function showMessage(text, color) {
-  const el = document.getElementById("gameMessage");
-  if (!el) return;
-
-  el.textContent = text;
-  el.style.color = color;
-
-  // Réinitialise la transition
-  el.classList.remove("show");
-  void el.offsetWidth;
-  el.classList.add("show");
-
-  clearTimeout(messageTimeout);
-  messageTimeout = setTimeout(() => {
-    el.classList.remove("show");
-  }, 1200);
-}
-
-function draw() {
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
-
-  ctx.clearRect(0, 0, width, height);
-
-  ctx.strokeStyle = "#111";
-  ctx.lineWidth = 2;
-  ctx.strokeRect(1, 1, width - 2, height - 2);
-
-  ctx.beginPath();
-  ctx.setLineDash([4, 7]);
-  ctx.moveTo(22, height / 2);
-  ctx.lineTo(width - 22, height / 2);
-  ctx.strokeStyle = "#e5e5e5";
-  ctx.lineWidth = 1;
-  ctx.stroke();
-  ctx.setLineDash([]);
-
- drawPaddle(aiPaddle);
-  drawPaddle(playerPaddle);
-
-  // --- ADVERSAIRE / IA (EN HAUT) ---
-  // Ordre de haut en bas : Nom -> Avatar -> Raquette
-  
-  // 1. Position de l'avatar (au-dessus de la raquette IA)
-  const aiAvatarX = aiPaddle.x + aiPaddle.width / 2;
-  const aiAvatarY = aiPaddle.y - aiPaddle.height / 2 - 12 - AVATAR_RADIUS;
-
-  drawCanvasAvatar(
-    currentOpponentAvatar, currentOpponentCandidate,
-    aiAvatarX, aiAvatarY,
-    AVATAR_RADIUS, currentOpponentCandidate ? (campColors[currentOpponentCandidate.camp] || "#111") : "#111"
-  );
-
-  // 2. Nom de l'IA placé AU-DESSUS de son avatar (avec 'isTop = true')
-  const aiNameY = aiAvatarY - AVATAR_RADIUS - 12;
-  drawPaddleName(opponentName, aiPaddle, aiNameY, width, true);
-
-
-  // --- JOUEUR (EN BAS) ---
-  // Ordre de haut en bas : Raquette -> Avatar -> Nom
-
-  // 1. Position de l'avatar (en dessous de la raquette joueur)
-  const playerAvatarX = playerPaddle.x + playerPaddle.width / 2;
-  const playerAvatarY = playerPaddle.y + playerPaddle.height / 2 + 12 + AVATAR_RADIUS;
-
-  drawCanvasAvatar(
-    currentPlayerAvatar, currentPlayerCandidate,
-    playerAvatarX, playerAvatarY,
-    AVATAR_RADIUS, currentPlayerCandidate ? (campColors[currentPlayerCandidate.camp] || "#111") : "#111"
-  );
-
-  // 2. Nom du joueur placé SOUS son avatar (avec 'isTop = false')
-  const playerNameY = playerAvatarY + AVATAR_RADIUS + 12;
-  drawPaddleName(playerName, playerPaddle, playerNameY, width, false);
-
-  ctx.beginPath();
-  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-  ctx.fillStyle = "#111";
-  ctx.fill();
-}
-
-function drawPaddleName(name, paddle, y, width, isTop) {
-  if (!name) return;
-  
-  // Nettoie les espaces multiples et inutiles en début/fin
-  const cleanName = name.trim().replace(/\s+/g, ' ');
-  
-  // Isole le prénom (premier mot) et le nom de famille (le reste)
-  const firstSpaceIndex = cleanName.indexOf(' ');
-  let lines = [];
-  
-  if (firstSpaceIndex !== -1) {
-    lines = [
-      cleanName.substring(0, firstSpaceIndex),
-      cleanName.substring(firstSpaceIndex + 1)
-    ];
-  } else {
-    lines = [cleanName];
-  }
-
-  ctx.font = "800 10px " + FONT_DISPLAY;
-  ctx.textAlign = "center";
-  const lineHeight = 13;
-
-  if (isTop) {
-    ctx.textBaseline = "bottom";
-    lines.slice().reverse().forEach((line, index) => {
-      const half = ctx.measureText(line).width / 2;
-      const x = Math.max(half + 10, Math.min(width - half - 10, paddle.x + paddle.width / 2));
-      const lineY = y - index * lineHeight;
-
-      ctx.fillStyle = "#111";
-      ctx.fillText(line, x, lineY);
-    });
-  } else {
-    ctx.textBaseline = "top";
-    lines.forEach((line, index) => {
-      const half = ctx.measureText(line).width / 2;
-      const x = Math.max(half + 10, Math.min(width - half - 10, paddle.x + paddle.width / 2));
-      const lineY = y + index * lineHeight;
-
-      ctx.fillStyle = "#111";
-      ctx.fillText(line, x, lineY);
-    });
-  }
-}
-
-function drawCanvasAvatar(img, candidate, x, y, radius, ringColor) {
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(x, y, radius, 0, Math.PI * 2);
-  ctx.closePath();
-
-  if (img && img.complete && img.naturalWidth > 0) {
-    ctx.clip();
-
-    // Calcul du ratio pour l'effet "object-fit: cover"
-    const size = radius * 2;
-    const imgRatio = img.naturalWidth / img.naturalHeight;
-    let renderW, renderH, offsetX, offsetY;
-
-    if (imgRatio > 1) {
-      // L'image est plus large que haute
-      renderH = size;
-      renderW = size * imgRatio;
+    if (candidate && candidate.image) {
+      const img = document.createElement("img");
+      img.src = candidate.image;
+      wrap.appendChild(img);
     } else {
-      // L'image est plus haute que large
-      renderW = size;
-      renderH = size / imgRatio;
+      wrap.style.background = color;
+      const label = document.createElement("div");
+      label.className = "avatar-initials";
+      label.style.fontSize = Math.round(size * 0.25) + "px";
+      label.textContent = candidate ? initials(candidate.name) : "?";
+      wrap.appendChild(label);
+    }
+    return wrap;
+  }
+
+  function initials(name) {
+    return name ? name.split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join("").toUpperCase() : "?";
+  }
+
+  function setMode(newMode) {
+    state.mode = newMode;
+    document.getElementById("quickModeButton").classList.toggle("active", newMode === "quick");
+    document.getElementById("campaignModeButton").classList.toggle("active", newMode === "campaign");
+    document.getElementById("difficultyBlock").classList.toggle("hidden", newMode === "campaign");
+    document.getElementById("campaignInfo").classList.toggle("hidden", newMode !== "campaign");
+    document.getElementById("startButton").textContent = newMode === "campaign" ? "LANCER LA CAMPAGNE" : "JOUER";
+  }
+
+  function setDifficulty(level) {
+    state.difficulty = level;
+    document.querySelectorAll(".difficulty button").forEach(b => b.classList.remove("active"));
+    document.getElementById(level + "Button").classList.add("active");
+  }
+
+  function startGame() {
+    SoundEngine.init();
+    stopGame();
+
+    const playerCandidate = DEFAULT_CANDIDATES.find(c => c.id === document.getElementById("playerSelect").value);
+    if (!playerCandidate) return;
+
+    if (state.mode === "campaign") {
+      startCampaign(playerCandidate);
+    } else {
+      const pool = DEFAULT_CANDIDATES.filter(c => c.camp !== playerCandidate.camp);
+      const opponentCandidate = pool[Math.floor(Math.random() * pool.length)];
+      beginMatch(playerCandidate, opponentCandidate, "quick");
+    }
+  }
+
+  function beginMatch(playerCandidate, opponentCandidate, matchMode) {
+    state.currentMatchMode = matchMode;
+    state.playerCandidate = playerCandidate;
+    state.opponentCandidate = opponentCandidate;
+    state.playerScore = 0;
+    state.opponentScore = 0;
+    state.resetEffects();
+
+    playerPaddle.width = PADDLE_CONFIG.width;
+    playerPaddle.color = CAMP_COLORS[playerCandidate.camp] || "#fff";
+    aiPaddle.width = PADDLE_CONFIG.width;
+    aiPaddle.color = CAMP_COLORS[opponentCandidate.camp] || "#fff";
+
+    hideAllScreens();
+    document.getElementById("gameScreen").classList.remove("hidden");
+    resizeCanvas();
+
+    document.getElementById("scoreOpponent").textContent = "0";
+    document.getElementById("scorePlayer").textContent = "0";
+
+    updatePercentages();
+    setupGameDimensions();
+    resetBall(Math.random() > 0.5 ? 1 : -1);
+
+    startCountdown(3, () => {
+      state.running = true;
+      lastTime = performance.now();
+      animationId = requestAnimationFrame(gameLoop);
+      startPowerupGauge();
+    });
+  }
+
+  function startPowerupGauge() {
+    state.powerupTimeLeft = 20;
+    updateGaugeUI();
+
+    TimerManager.setInterval(() => {
+      if (!state.running || state.countdownActive) return;
+
+      state.powerupTimeLeft -= 0.1;
+      if (state.powerupTimeLeft <= 0) {
+        triggerRandomPowerUp();
+        state.powerupTimeLeft = 20;
+      }
+      updateGaugeUI();
+    }, 100);
+  }
+
+  function updateGaugeUI() {
+    const fill = document.getElementById("powerupGauge");
+    if (fill) {
+      const pct = ((20 - state.powerupTimeLeft) / 20) * 100;
+      fill.style.width = Math.min(100, Math.max(0, pct)) + "%";
+    }
+  }
+
+  function triggerRandomPowerUp() {
+    if (!state.running) return;
+    const powerUp = POWER_UPS[Math.floor(Math.random() * POWER_UPS.length)];
+    const color = CAMP_COLORS[state.playerCandidate.camp] || "#111";
+
+    SoundEngine.playPowerup();
+    showStructuredMessage(powerUp, color);
+
+    powerUp.apply(state);
+    TimerManager.setTimeout(() => {
+      powerUp.reset(state);
+    }, powerUp.duration);
+  }
+
+  function showStructuredMessage(powerUp, color) {
+    const el = document.getElementById("gameMessage");
+    if (!el) return;
+
+    el.innerHTML = `
+      <div class="msg-category" style="color: ${color}">${powerUp.category} (${powerUp.type.toUpperCase()})</div>
+      <div class="msg-phrase">« ${powerUp.phrase} »</div>
+      <div class="msg-rule">${powerUp.rule}</div>
+    `;
+
+    el.classList.remove("show");
+    void el.offsetWidth;
+    el.classList.add("show");
+
+    TimerManager.setTimeout(() => el.classList.remove("show"), 4000);
+  }
+
+  function startCountdown(seconds, onComplete) {
+    state.countdownActive = true;
+    state.countdownValue = seconds;
+    draw();
+
+    const intervalId = TimerManager.setInterval(() => {
+      state.countdownValue--;
+      if (state.countdownValue <= 0) {
+        clearInterval(intervalId);
+        state.countdownActive = false;
+        if (onComplete) onComplete();
+      } else {
+        draw();
+      }
+    }, 1000);
+  }
+
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    setupGameDimensions();
+  }
+
+  function setupGameDimensions() {
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    aiPaddle.y = height * AI_LINE;
+    playerPaddle.y = height * PLAYER_LINE;
+    playerPaddle.x = (width - playerPaddle.width) / 2;
+    aiPaddle.x = (width - aiPaddle.width) / 2;
+  }
+
+  function resetBall(direction) {
+    state.pointPending = false;
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    ball.x = width / 2;
+    ball.y = height / 2;
+    ball.speed = 340;
+    const angle = Math.random() * 0.8 - 0.4;
+    ball.vx = Math.sin(angle) * ball.speed;
+    ball.vy = Math.cos(angle) * ball.speed * direction;
+  }
+
+  function gameLoop(timestamp) {
+    if (!state.running) return;
+    let dt = (timestamp - lastTime) / 1000;
+    lastTime = timestamp;
+    dt = Math.min(dt, 0.025);
+
+    update(dt);
+    draw();
+    animationId = requestAnimationFrame(gameLoop);
+  }
+
+  function update(dt) {
+    playerPaddle.width = PADDLE_CONFIG.width * state.activeEffects.paddleMultiplier;
+
+    updateAI(dt);
+    ball.x += ball.vx * dt * state.activeEffects.ballSpeedMultiplier;
+    ball.y += ball.vy * dt * state.activeEffects.ballSpeedMultiplier;
+
+    const width = canvas.clientWidth;
+
+    if (ball.x - ball.radius <= 0 && ball.vx < 0) {
+      ball.x = ball.radius;
+      ball.vx *= -1;
+      SoundEngine.playHit();
+    }
+    if (ball.x + ball.radius >= width && ball.vx > 0) {
+      ball.x = width - ball.radius;
+      ball.vx *= -1;
+      SoundEngine.playHit();
     }
 
-    // Centrage de l'image dans le cercle
-    offsetX = x - renderW / 2;
-    offsetY = y - renderH / 2;
+    if (ball.vy < 0 && ball.y - ball.radius <= aiPaddle.y + aiPaddle.height / 2) {
+      if (ball.x >= aiPaddle.x && ball.x <= aiPaddle.x + aiPaddle.width) hitPaddle(aiPaddle, false);
+    }
 
-    ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
-  } else {
-    ctx.fillStyle = ringColor;
-    ctx.fill();
-    ctx.fillStyle = "#fff";
-    ctx.font = "800 " + Math.round(radius * 0.85) + "px " + FONT_DISPLAY;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(candidate ? initials(candidate.name) : "?", x, y + 1);
+    if (ball.vy > 0 && ball.y + ball.radius >= playerPaddle.y - playerPaddle.height / 2) {
+      if (ball.x >= playerPaddle.x && ball.x <= playerPaddle.x + playerPaddle.width) hitPaddle(playerPaddle, true);
+    }
+
+    if (ball.y > playerPaddle.y + GOAL_MARGIN) scorePoint("ai");
+    if (ball.y < aiPaddle.y - GOAL_MARGIN) scorePoint("player");
   }
-  ctx.restore();
 
-  // Contour en cercle
-  ctx.beginPath();
-  ctx.arc(x, y, radius, 0, Math.PI * 2);
-  ctx.strokeStyle = ringColor;
-  ctx.lineWidth = 2.5;
-  ctx.stroke();
-}
+  function updateAI(dt) {
+    const settings = DIFFICULTY_SETTINGS[state.difficulty];
+    let target = ball.vy < 0 ? ball.x : canvas.clientWidth / 2;
 
-function drawPaddle(paddle) {
-  ctx.beginPath();
-  // Le dernier paramètre (ici 5) est le rayon des coins arrondis (border-radius)
-  roundedRect(ctx, paddle.x, paddle.y - paddle.height / 2, paddle.width, paddle.height, 7);
-  ctx.fillStyle = paddle.color || "#fff";
-  ctx.fill();
+    if (aiTarget === null) aiTarget = target;
+    aiTarget += (target - aiTarget) * settings.reaction * dt * 5;
 
-  if (paddleConfig.border > 0) {
+    const desired = aiTarget - aiPaddle.width / 2;
+    let difference = desired - aiPaddle.x;
+    const maxMove = settings.speed * 100 * dt;
+    difference = Math.max(-maxMove, Math.min(maxMove, difference));
+
+    aiPaddle.x += difference;
+    aiPaddle.x = Math.max(0, Math.min(canvas.clientWidth - aiPaddle.width, aiPaddle.x));
+  }
+
+  function hitPaddle(paddle, isPlayer) {
+    const boost = isPlayer ? state.activeEffects.playerShotBoost : state.activeEffects.opponentShotBoost;
+    SoundEngine.playHit();
+
+    if (isPlayer) {
+      ball.y = paddle.y - paddle.height / 2 - ball.radius;
+      ball.vy = -Math.abs(ball.vy) * boost;
+    } else {
+      ball.y = paddle.y + paddle.height / 2 + ball.radius;
+      ball.vy = Math.abs(ball.vy) * boost;
+    }
+
+    const paddleCenter = paddle.x + paddle.width / 2;
+    const impact = (ball.x - paddleCenter) / (paddle.width / 2);
+    ball.vx = impact * 300 * boost;
+    ball.speed *= 1.035;
+
+    const currentSpeed = Math.sqrt(ball.vx * ball.vx + ball.vy * ball.vy);
+    if (currentSpeed > 700) {
+      const factor = 700 / currentSpeed;
+      ball.vx *= factor;
+      ball.vy *= factor;
+    }
+  }
+
+  function scorePoint(who) {
+    if (!state.running || state.pointPending) return;
+    state.pointPending = true;
+    ball.vx = 0;
+    ball.vy = 0;
+
+    SoundEngine.playScore();
+
+    if (who === "player") {
+      state.playerScore++;
+      showSimpleMessage(MESSAGES[Math.floor(Math.random() * MESSAGES.length)], CAMP_COLORS[state.playerCandidate.camp] || "#111");
+    } else {
+      state.opponentScore++;
+      showSimpleMessage(MESSAGES[Math.floor(Math.random() * MESSAGES.length)], CAMP_COLORS[state.opponentCandidate.camp] || "#111");
+    }
+
+    updatePercentages();
+    document.getElementById("scoreOpponent").textContent = state.opponentScore;
+    document.getElementById("scorePlayer").textContent = state.playerScore;
+
+    if (state.playerScore >= WINNING_SCORE || state.opponentScore >= WINNING_SCORE) {
+      endGame();
+      return;
+    }
+
+    TimerManager.setTimeout(() => {
+      if (state.running) resetBall(who === "player" ? -1 : 1);
+    }, 350);
+  }
+
+  function showSimpleMessage(text, color) {
+    const el = document.getElementById("gameMessage");
+    if (!el) return;
+
+    el.innerHTML = `<div class="msg-phrase" style="color: ${color}">« ${text} »</div>`;
+    el.classList.remove("show");
+    void el.offsetWidth;
+    el.classList.add("show");
+
+    TimerManager.setTimeout(() => el.classList.remove("show"), 1800);
+  }
+
+  function updatePercentages() {
+    const total = state.playerScore + state.opponentScore;
+    const pEl = document.getElementById("playerPercentage");
+    const oEl = document.getElementById("opponentPercentage");
+
+    if (total === 0) {
+      pEl.textContent = "—";
+      oEl.textContent = "—";
+      return;
+    }
+
+    pEl.textContent = (state.playerScore / total * 100).toFixed(1).replace(".", ",") + " %";
+    oEl.textContent = (state.opponentScore / total * 100).toFixed(1).replace(".", ",") + " %";
+  }
+
+  function draw() {
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+
+    ctx.clearRect(0, 0, width, height);
+
     ctx.strokeStyle = "#111";
-    ctx.lineWidth = paddleConfig.border;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(1, 1, width - 2, height - 2);
+
+    ctx.beginPath();
+    ctx.setLineDash([4, 7]);
+    ctx.moveTo(22, height / 2);
+    ctx.lineTo(width - 22, height / 2);
+    ctx.strokeStyle = "#e5e5e5";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    drawPaddle(aiPaddle);
+    drawPaddle(playerPaddle);
+
+    // Avatars
+    const aiAvatarX = aiPaddle.x + aiPaddle.width / 2;
+    const aiAvatarY = aiPaddle.y - aiPaddle.height / 2 - 12 - AVATAR_RADIUS;
+    drawCanvasAvatar(ImageCache.get(state.opponentCandidate?.image), state.opponentCandidate, aiAvatarX, aiAvatarY, AVATAR_RADIUS);
+
+    const playerAvatarX = playerPaddle.x + playerPaddle.width / 2;
+    const playerAvatarY = playerPaddle.y + playerPaddle.height / 2 + 12 + AVATAR_RADIUS;
+    drawCanvasAvatar(ImageCache.get(state.playerCandidate?.image), state.playerCandidate, playerAvatarX, playerAvatarY, AVATAR_RADIUS);
+
+    // Balle
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    ctx.fillStyle = "#111";
+    ctx.fill();
+
+    // Décompte
+    if (state.countdownActive && state.countdownValue > 0) {
+      ctx.font = "900 52px " + FONT_DISPLAY;
+      ctx.fillStyle = "#111";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(state.countdownValue, width / 2, height / 2);
+    }
+  }
+
+  function drawCanvasAvatar(img, candidate, x, y, radius) {
+    const ringColor = candidate ? (CAMP_COLORS[candidate.camp] || "#111") : "#111";
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.closePath();
+
+    if (img && img.complete && img.naturalWidth > 0) {
+      ctx.clip();
+      const size = radius * 2;
+      const imgRatio = img.naturalWidth / img.naturalHeight;
+      let renderW = size, renderH = size;
+      if (imgRatio > 1) renderW = size * imgRatio;
+      else renderH = size / imgRatio;
+
+      ctx.drawImage(img, x - renderW / 2, y - renderH / 2, renderW, renderH);
+    } else {
+      ctx.fillStyle = ringColor;
+      ctx.fill();
+      ctx.fillStyle = "#fff";
+      ctx.font = "800 " + Math.round(radius * 0.85) + "px " + FONT_DISPLAY;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(initials(candidate?.name), x, y + 1);
+    }
+    ctx.restore();
+
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.strokeStyle = ringColor;
+    ctx.lineWidth = 2.5;
     ctx.stroke();
   }
-}
 
-function roundedRect(context, x, y, width, height, radius) {
-  context.moveTo(x + radius, y);
-  context.arcTo(x + width, y, x + width, y + height, radius);
-  context.arcTo(x + width, y + height, x, y + height, radius);
-  context.arcTo(x, y + height, x, y, radius);
-  context.arcTo(x, y, x + width, y, radius);
-  context.closePath();
-}
-
-function movePlayerFromPointer(event) {
-  if (!gameRunning) return;
-  const rect = canvas.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  playerPaddle.x = Math.max(0, Math.min(canvas.clientWidth - playerPaddle.width, x - playerPaddle.width / 2));
-}
-
-canvas.addEventListener("pointermove", movePlayerFromPointer);
-canvas.addEventListener("pointerdown", movePlayerFromPointer);
-
-let leftPressed = false, rightPressed = false;
-document.addEventListener("keydown", e => {
-  if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") leftPressed = true;
-  if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") rightPressed = true;
-});
-document.addEventListener("keyup", e => {
-  if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") leftPressed = false;
-  if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") rightPressed = false;
-});
-
-setInterval(() => {
-  if (!gameRunning) return;
-  if (leftPressed) playerPaddle.x -= 15;
-  if (rightPressed) playerPaddle.x += 15;
-  playerPaddle.x = Math.max(0, Math.min(canvas.clientWidth - playerPaddle.width, playerPaddle.x));
-}, 16);
-
-function endGame() {
-  gameRunning = false;
-  if (resetTimeout) clearTimeout(resetTimeout);
-  if (animationId) cancelAnimationFrame(animationId);
-
-  const playerWon = playerScore > opponentScore;
-  saveGameStats(playerWon);
-
-  const total = playerScore + opponentScore;
-  document.getElementById("winnerName").textContent = playerWon ? playerName : opponentName;
-  document.getElementById("finalScore").textContent = `${playerScore} — ${opponentScore}`;
-  document.getElementById("resultPlayerName").textContent = playerName;
-  document.getElementById("resultOpponentName").textContent = opponentName;
-  document.getElementById("resultPlayerPercent").textContent = formatPercentage(playerScore / total * 100);
-  document.getElementById("resultOpponentPercent").textContent = formatPercentage(opponentScore / total * 100);
-
-  setTimeout(() => {
-    showResult();
-    renderResultActions(playerWon);
-  }, 500);
-}
-
-function renderResultActions(playerWon) {
-  const titleEl = document.getElementById("resultStageTitle");
-  const winnerEl = document.getElementById("winnerName");
-  const buttonsEl = document.getElementById("resultButtons");
-  buttonsEl.innerHTML = "";
-
-  function addButton(label, cls, fn) {
-    const b = document.createElement("button");
-    b.className = cls;
-    b.textContent = label;
-    b.onclick = fn;
-    buttonsEl.appendChild(b);
+  function drawPaddle(paddle) {
+    ctx.beginPath();
+    ctx.moveTo(paddle.x + 7, paddle.y - paddle.height / 2);
+    ctx.arcTo(paddle.x + paddle.width, paddle.y - paddle.height / 2, paddle.x + paddle.width, paddle.y + paddle.height / 2, 7);
+    ctx.arcTo(paddle.x + paddle.width, paddle.y + paddle.height / 2, paddle.x, paddle.y + paddle.height / 2, 7);
+    ctx.arcTo(paddle.x, paddle.y + paddle.height / 2, paddle.x, paddle.y - paddle.height / 2, 7);
+    ctx.arcTo(paddle.x, paddle.y - paddle.height / 2, paddle.x + paddle.width, paddle.y - paddle.height / 2, 7);
+    ctx.closePath();
+    ctx.fillStyle = paddle.color || "#fff";
+    ctx.fill();
+    ctx.strokeStyle = "#111";
+    ctx.lineWidth = PADDLE_CONFIG.border;
+    ctx.stroke();
   }
 
-  if (currentMatchMode !== "campaign" || !campaign) {
-    titleEl.textContent = "Partie terminée";
-    addButton("REJOUER UNE PARTIE", "main-button", showSelection);
+  function endGame() {
+    state.running = false;
+    TimerManager.clearAll();
+    if (animationId) cancelAnimationFrame(animationId);
+
+    const playerWon = state.playerScore > state.opponentScore;
+    saveGameStats(playerWon);
+
+    const total = state.playerScore + state.opponentScore;
+    document.getElementById("winnerName").textContent = playerWon ? state.playerCandidate.name : state.opponentCandidate.name;
+    document.getElementById("finalScore").textContent = `${state.playerScore} — ${state.opponentScore}`;
+    document.getElementById("resultPlayerName").textContent = state.playerCandidate.name;
+    document.getElementById("resultOpponentName").textContent = state.opponentCandidate.name;
+    document.getElementById("resultPlayerPercent").textContent = (state.playerScore / total * 100).toFixed(1).replace(".", ",") + " %";
+    document.getElementById("resultOpponentPercent").textContent = (state.opponentScore / total * 100).toFixed(1).replace(".", ",") + " %";
+
+    TimerManager.setTimeout(() => {
+      hideAllScreens();
+      document.getElementById("resultScreen").classList.remove("hidden");
+      renderResultActions(playerWon);
+    }, 500);
+  }
+
+  function renderResultActions(playerWon) {
+    const buttonsEl = document.getElementById("resultButtons");
+    buttonsEl.innerHTML = "";
+
+    const addButton = (label, cls, fn) => {
+      const b = document.createElement("button");
+      b.className = cls;
+      b.textContent = label;
+      b.onclick = fn;
+      buttonsEl.appendChild(b);
+    };
+
+    if (state.currentMatchMode !== "campaign" || !state.campaign) {
+      document.getElementById("resultStageTitle").textContent = "Partie terminée";
+      addButton("REJOUER UNE PARTIE", "main-button", showSelection);
+      addButton("MENU", "secondary-button", showSelection);
+      return;
+    }
+
+    const stage = state.campaign.stage;
+    if (!playerWon) {
+      document.getElementById("resultStageTitle").textContent = stage === "primaire" ? "Primaire perdue" : (stage === "premier" ? "Premier tour perdu" : "Second tour perdu");
+      addButton(stage === "primaire" ? "REJOUER LA PRIMAIRE" : "RECOMMENCER LA CAMPAGNE", "main-button", restartCampaign);
+      addButton("MENU", "secondary-button", showSelection);
+      return;
+    }
+
+    if (stage === "primaire") {
+      document.getElementById("resultStageTitle").textContent = "Primaire remportée";
+      addButton("VOIR LES RÉSULTATS", "main-button", afterPrimaireWin);
+    } else if (stage === "premier") {
+      document.getElementById("resultStageTitle").textContent = "Premier tour remporté";
+      addButton("VOIR LES RÉSULTATS", "main-button", afterPremierTourWin);
+    } else if (stage === "second") {
+      document.getElementById("resultStageTitle").textContent = "Élu(e) Président(e) de la République";
+      document.getElementById("winnerName").textContent = state.playerCandidate.name + " 🇫🇷";
+      addButton("NOUVELLE CAMPAGNE", "main-button", () => { state.campaign = null; showSelection(); });
+    }
     addButton("MENU", "secondary-button", showSelection);
-    return;
   }
 
-  const stage = campaign.stage;
+  function startCampaign(playerCandidate) {
+    const campPool = DEFAULT_CANDIDATES.filter(c => c.camp === playerCandidate.camp && c.id !== playerCandidate.id);
+    if (!campPool.length) return;
 
-  if (!playerWon) {
-    titleEl.textContent = stage === "primaire" ? "Primaire perdue" : (stage === "premier" ? "Premier tour perdu" : "Second tour perdu");
-    addButton(stage === "primaire" ? "REJOUER LA PRIMAIRE" : "RECOMMENCER LA CAMPAGNE", "main-button", restartCampaign);
-    addButton("MENU", "secondary-button", showSelection);
-    return;
+    state.campaign = {
+      campId: playerCandidate.camp,
+      playerId: playerCandidate.id,
+      stage: "primaire",
+      campWinners: {}
+    };
+
+    state.difficulty = "easy";
+    beginMatch(playerCandidate, campPool[Math.floor(Math.random() * campPool.length)], "campaign");
   }
 
-  if (stage === "primaire") {
-    titleEl.textContent = "Primaire remportée";
-    addButton("VOIR LES RÉSULTATS", "main-button", afterPrimaireWin);
-  } else if (stage === "premier") {
-    titleEl.textContent = "Premier tour remporté";
-    addButton("VOIR LES RÉSULTATS", "main-button", afterPremierTourWin);
-  } else if (stage === "second") {
-    titleEl.textContent = "Élu(e) Président(e) de la République";
-    winnerEl.textContent = playerName + " 🇫🇷";
-    addButton("NOUVELLE CAMPAGNE", "main-button", () => { campaign = null; showSelection(); });
+  function restartCampaign() {
+    if (!state.campaign) { showSelection(); return; }
+    const player = DEFAULT_CANDIDATES.find(c => c.id === state.campaign.playerId);
+    if (player) startCampaign(player);
   }
 
-  addButton("MENU", "secondary-button", showSelection);
-}
+  function afterPrimaireWin() {
+    const winners = {};
+    winners[state.campaign.campId] = state.campaign.playerId;
 
-function stopGame() {
-  gameRunning = false;
-  if (animationId) cancelAnimationFrame(animationId);
-  clearTimeout(messageTimeout);
-  if (resetTimeout) clearTimeout(resetTimeout);
-  pointPending = false;
-}
+    CAMPS.filter(c => c.id !== state.campaign.campId).forEach(c => {
+      const pool = DEFAULT_CANDIDATES.filter(cand => cand.camp === c.id);
+      if (pool.length) winners[c.id] = pool[Math.floor(Math.random() * pool.length)].id;
+    });
 
-function quitGame() {
-  stopGame();
-  showSelection();
-}
-
-function getStats() {
-  try {
-    const saved = localStorage.getItem("debatStats");
-    return saved ? { ...{ games: 0, wins: 0, losses: 0, playerCharacters: {}, opponents: {} }, ...JSON.parse(saved) } : { games: 0, wins: 0, losses: 0, playerCharacters: {}, opponents: {} };
-  } catch (e) {
-    return { games: 0, wins: 0, losses: 0, playerCharacters: {}, opponents: {} };
+    state.campaign.campWinners = winners;
+    showCampaignTransition({
+      title: "Résultats des primaires",
+      intro: "Voici les candidats qui représenteront chaque camp au premier tour.",
+      entries: CAMPS.filter(c => winners[c.id]).map(c => ({
+        candidate: DEFAULT_CANDIDATES.find(cand => cand.id === winners[c.id]),
+        label: c.label,
+        highlight: c.id === state.campaign.campId
+      })),
+      buttonLabel: "PASSER AU PREMIER TOUR",
+      onContinue: beginPremierTourMatch
+    });
   }
-}
 
-function saveStats(stats) {
-  try { localStorage.setItem("debatStats", JSON.stringify(stats)); } catch (e) {}
-}
+  function beginPremierTourMatch() {
+    const otherCampIds = Object.keys(state.campaign.campWinners).filter(id => id !== state.campaign.campId);
+    const opponentCampId = otherCampIds[Math.floor(Math.random() * otherCampIds.length)];
 
-function saveGameStats(playerWon) {
-  const stats = getStats();
-  stats.games++;
-  if (playerWon) stats.wins++; else stats.losses++;
+    state.campaign.opponentCampId = opponentCampId;
+    state.campaign.remainingCampIds = otherCampIds.filter(id => id !== opponentCampId);
+    state.campaign.stage = "premier";
+    state.difficulty = "normal";
 
-  stats.playerCharacters[playerName] = (stats.playerCharacters[playerName] || 0) + 1;
-  stats.opponents[opponentName] = (stats.opponents[opponentName] || 0) + 1;
-  saveStats(stats);
-}
+    const player = DEFAULT_CANDIDATES.find(c => c.id === state.campaign.playerId);
+    const opponent = DEFAULT_CANDIDATES.find(c => c.id === state.campaign.campWinners[opponentCampId]);
+    beginMatch(player, opponent, "campaign");
+  }
 
-function updateStatsUI() {
-  const stats = getStats();
-  const sg = document.getElementById("statGames");
-  if (sg) sg.textContent = stats.games;
+  function afterPremierTourWin() {
+    const remaining = state.campaign.remainingCampIds;
+    const secondTourWinnerId = state.campaign.campWinners[remaining[Math.floor(Math.random() * remaining.length)]];
+    state.campaign.secondTourOpponentId = secondTourWinnerId;
 
-  const swr = document.getElementById("statWinRate");
-  if (swr) swr.textContent = stats.games ? Math.round(stats.wins / stats.games * 100) + " %" : "—";
+    showCampaignTransition({
+      title: "Résultats du premier tour",
+      intro: "Votre adversaire du second tour est désigné.",
+      entries: [
+        { candidate: DEFAULT_CANDIDATES.find(c => c.id === state.campaign.playerId), label: "Vous — qualifié(e)", highlight: true },
+        { candidate: DEFAULT_CANDIDATES.find(c => c.id === secondTourWinnerId), label: "Votre adversaire", highlight: false }
+      ],
+      buttonLabel: "PASSER AU SECOND TOUR",
+      onContinue: () => {
+        state.campaign.stage = "second";
+        state.difficulty = "hard";
+        beginMatch(
+          DEFAULT_CANDIDATES.find(c => c.id === state.campaign.playerId),
+          DEFAULT_CANDIDATES.find(c => c.id === secondTourWinnerId),
+          "campaign"
+        );
+      }
+    });
+  }
 
-  const sf = document.getElementById("statFavorite");
-  if (sf) sf.textContent = getMostPlayed(stats.playerCharacters);
-}
+  function showCampaignTransition(options) {
+    hideAllScreens();
+    document.getElementById("campaignTransitionTitle").textContent = options.title;
+    document.getElementById("campaignTransitionIntro").textContent = options.intro;
 
-function getMostPlayed(obj) {
-  const entries = Object.entries(obj);
-  if (!entries.length) return "—";
-  entries.sort((a, b) => b[1] - a[1]);
-  return entries[0][0];
-}
+    const list = document.getElementById("campaignTransitionList");
+    list.innerHTML = "";
 
-window.addEventListener("resize", () => { if (gameRunning) resizeCanvas(); });
+    options.entries.forEach(entry => {
+      const row = document.createElement("div");
+      row.className = "campaign-row" + (entry.highlight ? " highlight" : "");
+      row.appendChild(buildAvatarElement(entry.candidate, 44));
 
-/* Initialisation */
-showSelection();
+      const info = document.createElement("div");
+      const name = document.createElement("div");
+      name.className = "campaign-row-name";
+      name.textContent = entry.candidate ? entry.candidate.name : "—";
 
+      const label = document.createElement("div");
+      label.className = "campaign-row-label";
+      label.textContent = entry.label;
+
+      info.appendChild(name);
+      info.appendChild(label);
+      row.appendChild(info);
+      list.appendChild(row);
+    });
+
+    document.getElementById("campaignTransitionButton").textContent = options.buttonLabel;
+    pendingCampaignContinue = options.onContinue;
+    document.getElementById("campaignTransitionScreen").classList.remove("hidden");
+  }
+
+  function continueCampaignTransition() {
+    if (pendingCampaignContinue) {
+      const fn = pendingCampaignContinue;
+      pendingCampaignContinue = null;
+      fn();
+    }
+  }
+
+  function stopGame() {
+    state.running = false;
+    state.countdownActive = false;
+    TimerManager.clearAll();
+    if (animationId) cancelAnimationFrame(animationId);
+  }
+
+  function quitGame() {
+    stopGame();
+    showSelection();
+  }
+
+  function getStats() {
+    try {
+      const saved = localStorage.getItem("debatStats");
+      return saved ? JSON.parse(saved) : { games: 0, wins: 0, playerCharacters: {} };
+    } catch (e) {
+      return { games: 0, wins: 0, playerCharacters: {} };
+    }
+  }
+
+  function saveGameStats(playerWon) {
+    const stats = getStats();
+    stats.games = (stats.games || 0) + 1;
+    if (playerWon) stats.wins = (stats.wins || 0) + 1;
+    if (state.playerCandidate) {
+      stats.playerCharacters[state.playerCandidate.name] = (stats.playerCharacters[state.playerCandidate.name] || 0) + 1;
+    }
+    try { localStorage.setItem("debatStats", JSON.stringify(stats)); } catch (e) {}
+  }
+
+  function updateStatsUI() {
+    const stats = getStats();
+    document.getElementById("statGames").textContent = stats.games || 0;
+    document.getElementById("statWinRate").textContent = stats.games ? Math.round((stats.wins || 0) / stats.games * 100) + " %" : "—";
+    
+    const entries = Object.entries(stats.playerCharacters || {});
+    if (entries.length) {
+      entries.sort((a, b) => b[1] - a[1]);
+      document.getElementById("statFavorite").textContent = entries[0][0];
+    } else {
+      document.getElementById("statFavorite").textContent = "—";
+    }
+  }
+
+  return {
+    init, setCamp, setMode, setDifficulty, updateCandidatePreview,
+    startGame, quitGame, showSelection, continueCampaignTransition
+  };
+})();
+
+window.addEventListener("DOMContentLoaded", () => App.init());
 </script>
 </body>
 </html>
